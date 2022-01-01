@@ -11,15 +11,11 @@ public class Day extends AU {
                 .toArray();
 
         solveQ1(input);
-        solveQ2(input);
+//        solveQ2(input);
 
     }
 
-    private static void solveQ2(int[] input) {
-        print("Q2: " + "");
-    }
-
-    static void solveQ1(int[] input) {
+    static void solveQ1(Object input) {
         print("Q1: " + "");
     }
 }
