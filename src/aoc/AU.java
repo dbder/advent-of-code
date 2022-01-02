@@ -33,10 +33,6 @@ public class AU {
         System.out.println(Arrays.toString(arr));
     }
 
-
-
-
-
     public static void print(Object o) {
         System.out.println(o);
     }

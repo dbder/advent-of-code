@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class Day01 extends AU {
+
     public static void main(String[] args) throws IOException {
         var input = Files.lines(Path.of("src/aoc/y2021/input/day01"))
                 .mapToInt(Integer::parseInt)
