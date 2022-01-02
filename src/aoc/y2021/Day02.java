@@ -2,15 +2,12 @@ package aoc.y2021;
 
 import aoc.AU;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 public class Day02 extends AU {
 
-    public static void main(String[] args) throws IOException {
-        var input = Files.lines(Path.of("src/aoc/y2021/input/day02"))
+    public static void main(String[] args) {
+        var input = getInputAsStream("src/aoc/y2021/input/day02")
                 .toList();
 
         solveQ1(input);
@@ -28,6 +25,7 @@ public class Day02 extends AU {
                 case 'f' -> hor += val;
                 case 'd' -> depth += val;
                 case 'u' -> depth -= val;
+                default -> throw new IllegalStateException("Unexpected value: " + str.charAt(0));
             }
         }
 
@@ -48,6 +46,7 @@ public class Day02 extends AU {
                 }
                 case 'd' -> aim += val;
                 case 'u' -> aim -= val;
+                default -> throw new IllegalStateException("Unexpected value: " + str.charAt(0));
             }
         }
 

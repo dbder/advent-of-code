@@ -2,14 +2,11 @@ package aoc.y2021;
 
 import aoc.AU;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
 public class Day01 extends AU {
 
-    public static void main(String[] args) throws IOException {
-        var input = Files.lines(Path.of("src/aoc/y2021/input/day01"))
+    public static void main(String[] args) {
+
+        var input = getInputAsStream("src/aoc/y2021/input/day01")
                 .mapToInt(Integer::parseInt)
                 .toArray();
 

@@ -1,14 +1,10 @@
 package aoc;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
 public class Day extends AU {
-    public static void main(String[] args) throws IOException {
-        var input = Files.lines(Path.of("src/aoc/y2021/input/day"))
-                .mapToInt(Integer::parseInt)
-                .toArray();
+
+    public static void main(String[] args) {
+        var input = getInputAsStream("src/aoc/y2021/input/day02")
+                .toList();
 
         solveQ1(input);
 //        solveQ2(input);

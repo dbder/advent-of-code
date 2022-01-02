@@ -2,17 +2,13 @@ package aoc.y2021;
 
 import aoc.AU;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Day03 extends AU {
 
-    public static void main(String[] args) throws IOException {
-        var input = Files.lines(Path.of("src/aoc/y2021/input/day03"))
-                .collect(Collectors.toList());
+    public static void main(String[] args) {
+        var input = getInputAsStream("src/aoc/y2021/input/day03")
+                .toList();
 
         solveQ1(input);
 
@@ -32,13 +28,13 @@ public class Day03 extends AU {
         int gamma = 0;
         int epsilon = 0;
         int bar = input.size() / 2;
-        for (int x = 0; x < ints.length; x++) {
+        for (int i : ints) {
             gamma *= 2;
             epsilon *= 2;
-            if (ints[x] > bar) {
+            if (i > bar) {
                 gamma++;
             }
-            if (ints[x] < bar) {
+            if (i < bar) {
                 epsilon++;
             }
         }
