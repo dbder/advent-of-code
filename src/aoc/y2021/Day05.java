@@ -42,16 +42,7 @@ public class Day05 extends AU {
             }
         }
 
-        int count = 0;
-        for (var row : grid) {
-            for (var i : row) {
-                if (i > 1) {
-                    count++;
-                }
-            }
-        }
-
-        print("Day5 Q2: " + count);
+        print("Day5 Q2: " + countOverlapping(grid));
     }
 
 
@@ -68,6 +59,11 @@ public class Day05 extends AU {
             }
         }
 
+
+        print("Day5 Q1: " + countOverlapping(grid));
+    }
+
+    static int countOverlapping(int[][] grid) {
         int count = 0;
         for (var row : grid) {
             for (var i : row) {
@@ -76,10 +72,8 @@ public class Day05 extends AU {
                 }
             }
         }
-
-        print("Day5 Q1: " + count);
+        return count;
     }
-
 
     private record Line(int x1, int y1, int x2, int y2) {
         static Line parse(String string) {

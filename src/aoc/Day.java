@@ -3,7 +3,8 @@ package aoc;
 public class Day extends AU {
 
     public static void main(String[] args) {
-        var input = getInputAsStream("src/aoc/y2021/input/day02")
+//        var input = getInputAsString("src/aoc/y2021/input/day");
+        var input = getInputAsStream("src/aoc/y2021/input/day")
                 .toList();
 
         solveQ1(input);
@@ -12,7 +13,7 @@ public class Day extends AU {
     }
 
     static void solveQ1(Object input) {
-        print("Q1: " + "");
+        print("Day x Q1: " + "");
     }
 }
 

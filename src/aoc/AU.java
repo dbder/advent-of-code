@@ -16,13 +16,12 @@ import java.util.stream.Stream;
 public class AU {
 
 
-
     protected AU() {
 
     }
 
-    public static final int[][] moves8 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}, {-1, -1}, {1, 1}, {1, -1}, {-1, 1}};
-    public static final int[][] moves4 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
+    protected static final int[][] moves8 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}, {-1, -1}, {1, 1}, {1, -1}, {-1, 1}};
+    protected static final int[][] moves4 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
 
     public static boolean inRange(int row, int col, int[][] mx) {
         int rows = mx.length;
@@ -31,10 +30,10 @@ public class AU {
     }
 
 
-    public static void print(Map<? extends Object, ? extends Collection> map) {
+    public static void print(Map<? extends Object, ? extends Collection<?>> map) {
         print("-vSTART printing mapv-");
-        for (Map.Entry<?, ? extends Collection> entry : map.entrySet()) {
-            print(entry.getKey() + " : " + entry.getValue().stream().collect(Collectors.joining(",", "[", "]")));
+        for (Map.Entry<?, ? extends Collection<?>> entry : map.entrySet()) {
+            print(entry.getKey() + " : " + entry.getValue().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
         }
         print("-^END printing map^-");
     }
@@ -51,7 +50,15 @@ public class AU {
         try {
             return Files.lines(Path.of(path));
         } catch (IOException e) {
-            throw new RuntimeException("could not read file.");
+            throw new AocException("could not read file.");
+        }
+    }
+
+    public static String getInputAsString(String path) {
+        try {
+            return Files.readString(Path.of(path));
+        } catch (IOException e) {
+            throw new AocException("could not read file.");
         }
     }
 }
