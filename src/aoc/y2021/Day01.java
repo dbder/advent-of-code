@@ -28,7 +28,7 @@ public class Day01 extends AU {
             }
         }
 
-        print("Q2: " + count);
+        print("Day1 Q2: " + count);
     }
 
     static void solveQ1(int[] input) {
@@ -39,7 +39,7 @@ public class Day01 extends AU {
             }
         }
 
-        print("Q1: " + count);
+        print("Day1 Q1: " + count);
     }
 }
 

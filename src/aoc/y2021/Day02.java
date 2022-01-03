@@ -29,7 +29,7 @@ public class Day02 extends AU {
             }
         }
 
-        print("Q1: " + (hor * depth));
+        print("Day2 Q1: " + (hor * depth));
     }
 
     private static void solveQ2(List<String> input) {
@@ -50,7 +50,7 @@ public class Day02 extends AU {
             }
         }
 
-        print("Q2: " + (hor * depth));
+        print("Day2 Q2: " + (hor * depth));
     }
 }
 

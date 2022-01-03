@@ -10,10 +10,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * AdventUtil, convenience statics for Avent Questions.
+ * AdventUtil, convenience methods for Advent Questions.
  * ( often thing are put/refactored here after the question is finished )
  */
 public class AU {
+
 
 
     protected AU() {
@@ -31,15 +32,15 @@ public class AU {
 
 
     public static void print(Map<? extends Object, ? extends Collection> map) {
-        System.out.println("-vSTART printing mapv-");
+        print("-vSTART printing mapv-");
         for (Map.Entry<?, ? extends Collection> entry : map.entrySet()) {
-            System.out.println(entry.getKey() + " : " + entry.getValue().stream().collect(Collectors.joining(",", "[", "]")));
+            print(entry.getKey() + " : " + entry.getValue().stream().collect(Collectors.joining(",", "[", "]")));
         }
-        System.out.println("-^END printing map^-");
+        print("-^END printing map^-");
     }
 
     public static void pl(int[] arr) {
-        System.out.println(Arrays.toString(arr));
+        print(Arrays.toString(arr));
     }
 
     public static void print(Object o) {

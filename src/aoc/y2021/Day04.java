@@ -74,7 +74,7 @@ public class Day04 extends AU {
     }
 
     /**
-     * Returns 'true' if bingo
+     * Removes number if present and returns 'true' if bingo
      */
     static boolean isBingo(int[][] card, int nr) {
 
