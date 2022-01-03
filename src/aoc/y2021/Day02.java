@@ -42,7 +42,7 @@ public class Day02 extends AU {
             switch (str.charAt(0)) {
                 case 'f' -> {
                     hor += val;
-                    depth += (aim * val);
+                    depth += aim * val;
                 }
                 case 'd' -> aim += val;
                 case 'u' -> aim -= val;

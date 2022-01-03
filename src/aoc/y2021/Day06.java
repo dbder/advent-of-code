@@ -19,14 +19,14 @@ public class Day06 extends AU {
     }
 
     static void solveQ2(int[] input) {
-        print("Day 06 Q2: " + fishAfterNdays(input, 256));
+        print("Day 06 Q2: " + fishAfterNDays(input, 256));
     }
 
     static void solveQ1(int[] input) {
-        print("Day 06 Q1: " + fishAfterNdays(input, 80));
+        print("Day 06 Q1: " + fishAfterNDays(input, 80));
     }
 
-    static long fishAfterNdays(int[] input, int n) {
+    static long fishAfterNDays(int[] input, int n) {
         long[] count = new long[9];
 
         for (int x : input) {
