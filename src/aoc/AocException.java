@@ -2,7 +2,7 @@ package aoc;
 
 public class AocException extends RuntimeException {
 
-    AocException(String message) {
+    public AocException(String message) {
         super(message);
     }
 }
