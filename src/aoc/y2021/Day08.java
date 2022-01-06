@@ -45,7 +45,7 @@ public class Day08 extends AU {
             }
             total += count;
         }
-        print("Day 08 Q2: " + total);
+        println("Day 08 Q2: " + total);
     }
 
     /**
@@ -61,7 +61,7 @@ public class Day08 extends AU {
                 }
             }
         }
-        print("Day 08 Q1: " + count);
+        println("Day 08 Q1: " + count);
     }
 
     private static void toSet(String s, Set<Character> set) {

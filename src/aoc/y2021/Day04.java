@@ -33,7 +33,7 @@ public class Day04 extends AU {
                 }
             }
             if (cards.size() == 1 && toRemove.size() == 1) {
-                print("Q2: " + getScore(cards.get(0), pick));
+                println("Q2: " + getScore(cards.get(0), pick));
             }
             cards.removeAll(toRemove);
         }
@@ -43,7 +43,7 @@ public class Day04 extends AU {
         for (Integer pick : picks) {
             for (int[][] card : cards) {
                 if (isBingo(card, pick)) {
-                    print("Q1: " + getScore(card, pick));
+                    println("Q1: " + getScore(card, pick));
                     return;
                 }
             }

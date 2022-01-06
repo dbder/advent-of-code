@@ -40,7 +40,7 @@ public class Day07 extends AU {
                 }
             }
         }
-        print("Day 07 Q2: " + min);
+        println("Day 07 Q2: " + min);
     }
 
 
@@ -66,7 +66,7 @@ public class Day07 extends AU {
             }
         }
 
-        print("Day 07 Q1: " + count);
+        println("Day 07 Q1: " + count);
     }
 }
 

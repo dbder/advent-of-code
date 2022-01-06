@@ -39,7 +39,7 @@ public class Day03 extends AU {
             }
         }
 
-        print("Day3 Q1: " + (gamma * epsilon));
+        println("Day3 Q1: " + (gamma * epsilon));
     }
 }
 

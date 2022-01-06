@@ -42,7 +42,7 @@ public class Day05 extends AU {
             }
         }
 
-        print("Day5 Q2: " + countOverlapping(grid));
+        println("Day5 Q2: " + countOverlapping(grid));
     }
 
 
@@ -60,7 +60,7 @@ public class Day05 extends AU {
         }
 
 
-        print("Day5 Q1: " + countOverlapping(grid));
+        println("Day5 Q1: " + countOverlapping(grid));
     }
 
     static int countOverlapping(int[][] grid) {

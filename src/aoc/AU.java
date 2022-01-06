@@ -21,7 +21,7 @@ public class AU {
     }
 
     protected static final int[][] moves8 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}, {-1, -1}, {1, 1}, {1, -1}, {-1, 1}};
-    protected static final int[][] moves4 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
+    protected static final int[][] MOVES2D_4 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
 
     public static boolean inRange(int row, int col, int[][] mx) {
         int rows = mx.length;
@@ -30,19 +30,19 @@ public class AU {
     }
 
 
-    public static void print(Map<? extends Object, ? extends Collection<?>> map) {
-        print("-vSTART printing mapv-");
+    public static void println(Map<? extends Object, ? extends Collection<?>> map) {
+        println("-vSTART printing mapv-");
         for (Map.Entry<?, ? extends Collection<?>> entry : map.entrySet()) {
-            print(entry.getKey() + " : " + entry.getValue().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+            println(entry.getKey() + " : " + entry.getValue().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
         }
-        print("-^END printing map^-");
+        println("-^END printing map^-");
     }
 
     public static void pl(int[] arr) {
-        print(Arrays.toString(arr));
+        println(Arrays.toString(arr));
     }
 
-    public static void print(Object o) {
+    public static void println(Object o) {
         System.out.println(o);
     }
 
