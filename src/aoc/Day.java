@@ -23,7 +23,7 @@ public class Day extends AU {
     }
 
 //    static void solveQ1( input) {
-//        print("Day x Q1: " + "");
+//        println("Day x Q1: " + "");
 //    }
 }
 
