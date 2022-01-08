@@ -24,7 +24,7 @@ public class Day09 extends AU {
      * What do you get if you multiply together the sizes of the three largest basins?
      */
     static void solveQ2(List<String> input) {
-        var mx = getGrid(input);
+        var mx = parse2DMatrixSingleDigit(input);
         boolean[][] visited = new boolean[mx.length][mx[0].length];
 
 
@@ -42,7 +42,7 @@ public class Day09 extends AU {
      * Find all of the low points on your heightmap. What is the sum of the risk levels of all low points on your heightmap?
      */
     static void solveQ1(List<String> input) {
-        var grid = getGrid(input);
+        var grid = parse2DMatrixSingleDigit(input);
 
         int count = 0;
         for (int r = 0; r < grid.length; r++) {
@@ -85,16 +85,6 @@ public class Day09 extends AU {
         getPuddle(r + 1, c, depth, mx, vis, count);
         getPuddle(r, c - 1, depth, mx, vis, count);
         getPuddle(r, c + 1, depth, mx, vis, count);
-    }
-
-    static int[][] getGrid(List<String> input) {
-        int[][] mx = new int[input.size()][input.get(0).length()];
-        for (int r = 0; r < input.size(); r++) {
-            for (int c = 0; c < input.get(0).length(); c++) {
-                mx[r][c] = input.get(r).charAt(c) - '0';
-            }
-        }
-        return mx;
     }
 
     static int getVal(int[][] grid, int r, int c) {

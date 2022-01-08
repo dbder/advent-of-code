@@ -26,6 +26,7 @@ public class Day10 extends AU {
     }
 
     /**
+     * @@
      * Find the completion string for each incomplete line, score the completion strings, and sort the scores. What is the middle score?
      */
     static void solveQ2(List<String> input) {

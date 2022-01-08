@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,7 +21,7 @@ public class AU {
 
     }
 
-    protected static final int[][] moves8 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}, {-1, -1}, {1, 1}, {1, -1}, {-1, 1}};
+    protected static final int[][] MOVES2D_8 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}, {-1, -1}, {1, 1}, {1, -1}, {-1, 1}};
     protected static final int[][] MOVES2D_4 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
 
     public static boolean inRange(int row, int col, int[][] mx) {
@@ -60,5 +61,15 @@ public class AU {
         } catch (IOException e) {
             throw new AocException("could not read file.");
         }
+    }
+
+    protected static int[][] parse2DMatrixSingleDigit(List<String> in) {
+        int[][] mx = new int[in.size()][in.get(0).length()];
+        for (int r = 0; r < in.size(); r++) {
+            for (int c = 0; c < in.get(0).length(); c++) {
+                mx[r][c] = in.get(r).charAt(c) - '0';
+            }
+        }
+        return mx;
     }
 }
