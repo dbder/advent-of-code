@@ -20,7 +20,7 @@ public class Day13 extends AU {
 
     /**
      * Finish folding the transparent paper according to the instructions. The manual says the code is always eight capital letters.
-     *
+     * <p>
      * What code do you use to activate the infrared thermal imaging camera system?
      */
     static void solveQ2(List<String> input) {
@@ -28,7 +28,7 @@ public class Day13 extends AU {
         var points = input.stream()
                 .takeWhile(NOT_EMPTY)
                 .map(s -> s.split(","))
-                .map(a -> new P(Integer.parseInt(a[0]), Integer.parseInt(a[1])))
+                .map(a -> new Point(Integer.parseInt(a[0]), Integer.parseInt(a[1])))
                 .collect(Collectors.toSet());
 
         input.stream()
@@ -42,7 +42,7 @@ public class Day13 extends AU {
                     }
                 });
 
-        println("Day 13 Q1: :");
+        println("Day 13 Q2: ");
         draw(points);
     }
 
@@ -53,8 +53,7 @@ public class Day13 extends AU {
 
         var points = input.stream()
                 .takeWhile(s -> !s.isEmpty())
-                .map(s -> s.split(","))
-                .map(a -> new P(Integer.parseInt(a[0]), Integer.parseInt(a[1])))
+                .map(Point::parse)
                 .collect(Collectors.toSet());
 
         foldX(points, 655);
@@ -62,33 +61,33 @@ public class Day13 extends AU {
         println("Day 13 Q1: " + points.size());
     }
 
-    static void foldY(Set<P> points, int row) {
-        Set<P> in = new HashSet<>();
-        Set<P> out = new HashSet<>();
-        for (P p : points) {
+    static void foldY(Set<Point> points, int row) {
+        Set<Point> in = new HashSet<>();
+        Set<Point> out = new HashSet<>();
+        for (Point p : points) {
             if (p.y <= row) continue;
-            in.add(new P(p.x, (row - (p.y - row))));
+            in.add(new Point(p.x, (row - (p.y - row))));
             out.add(p);
         }
         points.removeAll(out);
         points.addAll(in);
     }
 
-    static void foldX(Set<P> points, int col) {
-        Set<P> in = new HashSet<>();
-        Set<P> out = new HashSet<>();
-        for (P p : points) {
+    static void foldX(Set<Point> points, int col) {
+        Set<Point> in = new HashSet<>();
+        Set<Point> out = new HashSet<>();
+        for (Point p : points) {
             if (p.x <= col) {
                 continue;
             }
-            in.add(new P((col - (p.x - col)), p.y));
+            in.add(new Point((col - (p.x - col)), p.y));
             out.add(p);
         }
         points.removeAll(out);
         points.addAll(in);
     }
 
-    static void draw(Set<P> points) {
+    static void draw(Set<Point> points) {
         int col = points.stream().mapToInt(i -> i.x).max().orElse(0);
         int row = points.stream().mapToInt(i -> i.y).max().orElse(0);
         char[][] grid = new char[row + 1][col + 1];
@@ -96,7 +95,7 @@ public class Day13 extends AU {
             for (int c = 0; c < grid[0].length; c++) grid[r][c] = '.';
         }
 
-        for (P point : points) grid[point.y][point.x] = '#';
+        for (Point point : points) grid[point.y][point.x] = '#';
         for (char[] arr : grid) {
             for (char c : arr) System.out.print(c);
             System.out.println();
@@ -104,7 +103,13 @@ public class Day13 extends AU {
         }
     }
 
-    record P(int x, int y) {
+    record Point(int x, int y) {
+
+
+        static Point parse(String str) {
+            var parts = str.split(",");
+            return new Point(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
+        }
     }
 }
 
