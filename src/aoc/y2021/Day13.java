@@ -71,7 +71,7 @@ public class Day13 extends AU {
             out.add(p);
         }
         points.removeAll(out);
-        for (P p : in) points.add(p);
+        points.addAll(in);
     }
 
     static void foldX(Set<P> points, int col) {
@@ -85,7 +85,7 @@ public class Day13 extends AU {
             out.add(p);
         }
         points.removeAll(out);
-        for (P p : in) points.add(p);
+        points.addAll(in);
     }
 
     static void draw(Set<P> points) {
