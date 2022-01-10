@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,6 +21,8 @@ public class AU {
     protected AU() {
 
     }
+
+    protected static final Predicate<String> NOT_EMPTY = s -> !s.isEmpty();
 
     protected static final int[][] MOVES2D_8 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}, {-1, -1}, {1, 1}, {1, -1}, {-1, 1}};
     protected static final int[][] MOVES2D_4 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
