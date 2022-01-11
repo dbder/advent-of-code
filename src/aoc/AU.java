@@ -50,6 +50,10 @@ public class AU {
         System.out.println(o);
     }
 
+    public static void print(Object o) {
+        System.out.print(o);
+    }
+
     public static Stream<String> getInputAsStream(String path) {
         try {
             return Files.lines(Path.of(path));

@@ -97,8 +97,8 @@ public class Day13 extends AU {
 
         for (Point point : points) grid[point.y][point.x] = '#';
         for (char[] arr : grid) {
-            for (char c : arr) System.out.print(c);
-            System.out.println();
+            for (char c : arr) print(c);
+            println("");
 
         }
     }
