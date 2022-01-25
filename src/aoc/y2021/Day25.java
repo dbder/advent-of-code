@@ -15,7 +15,7 @@ public class Day25 extends AU {
     }
 
     /**
-     * Find somewhere safe to land your submarine. What is the first step on which no sea cucumbers move?
+     * @ Find somewhere safe to land your submarine. What is the first step on which no sea cucumbers move?
      */
     static void solveQ1(List<String> input) {
 
