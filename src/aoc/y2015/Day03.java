@@ -64,7 +64,5 @@ public class Day03 extends AU {
         }
         println("Day 03 Q2: " + set.size());
     }
-
-
 }
 
