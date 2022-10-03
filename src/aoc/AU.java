@@ -79,4 +79,9 @@ public class AU {
         }
         return mx;
     }
+
+
+    public static Position2D getP2D(long row, long col) {
+        return new Position2D(row, col);
+    }
 }
