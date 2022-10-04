@@ -5,8 +5,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -17,6 +19,7 @@ import java.util.stream.Stream;
  */
 public class AU {
 
+    protected static Set<Character> vowels = new HashSet<>(List.of('a', 'e', 'i', 'u', 'o'));
 
     protected AU() {
 

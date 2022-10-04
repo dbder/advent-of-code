@@ -16,20 +16,11 @@ import aoc.AU;
 public class Day05 extends AU {
 
     public static void main(String[] args) {
-//        var input = getInputAsString("src/aoc/y2021/input/day");
-        var input = getInputAsStream("src/aoc/y2015/input/day05")
-                .toList();
 
-//        input = List.of(
-//                "qjhvhtzxzqqjkmpb",
-//                "xxyxx",
-//                "uurcxstgmygtbstg",
-//                "ieodomkazucvgmuy"
-//        );
+        var input = getInputAsStream("src/aoc/y2015/input/day05").toList();
 
-//        solveQ1(input);
+        solveQ1(input);
         solveQ2(input);
-
     }
 
     static void solveQ2(List<String> input) {
@@ -47,8 +38,6 @@ public class Day05 extends AU {
             found = false;
             for (int i = 2; i < str.length(); i++) {
                 if (str.charAt(i) == str.charAt(i - 2)) found = true;
-
-
             }
             if (!found) continue;
             System.out.println(str);
@@ -61,14 +50,14 @@ public class Day05 extends AU {
     }
 
     static void solveQ1(List<String> input) {
-        System.out.println(input);
+
         int count = 0;
 
         for (var str : input) {
-            if (str.indexOf("ab") >= 0) continue;
-            if (str.indexOf("cd") >= 0) continue;
-            if (str.indexOf("pq") >= 0) continue;
-            if (str.indexOf("xy") >= 0) continue;
+            if (str.contains("ab")) continue;
+            if (str.contains("cd")) continue;
+            if (str.contains("pq")) continue;
+            if (str.contains("xy")) continue;
 
             boolean found = false;
             for (int i = 1; i < str.length(); i++) {
@@ -78,12 +67,7 @@ public class Day05 extends AU {
             }
             if (!found) continue;
 
-            var vowels = new HashSet<Character>();
-            vowels.add('a');
-            vowels.add('e');
-            vowels.add('i');
-            vowels.add('u');
-            vowels.add('o');
+
             int vowelc = 0;
             for (var c : str.toCharArray()) {
                 if (vowels.contains(c)) vowelc++;
