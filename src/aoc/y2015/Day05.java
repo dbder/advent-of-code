@@ -1,17 +1,8 @@
 package aoc.y2015;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static java.lang.Integer.parseInt;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-
-
 import aoc.AU;
+
+import java.util.List;
 
 public class Day05 extends AU {
 
@@ -40,7 +31,6 @@ public class Day05 extends AU {
                 if (str.charAt(i) == str.charAt(i - 2)) found = true;
             }
             if (!found) continue;
-            System.out.println(str);
             count++;
 
         }
@@ -73,7 +63,6 @@ public class Day05 extends AU {
                 if (vowels.contains(c)) vowelc++;
             }
             if (vowelc < 3) continue;
-            System.out.println(str);
             count++;
         }
 
