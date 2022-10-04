@@ -1,17 +1,12 @@
-package aoc;
+package aoc.y2015;
 
-import java.util.HashSet;
+import aoc.AU;
+
 import java.util.List;
-import java.util.Set;
-import java.util.ArrayList;
-import java.util.Arrays;
-import static java.lang.Integer.parseInt;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
 
 
-public class Day extends AU {
-    private static String day = "00";
+public class Day07 extends AU {
+    private static String day = "07";
     public static void main(String[] args) {
 
 //        var input = getInputAsString("src/aoc/y2015/input/day" + day);
