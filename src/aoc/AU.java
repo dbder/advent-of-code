@@ -87,4 +87,22 @@ public class AU {
     public static Position2D getP2D(long row, long col) {
         return new Position2D(row, col);
     }
+
+
+    public static int max(int... arr) {
+        int max = Integer.MIN_VALUE;
+        for (int i : arr) {
+            max = Math.max(max, i);
+        }
+        return max;
+    }
+
+    public static int min(int... arr) {
+        int min = Integer.MAX_VALUE;
+        for (int i : arr) {
+            min = Math.min(min, i);
+        }
+        return min;
+    }
+
 }
