@@ -49,7 +49,7 @@ public class Day08 extends AU {
                 var c1 = line.charAt(m.end() - 1);
                 var c2 = line.charAt(m.end() - 2);
                 if (isHexDigit(c1) && isHexDigit(c2)) {
-                    char c = (char) Integer.parseInt(line.substring(m.start() + 2, m.end()), 16);
+                    char c = (char) parseInt(line.substring(m.start() + 2, m.end()), 16);
                     line = m.replaceFirst(String.valueOf(c));
                 } else {
                     println("c1: " + c1 + " c2: " + c2);
@@ -63,7 +63,5 @@ public class Day08 extends AU {
         println("Day " + day + " Q1: " + (total - totalAfter));
     }
 
-    static boolean isHexDigit(char c) {
-        return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
-    }
+
 }

@@ -1,14 +1,16 @@
-package aoc;
+package aoc.y2015;
+
+import aoc.AU;
 
 import java.util.List;
 
 
-public class Day extends AU {
-    private static String day = "00";
+public class Day09 extends AU {
+    private static String day = "09";
     public static void main(String[] args) {
 
-//        var input = getInputAsString("src/aoc/y2015/input/day" + day);
-        var input = getInputAsStream("src/aoc/y2015/input/day" + day).toList();
+//        var input = getInputAsString("src/aoc/y2015/input/day" + day + "t");
+        var input = getInputAsStream("src/aoc/y2015/input/day" + day + "t").toList();
 
         solveQ1(input);
         solveQ2(input);

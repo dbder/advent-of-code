@@ -105,4 +105,18 @@ public class AU {
         return min;
     }
 
+    public static boolean isHexDigit(int c) {
+        return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
+    }
+
+    public static int parseInt(String str) {
+        return Integer.parseInt(str);
+    }
+
+    public static int parseInt(String str, int radix) {
+        return Integer.parseInt(str, radix);
+    }
+    public static void main(String[] args) {
+        isHexDigit((char)1);
+    }
 }
