@@ -35,19 +35,14 @@ public class Day13 extends AU {
 
             map.get(p1).put(p2, value);
         }
+        map.put("Me", new HashMap<>());
 
 
         System.out.println(map);
         printAllRecursive(map.keySet().size(), map.keySet().toArray(new String[0]));
 
         System.out.println("best " + bestSum);
-//        println("Day " + day +" Q2: " + "");
     }
-
-//    static int getHappy(String[] arr, int i) {
-//
-//    }
-
 
     static void solveQ1(List<String> input) {
         var result = 0;
@@ -93,16 +88,20 @@ public class Day13 extends AU {
             String pp = input[prev];
             String np = input[next];
             String cp = input[i];
-
-            sum += map.get(cp).get(pp);
-            sum += map.get(cp).get(np);
+            if (cp.equals("Me")) continue;
+            if (!pp.equals("Me")) {
+                sum += map.get(cp).get(pp);
+            }
+            if (!np.equals("Me")) {
+                sum += map.get(cp).get(np);
+            }
         }
         if (sum > bestSum) bestSum = sum;
 
-        System.out.print('\n');
-        for(int i = 0; i < input.length; i++) {
-            System.out.print(input[i]);
-        }
+//        System.out.print('\n');
+//        for(int i = 0; i < input.length; i++) {
+//            System.out.print(input[i]);
+//        }
     }
 }
 
