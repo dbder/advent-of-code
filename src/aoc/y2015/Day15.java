@@ -13,9 +13,9 @@ public class Day15 extends AU {
 
     public static void main(String[] args) {
         var day = new Day15();
-        println("Day " + day.getDay() + " Q1: " + day.solveQ1());
+        println("Day " + day.getDay() + " Q1: " + day.solveQ1(false));
         day = new Day15();
-        println("Day " + day.getDay() + " Q2: " + day.solveQ2());
+        println("Day " + day.getDay() + " Q2: " + day.solveQ1(true));
     }
 
     static List<Candy> candies;
@@ -36,11 +36,8 @@ public class Day15 extends AU {
         );
     }
 
-    Object solveQ2() {
-        return null;
-    }
 
-    Object solveQ1() {
+    Object solveQ1(boolean part2) {
         var input = getInputLines();
         var result = 0;
         for (int i = 0; i < 100; i++) {
@@ -49,7 +46,7 @@ public class Day15 extends AU {
                     for (int l = 0; l < 100; l++) {
                         if (i + j + k + l == 100) {
 //
-                            var score = score(i, j, k, l);
+                            var score = score(i, j, k, l, part2);
                             if (score > result) {
                                 result = score;
                             }
@@ -59,13 +56,10 @@ public class Day15 extends AU {
             }
         }
 
-        println(score(44, 56, 0, 0));
-
-
         return result;
     }
 
-    public int score(int i, int j, int k, int l) {
+    public int score(int i, int j, int k, int l, boolean cal500) {
         if (i + j + k + l != 100) {
             return 0;
         }
@@ -73,6 +67,10 @@ public class Day15 extends AU {
         int total2 = getTotal1(i, j, k, l, (c) -> c.durability);
         int total3 = getTotal1(i, j, k, l, (c) -> c.flavor);
         int total4 = getTotal1(i, j, k, l, (c) -> c.texture);
+        int total5 = getTotal1(i, j, k, l, (c) -> c.calories);
+        if (cal500 && total5 != 500) {
+            return 0;
+        }
 
         if (total1 * total2 * total3 * total4 == 5454000) {
             System.out.println(total1 + " " + total2 + " " + total3 + " " + total4);
@@ -81,6 +79,7 @@ public class Day15 extends AU {
         if (total1 < 0 || total2 < 0 || total3 < 0 || total4 < 0) {
             return 0;
         }
+
 
 //        total1 *= Math.max(1, getScore(candies.get(1), j));
 //        total1 *= Math.max(1, getScore(candies.get(2), k));
