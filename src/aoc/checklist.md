@@ -11,3 +11,4 @@
 - open Day<nr> and day<nr> in 2 panes
 - run once to assure no error and to start faster
 - close all other files files
+- prepare git command to commit

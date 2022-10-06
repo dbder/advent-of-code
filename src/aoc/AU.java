@@ -116,7 +116,4 @@ public class AU {
     public static int parseInt(String str, int radix) {
         return Integer.parseInt(str, radix);
     }
-    public static void main(String[] args) {
-        isHexDigit((char)1);
-    }
 }
