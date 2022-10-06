@@ -3,6 +3,8 @@ package aoc.y2015;
 import aoc.AU;
 import aoc.AocException;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Day14 extends AU {
@@ -20,7 +22,7 @@ public class Day14 extends AU {
         var input = getInputLinesT();
         var result = 0;
 
-        List<Counter> counters = List.of(
+        List<Counter> counters = Arrays.asList(
                 new Counter("V", 19, 7, 124),
                 new Counter("Rudolph", 3, 15, 28),
                 new Counter("Donner", 19, 9, 164),
@@ -36,10 +38,15 @@ public class Day14 extends AU {
             for (Counter counter : counters) {
                 counter.move(10000000);
             }
+            Collections.sort(counters, (a, b) -> b.distance - a.distance);
+            counters.stream().filter(c -> c.distance == counters.get(0).distance).forEach(c -> c.score++);
         }
 
+        counters.forEach(System.out::println);
+
+        result = 0;
         for (Counter counter : counters) {
-            result = Math.max(result, counter.distance);
+            result = Math.max(result, counter.score);
         }
 
 
@@ -73,6 +80,8 @@ class Counter {
     String name;
     int speed;
 
+    int score;
+
     boolean move(int target) {
         if (currentRestLeft > 0) {
             currentRestLeft--;
@@ -92,6 +101,10 @@ class Counter {
             return false;
         }
         throw new AocException("Should not happen");
+    }
+
+    public String toString() {
+        return name + " " + distance + " " + score;
     }
 
 }
