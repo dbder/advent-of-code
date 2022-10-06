@@ -3,6 +3,7 @@ package aoc.y2015;
 import aoc.AU;
 import aoc.AocException;
 import aoc.Position2D;
+
 import java.util.HashSet;
 
 public class Day03 extends AU {

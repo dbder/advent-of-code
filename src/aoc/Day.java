@@ -3,22 +3,22 @@ package aoc;
 public class Day extends AU {
 
     public static void main(String[] args) {
-        new Day().solveQ1();
-        new Day().solveQ2();
+        var day = new Day();
+        println("Day " + day.getDay() + " Q1: " + day.solveQ1());
+        day = new Day();
+        println("Day " + day.getDay() + " Q2: " + day.solveQ2());
     }
 
-    void solveQ2() {
-//        println("Day " + day +" Q2: " + "");
+    Object solveQ2() {
+        return null;
     }
 
-    void solveQ1() {
+    Object solveQ1() {
         var input = getInputLines();
         var result = 0;
 
-
-        println("Day " + getDay() + " Q1: " + result);
+        return result;
     }
-
 
 
 //    public String getDay() { return "";};

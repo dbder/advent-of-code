@@ -1,14 +1,15 @@
 package aoc.y2021;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
-import static java.lang.Integer.parseInt;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-
-
 import aoc.AU;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Day12 extends AU {
 

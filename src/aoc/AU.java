@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -128,6 +129,10 @@ public abstract class AU implements CombinationUtil {
 
     public static int parseInt(String str, int radix) {
         return Integer.parseInt(str, radix);
+    }
+
+    public static IntStream range(int start, int end) {
+        return IntStream.range(start,end);
     }
 
     public String getDay() {

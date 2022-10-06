@@ -21,29 +21,32 @@ public class Day14 extends AU {
     );
 
     public static void main(String[] args) {
-        new Day14().solveQ1();
-        new Day14().solveQ2();
+        println("Day " + new Day14().getDay() + " Q1: " + new Day14().solveQ1());
+        println("Day " + new Day14().getDay() + " Q2: " + new Day14().solveQ2());
     }
 
-    void solveQ2() {
-        for (int i = 0; i < 2503; i++) {
-            for (Counter counter : counters) {
-                counter.move();
-            }
-            counters.sort((a, b) -> b.distance - a.distance);
+    Object solveQ2() {
+        range(1, 2503).forEach(i -> {
+            counters.forEach(Counter::move);
+            counters.sort((a, b) -> b.currentDistance - a.currentDistance);
             counters.stream()
-                    .filter(c -> c.distance == counters.get(0).distance)
+                    .filter(c -> c.currentDistance == counters.get(0).currentDistance)
                     .forEach(c -> c.score++);
-        }
-        println("Day " + getDay() + " Q2: " + counters.stream().mapToInt(i -> i.score).max());    }
+        });
+        return counters
+                .stream()
+                .mapToInt(i -> i.score)
+                .max();
+    }
 
-    void solveQ1() {
-        for (int i = 0; i < 2503; i++) {
-            for (Counter counter : counters) {
-                counter.move();
-            }
-        }
-        println("Day " + getDay() + " Q1: " + counters.stream().mapToInt(i -> i.distance).max());
+    Object solveQ1() {
+        range(1, 2503).forEach(i -> {
+            counters.forEach(Counter::move);
+        });
+        return counters
+                .stream()
+                .mapToInt(i -> i.currentDistance)
+                .max();
     }
 
     @Override
@@ -62,13 +65,13 @@ class Counter {
         currentFlyLeft = stamina;
     }
 
-    int stamina;
-    int cooldown;
+    final int stamina;
+    final int cooldown;
     int currentFlyLeft;
     int currentRestLeft;
-    int distance;
+    int currentDistance;
     String name;
-    int speed;
+    final int speed;
     int score;
 
     void move() {
@@ -79,16 +82,17 @@ class Counter {
             }
         } else if (currentFlyLeft > 0) {
             currentFlyLeft--;
-            distance += speed;
+            currentDistance += speed;
             if (currentFlyLeft == 0) {
                 currentRestLeft = cooldown;
             }
+        } else {
+            throw new AocException("WTF");
         }
-        throw new AocException("Should not happen");
     }
 
     public String toString() {
-        return name + " " + distance + " " + score;
+        return name + " " + currentDistance + " " + score;
     }
 
 }

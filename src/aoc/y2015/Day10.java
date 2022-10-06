@@ -2,8 +2,6 @@ package aoc.y2015;
 
 import aoc.AU;
 
-import java.util.List;
-
 
 public class Day10 extends AU {
     private static String day = "10";

@@ -4,10 +4,6 @@ import aoc.AU;
 
 import java.util.List;
 
-import static java.lang.Integer.parseInt;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-
 public class Day05 extends AU {
 
     public static void main(String[] args) {

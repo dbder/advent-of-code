@@ -2,7 +2,11 @@ package aoc.y2021;
 
 import aoc.AU;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.LongSummaryStatistics;
+import java.util.Map;
 
 import static java.util.stream.Collectors.toMap;
 

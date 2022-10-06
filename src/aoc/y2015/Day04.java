@@ -1,13 +1,10 @@
 package aoc.y2015;
 
 import aoc.AU;
-import aoc.AocException;
-import aoc.Position2D;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashSet;
 
 public class Day04 extends AU {
 
