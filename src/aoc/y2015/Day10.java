@@ -9,19 +9,19 @@ public class Day10 extends AU {
     private static String day = "10";
 
     public static void main(String[] args) {
-
-        solveQ1(null);
-//        solveQ2(input);
-
+        solveQ1("1113122113");
+        solveQ2("1113122113");
     }
-//    static void solveQ2(List<String> input) {
-////        println("Day " + day +" Q2: " + "");
-//    }
 
-    static void solveQ1(List<String> input) {
-//        String str = "1";
-        String str = "1113122113";
+    static void solveQ2(String str) {
         for (int x = 0; x < 50; x++) {
+            str = expand(str);
+        }
+        println("Day " + day + " Q2: " + str.length());
+    }
+
+    static void solveQ1(String str) {
+        for (int x = 0; x < 40; x++) {
             str = expand(str);
         }
         println("Day " + day + " Q1: " + str.length());
@@ -45,7 +45,5 @@ public class Day10 extends AU {
         sb.append(count).append(current);
         return sb.toString();
     }
-
-    ;
 }
 
