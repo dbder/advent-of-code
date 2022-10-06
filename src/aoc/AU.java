@@ -1,5 +1,7 @@
 package aoc;
 
+import aoc.utils.CombinationUtil;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,7 +19,7 @@ import java.util.stream.Stream;
  * AdventUtil, convenience methods for Advent Questions.
  * ( often thing are put/refactored here after the question is finished )
  */
-public class AU {
+public abstract class AU implements CombinationUtil {
 
     protected static Set<Character> vowels = new HashSet<>(List.of('a', 'e', 'i', 'u', 'o'));
 
@@ -50,7 +52,18 @@ public class AU {
     }
 
     public static void println(Object o) {
-        System.out.println(o);
+        if (o instanceof List l) {
+            printlist(l);
+        } else {
+            System.out.println(o);
+        }
+    }
+    public static void printlist(List<Object[]> o) {
+        o.stream().forEach(AU::println);
+    }
+    public static void println(Object[] o) {
+        var str = Arrays.stream(o).map(Object::toString).collect(Collectors.joining(",", "[", "]"));
+        System.out.println(str);
     }
 
     public static void print(Object o) {
@@ -116,4 +129,13 @@ public class AU {
     public static int parseInt(String str, int radix) {
         return Integer.parseInt(str, radix);
     }
+
+    public String getDay() {
+        throw new AocException("getDay() not implemented");
+    }
+
+
+    protected String getInputString() {return getInputAsString("src/aoc/y2015/input/day" + getDay());}
+    protected List<String> getInputLines() {return getInputAsStream("src/aoc/y2015/input/day" + getDay()).toList();}
+    protected Stream<String> getInputStream() {return getInputAsStream("src/aoc/y2015/input/day" + getDay());}
 }

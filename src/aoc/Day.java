@@ -1,28 +1,27 @@
 package aoc;
 
-import java.util.List;
-
-
 public class Day extends AU {
-    private static String day = "00";
+
     public static void main(String[] args) {
-
-//        var input = getInputAsString("src/aoc/y2015/input/day" + day);
-        var input = getInputAsStream("src/aoc/y2015/input/day" + day).toList();
-
-        solveQ1(input);
-        solveQ2(input);
-
+        new Day().solveQ1();
+        new Day().solveQ2();
     }
-    static void solveQ2(List<String> input) {
+
+    void solveQ2() {
 //        println("Day " + day +" Q2: " + "");
     }
 
-    static void solveQ1(List<String> input) {
+    void solveQ1() {
+        var input = getInputLines();
         var result = 0;
 
 
-        println("Day " + day +" Q1: " + result);
+        println("Day " + getDay() + " Q1: " + result);
     }
+
+
+
+    public String getDay() { return "13";};
+
 }
 
