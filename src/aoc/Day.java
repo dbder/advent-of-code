@@ -21,7 +21,7 @@ public class Day extends AU {
 
 
 
-    public String getDay() { return "13";};
+//    public String getDay() { return "";};
 
 }
 

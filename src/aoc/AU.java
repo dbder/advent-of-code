@@ -138,4 +138,16 @@ public abstract class AU implements CombinationUtil {
     protected String getInputString() {return getInputAsString("src/aoc/y2015/input/day" + getDay());}
     protected List<String> getInputLines() {return getInputAsStream("src/aoc/y2015/input/day" + getDay()).toList();}
     protected Stream<String> getInputStream() {return getInputAsStream("src/aoc/y2015/input/day" + getDay());}
+
+    protected String getInputStringT() {
+        System.out.println("WARNING ! using test input");
+        return getInputAsString("src/aoc/y2015/input/day" + getDay() + "t");}
+    protected List<String> getInputLinesT() {
+        System.out.println("WARNING ! using test input");
+        return getInputAsStream("src/aoc/y2015/input/day" + getDay() + "t").toList()
+                ;}
+    protected Stream<String> getInputStreamT() {
+        System.out.println("WARNING ! using test input");
+        return getInputAsStream("src/aoc/y2015/input/day" + getDay() + "t");
+    }
 }
