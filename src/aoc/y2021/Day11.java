@@ -10,7 +10,7 @@ public class Day11 extends AU {
     static int count = 0;
 
     public static void main(String[] args) {
-        var input = getInputAsStream("src/aoc/y2021/input/day11")
+        var input = getInputAsStream("src/aoc/y2021/input/day12")
                 .toList();
 
         solveQ1(input);
