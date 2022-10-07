@@ -2,6 +2,8 @@ package aoc.y2015;
 
 import aoc.AU;
 
+import java.util.List;
+
 public class Day17 extends AU {
 
     public static void main(String[] args) {
@@ -18,10 +20,24 @@ public class Day17 extends AU {
     }
 
     Object solveQ1() {
-        var input = getInputLines();
-        var result = 0;
+        var input = getInputLines().stream().map(i -> Integer.parseInt(i)).sorted().toList();
+        for (int x = 0; x < input.size(); x++) {
+            count(input, x, input.get(x), 150);
+        }
 
-        return result;
+
+        return count;
+    }
+    int count = 0;
+    void count (List<Integer> input, int index, int sum, int target) {
+
+        if(sum == target) {
+            count++;
+            return;
+        }
+        for (int i = index + 1; i < input.size(); i++) {
+            count(input, i, sum + input.get(i), target);
+        }
     }
 
 
