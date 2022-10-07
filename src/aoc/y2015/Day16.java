@@ -8,82 +8,71 @@ import java.util.List;
 import java.util.Map;
 
 public class Day16 extends AU {
-    public static void main(String[] args) { new Day16(); }
+    public static void main(String[] args) {
+        new Day16();
+    }
+
+    Map<String, Integer> suehas = new HashMap<>();
+
     Day16() {
-        println("Day " + getDay() + " Q1: " + solveQ1());
-        println("Day " + getDay() + " Q2: " + solveQ2());
-    }
-    Object solveQ2() {
-        return null;
-    }
+        suehas.put("children", 3);
+        suehas.put("cats", 7);
+        suehas.put("samoyeds", 2);
+        suehas.put("pomeranians", 3);
+        suehas.put("akitas", 0);
+        suehas.put("vizslas", 0);
+        suehas.put("goldfish", 5);
+        suehas.put("trees", 3);
+        suehas.put("cars", 2);
+        suehas.put("perfumes", 1);
 
-    Map<String, Integer> sue = new HashMap<>();
-    {
-        sue.put("children", 3);
-        sue.put("cats", 7);
-        sue.put("samoyeds", 2);
-        sue.put("pomeranians", 3);
-        sue.put("akitas", 0);
-        sue.put("vizslas", 0);
-        sue.put("goldfish", 5);
-        sue.put("trees", 3);
-        sue.put("cars", 2);
-        sue.put("perfumes", 1);
-
+        println("Day " + getDay() + " Q1: " + solve(false));
+        println("Day " + getDay() + " Q2: " + solve(true));
     }
 
-    Object solveQ1() {
-        var input = getInputLines();
-        var result = 0;
+
+    Object solve(boolean q2) {
+
         Map<String, Map<String, Integer>> map = new HashMap<>();
-        var splits = input.stream().map(i -> i.split("[,:]")).toList();
-        for (var split : splits) {
-            for (int x = 0; x < split.length; x++) {
-                split[x] = split[x].trim();
-            }
-            var m = map.put(split[0], new HashMap<>());
-            m = map.get(split[0]);
 
-            for (int i = 1; i < split.length; i += 2) {
-                m.put(split[i], Integer.parseInt(split[i + 1]));
-            }
+        getInputStream()
+                .map(i -> i.split("[,:]"))
+                .map(this::trim)
+                .forEach(split -> {
+                    var m = map.computeIfAbsent(split[0], k -> new HashMap<>());
+                    for (int i = 1; i < split.length; i += 2) {
+                        m.put(split[i], Integer.parseInt(split[i + 1]));
+                    }
+                });
 
-        }
-
-        for (var s : sue.entrySet()) {
+        for (var s : suehas.entrySet()) {
             List<String> notsue = new ArrayList<>();
             for (var m : map.entrySet()) {
                 if (m.getValue().containsKey(s.getKey())) {
-
-                    if (s.getKey().equals("cats") || s.getKey().equals("trees")) {
+                    if (q2 && (s.getKey().equals("cats") || s.getKey().equals("trees"))) {
                         if (m.getValue().get(s.getKey()) <= s.getValue()) {
                             notsue.add(m.getKey());
                         }
-                    } else if (s.getKey().equals("pomeranians") || s.getKey().equals("goldfish")) {
+                    } else if (q2 && (s.getKey().equals("pomeranians") || s.getKey().equals("goldfish"))) {
                         if (m.getValue().get(s.getKey()) >= s.getValue()) {
                             notsue.add(m.getKey());
                         }
-                    } else {
-                        if (m.getValue().get(s.getKey()) != s.getValue()) {
-                            notsue.add(m.getKey());
-                        }
+                    } else if (!m.getValue().get(s.getKey()).equals(s.getValue())) {
+                        notsue.add(m.getKey());
                     }
-
                 }
             }
-            for (var n : notsue) {
-                map.remove(n);
-            }
+            notsue.forEach(map::remove);
         }
 
-        System.out.println(map);
-
-
-
-        return result;
+        return map.keySet()
+                .stream()
+                .findFirst()
+                .orElse("")
+                .substring(4);
     }
 
-
+    @Override
     public String getDay() {
         return "16";
     }

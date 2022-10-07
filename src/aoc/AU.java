@@ -156,4 +156,11 @@ public abstract class AU implements CombinationUtil {
         System.out.println("WARNING ! using test input");
         return getInputAsStream("src/aoc/y2015/input/day" + getDay() + "t");
     }
+
+    protected String[] trim(String[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = arr[i].trim();
+        }
+        return arr;
+    }
 }
