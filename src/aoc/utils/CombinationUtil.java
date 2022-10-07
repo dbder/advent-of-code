@@ -2,18 +2,21 @@ package aoc.utils;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public interface CombinationUtil {
 
-    public default  <T> List<T[]> getPermutations(Set<T> arr) {
-        Class<T> ins = (Class<T>)arr.iterator().next().getClass();
-        return getPermutations((T[])arr.stream().toArray((i) -> (T[])Array.newInstance(ins, arr.size())));
+    default <T> List<T[]> getPermutations(Set<T> arr) {
+        Class<T> ins = (Class<T>) arr.iterator().next().getClass();
+        return getPermutations((T[]) arr.stream().toArray((i) -> (T[]) Array.newInstance(ins, arr.size())));
     }
 
-    public default  <T> List<T[]> getPermutations(T[] array) {
+    default <T> List<T[]> getPermutations(T[] array) {
         List<T[]> permutations = new ArrayList<>();
         Consumer<T[]> consumer = (T[] arr) -> permutations.add(arr);
         getPermutations(array.length, array, consumer);
@@ -21,7 +24,7 @@ public interface CombinationUtil {
     }
 
 
-    public default  <T> void getPermutations(int n, T[] elements, Consumer<T[]> consumer) {
+    default <T> void getPermutations(int n, T[] elements, Consumer<T[]> consumer) {
 
         if (n == 1) {
             consumer.accept(elements.clone());
@@ -39,10 +42,24 @@ public interface CombinationUtil {
     }
 
 
-    public static <T> void swap(T[] input, int a, int b) {
+    static <T> void swap(T[] input, int a, int b) {
         T tmp = input[a];
         input[a] = input[b];
         input[b] = tmp;
     }
+
+
+    default <T> Stream<T[]> powerSet(T[] input) {
+        return IntStream.range(0, 1 << input.length)
+                .mapToObj(i -> BitSet.valueOf(new long[]{i}))
+                .map(bs -> bs.stream().mapToObj(i -> input[i]).toArray(size -> (T[]) Array.newInstance(input.getClass().getComponentType(), size)));
+    }
+
+    default <T> Stream<List<T>> powerSet(List<T> input) {
+        return IntStream.range(0, 1 << input.size())
+                .mapToObj(i -> BitSet.valueOf(new long[]{i}))
+                .map(bs -> bs.stream().mapToObj(input::get).toList());
+    }
+
 
 }
