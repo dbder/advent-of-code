@@ -54,9 +54,21 @@ public class Day16 extends AU {
             List<String> notsue = new ArrayList<>();
             for (var m : map.entrySet()) {
                 if (m.getValue().containsKey(s.getKey())) {
-                    if (m.getValue().get(s.getKey()) != s.getValue()) {
-                        notsue.add(m.getKey());
+
+                    if (s.getKey().equals("cats") || s.getKey().equals("trees")) {
+                        if (m.getValue().get(s.getKey()) <= s.getValue()) {
+                            notsue.add(m.getKey());
+                        }
+                    } else if (s.getKey().equals("pomeranians") || s.getKey().equals("goldfish")) {
+                        if (m.getValue().get(s.getKey()) >= s.getValue()) {
+                            notsue.add(m.getKey());
+                        }
+                    } else {
+                        if (m.getValue().get(s.getKey()) != s.getValue()) {
+                            notsue.add(m.getKey());
+                        }
                     }
+
                 }
             }
             for (var n : notsue) {
