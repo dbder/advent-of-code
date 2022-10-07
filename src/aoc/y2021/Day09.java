@@ -96,7 +96,7 @@ public class Day09 extends AU {
 
     static boolean isLowest(int[][] grid, int r, int c) {
         int low = getVal(grid, r, c);
-        for (int[] ints : MOVES2D_4) {
+        for (int[] ints : TPS4) {
             if (getVal(grid, r + ints[0], c + ints[1]) <= low) {
                 return false;
 

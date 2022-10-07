@@ -81,7 +81,7 @@ public class Day11 extends AU {
     }
 
     static void incrementNeighbors(int[][] mx, int r, int c) {
-        Arrays.stream(MOVES2D_8).forEach(m -> increment(mx, r + m[0], c + m[1]));
+        Arrays.stream(TPS8).forEach(m -> increment(mx, r + m[0], c + m[1]));
     }
 }
 

@@ -22,6 +22,7 @@ import java.util.stream.Stream;
  */
 public abstract class AU implements CombinationUtil {
 
+
     protected static Set<Character> vowels = new HashSet<>(List.of('a', 'e', 'i', 'u', 'o'));
 
     protected AU() {
@@ -30,8 +31,8 @@ public abstract class AU implements CombinationUtil {
 
     protected static final Predicate<String> NOT_EMPTY = s -> !s.isEmpty();
 
-    protected static final int[][] MOVES2D_8 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}, {-1, -1}, {1, 1}, {1, -1}, {-1, 1}};
-    protected static final int[][] MOVES2D_4 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
+    protected static final int[][] TPS8 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}, {-1, -1}, {1, 1}, {1, -1}, {-1, 1}};
+    protected static final int[][] TPS4 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
 
     public static boolean inRange(int row, int col, int[][] mx) {
         int rows = mx.length;
