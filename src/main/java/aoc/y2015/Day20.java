@@ -24,7 +24,22 @@ public class Day20 extends AU {
         var input = getInputLines();
         var result = 0;
 
-        return result;
+        int[] houses = new int[29000000];
+
+        for (int elf = 1; elf < 10000000; elf++) {
+            int location = elf;
+            while (location < 29000000) {
+                houses[location] += elf * 10;
+                location += elf;
+            }
+        }
+
+        for (int i = 0; i < 29000000; i++) {
+            if (houses[i] >= 29000000) {
+                return i;
+            }
+        }
+        throw new RuntimeException("No solution found");
     }
 
     @Override
