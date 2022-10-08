@@ -140,21 +140,21 @@ public abstract class AU implements CombinationUtil, GridUtil {
         throw new AocException("getDay() not implemented");
     }
 
-    public static final String INPUT_PATH = "src/main/java/aoc/y2015/input";
-    protected String getInputString() {return getInputAsString(INPUT_PATH + "/day" + getDay());}
-    protected List<String> getInputLines() {return getInputAsStream(INPUT_PATH + "/day" + getDay()).toList();}
-    protected Stream<String> getInputStream() {return getInputAsStream(INPUT_PATH + "/day" + getDay());}
+    public static final String INPUT_PATH = "src/main/java/aoc/y2015/input/";
+    protected String getInputString() {return getInputAsString(INPUT_PATH + "day" + getDay());}
+    protected List<String> getInputLines() {return getInputAsStream(INPUT_PATH + "day" + getDay()).toList();}
+    protected Stream<String> getInputStream() {return getInputAsStream(INPUT_PATH + "day" + getDay());}
 
     protected String getInputStringT() {
         System.out.println("WARNING ! using test input");
-        return getInputAsString("src/main/java/aoc/y2015/input/day" + getDay() + "t");}
+        return getInputAsString(INPUT_PATH + getDay() + "t");}
     protected List<String> getInputLinesT() {
         System.out.println("WARNING ! using test input");
-        return getInputAsStream("src/main/java/aoc/y2015/input/day" + getDay() + "t").toList()
+        return getInputAsStream(INPUT_PATH + getDay() + "t").toList()
                 ;}
     protected Stream<String> getInputStreamT() {
         System.out.println("WARNING ! using test input");
-        return getInputAsStream("src/main/java/aoc/y2015/input/day" + getDay() + "t");
+        return getInputAsStream(INPUT_PATH + getDay() + "t");
     }
 
     protected String[] trim(String[] arr) {

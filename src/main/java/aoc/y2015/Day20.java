@@ -1,6 +1,7 @@
 package aoc.y2015;
 
 import aoc.AU;
+import aoc.AocException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,26 +13,28 @@ public class Day20 extends AU {
     }
 
     Day20() {
-        println("Day " + getDay() + " Q1: " + solveQ1());
-        println("Day " + getDay() + " Q2: " + solveQ2());
+        println("Day " + getDay() + " Q1: " + solve(false));
+        println("Day " + getDay() + " Q2: " + solve(true));
     }
 
-    Object solveQ2() {
-        return null;
-    }
-
-    Object solveQ1() {
-        var input = getInputLines();
-        var result = 0;
+    Object solve(boolean part2) {
 
         int[] houses = new int[29000000];
 
         for (int elf = 1; elf < 10000000; elf++) {
             int location = elf;
-            int count = 0;
-            while (count++ < 50 && location < 29000000) {
-                houses[location] += elf * 11;
-                location += elf;
+
+            if (part2) {
+                int count = 0;
+                while (count++ < 50 && location < 29000000) {
+                    houses[location] += elf * 11;
+                    location += elf;
+                }
+            } else {
+                while (location < 29000000) {
+                    houses[location] += elf * 10;
+                    location += elf;
+                }
             }
         }
 
@@ -40,7 +43,7 @@ public class Day20 extends AU {
                 return i;
             }
         }
-        throw new RuntimeException("No solution found");
+        throw new AocException("No solution found");
     }
 
     @Override
