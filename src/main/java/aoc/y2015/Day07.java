@@ -26,14 +26,14 @@ public class Day07 extends AU {
         var map = new HashMap<String, Integer>();
 
         fillMap(input, map);
-        println("Day " + DAY + " Q2: " + map.get("a"));
+        println("Day " + DAY + " Q2: " + map.get("cost"));
     }
 
     static void solveQ1(List<String> input) {
         var map = new HashMap<String, Integer>();
 
         fillMap(input, map);
-        println("Day " + DAY + " Q1: " + map.get("a"));
+        println("Day " + DAY + " Q1: " + map.get("cost"));
     }
 
     private static void fillMap(List<String> input, HashMap<String, Integer> map) {
