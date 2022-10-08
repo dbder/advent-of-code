@@ -56,24 +56,24 @@ public class Day21 extends AU {
 
     Object solveQ1() {
 
-        var result = 10000;
+        var result = 0;
 
         for (var weap : weapons) {
-            if (wins(100, weap.dam(), 0)) {
-                result = Math.min(result, weap.cost());
+            if (!wins(100, weap.dam(), 0)) {
+                result = Math.max(result, weap.cost());
             }
             for (var arm : armors) {
-                if (wins(100, weap.dam(), arm.arm())) {
-                    result = Math.min(result, weap.cost() + arm.cost());
+                if (!wins(100, weap.dam(), arm.arm())) {
+                    result = Math.max(result, weap.cost() + arm.cost());
                 }
 
                 for (var r1 : rings) {
-                    if (wins(100, weap.dam() + r1.dam(), arm.arm() + r1.arm())) {
-                        result = Math.min(result, weap.cost()  + arm.cost() + r1.cost());
+                    if (!wins(100, weap.dam() + r1.dam(), arm.arm() + r1.arm())) {
+                        result = Math.max(result, weap.cost()  + arm.cost() + r1.cost());
                     }
                     for (var r2 : rings) {
-                        if (wins(100, weap.dam() + r1.dam() + r2.dam(), arm.arm() + r1.arm() + r2.arm())){
-                            result = Math.min(result, weap.cost() + arm.cost() + r1.cost() + r2.cost());
+                        if (!wins(100, weap.dam() + r1.dam() + r2.dam(), arm.arm() + r1.arm() + r2.arm())){
+                            result = Math.max(result, weap.cost() + arm.cost() + r1.cost() + r2.cost());
                         }
                     }
                 }
