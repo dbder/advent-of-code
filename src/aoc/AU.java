@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -159,3 +160,52 @@ public abstract class AU implements CombinationUtil, GridUtil {
     }
 
 }
+//
+//package aoc.y2015;
+//
+//        import aoc.AU;
+//
+//        import java.util.ArrayList;
+//        import java.util.HashMap;
+//        import java.util.HashSet;
+//        import java.util.List;
+//        import java.util.Map;
+//        import java.util.Set;
+//
+//public class Day19 extends AU {
+//
+//    String str = "CRnCaCaCaSiRnBPTiMgArSiRnSiRnMgArSiRnCaFArTiTiBSiThFYCaFArCaCaSiThCaPBSiThSiThCaCaPTiRnPBSiThRnFArArCaCaSiThCaSiThSiRnMgArCaPTiBPRnFArSiThCaSiRnFArBCaSiRnCaPRnFArPMgYCaFArCaPTiTiTiBPBSiThCaPTiBPBSiRnFArBPBSiRnCaFArBPRnSiRnFArRnSiRnBFArCaFArCaCaCaSiThSiThCaCaPBPTiTiRnFArCaPTiBSiAlArPBCaCaCaCaCaSiRnMgArCaSiThFArThCaSiThCaSiRnCaFYCaSiRnFYFArFArCaSiRnFYFArCaSiRnBPMgArSiThPRnFArCaSiRnFArTiRnSiRnFYFArCaSiRnBFArCaSiRnTiMgArSiThCaSiThCaFArPRnFArSiRnFArTiTiTiTiBCaCaSiRnCaCaFYFArSiThCaPTiBPTiBCaSiThSiRnMgArCaF";
+//    String s1 = "CRnCaCaCaSiRnBPTiMgArSiRnSiRnMgArSiRnCaFArTiTiBSiThFYCaFArCaCaSiThCaPBSiThSiThCaCaPTiRnPBSiThRnFArArCaCaSiThCaSiThSiRnMgArCaPTiBPRnFArSiThCaSiRnFArBCaSiRnCaPRnFArPMgYCaFArCaPTiTiTiBPBSiThCaPTiBPBSiRnFArBPBSiRnCaFArBPRnSiRnFArRnSiRnBFArCaFArCaCaCaSiThSiThCaCaPBPTiTiRnFArCaPTiBSiAlArPBCaCaCaCaCaSiRnMgArCaSiThFArThCaSiThCaSiRnCaFYCaSiRnFYFArFArCaSiRnFYFArCaSiRnBPMgArSiThPRnFArCaSiRnFArTiRnSiRnFYFArCaSiRnBFArCaSiRnTiMgArSiThCaSiThCaFArPRnFArSiRnFArTiTiTiTiBCaCaSiRnCaCaFYFArSiThCaPTiBPTiBCaSiThSiRnMgArF";
+//
+//    public static void main(String[] args) {
+//        new aoc.y2015.Day19();
+//    }
+//
+//    Day19() {
+//        println("Day " + getDay() + " Q1: " + solveQ1());
+//        println("Day " + getDay() + " Q2: " + solveQ2());
+//    }
+//
+//    Object solveQ2() {
+//        return null;
+//    }
+//
+//    Object solveQ1() {
+
+//    }
+//
+
+//
+//
+//    Set<String> replacements = new HashSet<>();
+//    Set<String> allreplacements = new HashSet<>();
+//
+//
+//    public String getDay() {
+//        return "19";
+//    }
+//
+//    ;
+
+//}
+
