@@ -28,8 +28,9 @@ public class Day20 extends AU {
 
         for (int elf = 1; elf < 10000000; elf++) {
             int location = elf;
-            while (location < 29000000) {
-                houses[location] += elf * 10;
+            int count = 0;
+            while (count++ < 50 && location < 29000000) {
+                houses[location] += elf * 11;
                 location += elf;
             }
         }
