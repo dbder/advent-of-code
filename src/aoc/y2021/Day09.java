@@ -11,19 +11,21 @@ public class Day09 extends AU {
 
 
     public static void main(String[] args) {
-        var input = getInputAsStream("src/aoc/y2021/input/day09")
-                .toList();
+        new Day09();
 
+    }
+
+    Day09() {
+        var input = getInputAsStream("src/aoc/y2021/input/day09").toList();
         solveQ1(input);
         solveQ2(input);
-
     }
 
     /**
      * A basin is all locations that eventually flow downward to a single low point.
      * What do you get if you multiply together the sizes of the three largest basins?
      */
-    static void solveQ2(List<String> input) {
+    void solveQ2(List<String> input) {
         var mx = parse2DMatrixSingleDigit(input);
         boolean[][] visited = new boolean[mx.length][mx[0].length];
 
@@ -41,7 +43,7 @@ public class Day09 extends AU {
      * Your first goal is to find the low points - the locations that are lower than any of its adjacent locations.
      * Find all of the low points on your heightmap. What is the sum of the risk levels of all low points on your heightmap?
      */
-    static void solveQ1(List<String> input) {
+    void solveQ1(List<String> input) {
         var grid = parse2DMatrixSingleDigit(input);
 
         int count = 0;
@@ -55,7 +57,7 @@ public class Day09 extends AU {
         println("Day 09 Q1: " + count);
     }
 
-    static int checkNumber(int nr, int[][] mx, boolean[][] vis) {
+    int checkNumber(int nr, int[][] mx, boolean[][] vis) {
         int count = 0;
 
         for (int r = 0; r < mx.length; r++) {
@@ -72,8 +74,8 @@ public class Day09 extends AU {
     }
 
 
-    static void getPuddle(int r, int c, int depth, int[][] mx, boolean[][] vis, int[] count) {
-        if (!inRange(r, c, mx)) return;
+    void getPuddle(int r, int c, int depth, int[][] mx, boolean[][] vis, int[] count) {
+        if (!isInGrid(r, c, mx)) return;
         if (vis[r][c]) return;
         if (mx[r][c] <= depth) return;
         if (mx[r][c] == 9) return;
@@ -87,14 +89,14 @@ public class Day09 extends AU {
         getPuddle(r, c + 1, depth, mx, vis, count);
     }
 
-    static int getVal(int[][] grid, int r, int c) {
-        if (!inRange(r, c, grid)) {
+    int getVal(int[][] grid, int r, int c) {
+        if (!isInGrid(r, c, grid)) {
             return 9;
         }
         return grid[r][c];
     }
 
-    static boolean isLowest(int[][] grid, int r, int c) {
+    boolean isLowest(int[][] grid, int r, int c) {
         int low = getVal(grid, r, c);
         for (int[] ints : TPS4) {
             if (getVal(grid, r + ints[0], c + ints[1]) <= low) {

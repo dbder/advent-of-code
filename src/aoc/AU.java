@@ -1,6 +1,7 @@
 package aoc;
 
 import aoc.utils.CombinationUtil;
+import aoc.utils.GridUtil;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,7 +21,7 @@ import java.util.stream.Stream;
  * AdventUtil, convenience methods for Advent Questions.
  * ( often thing are put/refactored here after the question is finished )
  */
-public abstract class AU implements CombinationUtil {
+public abstract class AU implements CombinationUtil, GridUtil {
 
 
     protected static Set<Character> vowels = new HashSet<>(List.of('a', 'e', 'i', 'u', 'o'));
@@ -31,14 +32,7 @@ public abstract class AU implements CombinationUtil {
 
     protected static final Predicate<String> NOT_EMPTY = s -> !s.isEmpty();
 
-    protected static final int[][] TPS8 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}, {-1, -1}, {1, 1}, {1, -1}, {-1, 1}};
-    protected static final int[][] TPS4 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
 
-    public static boolean inRange(int row, int col, int[][] mx) {
-        int rows = mx.length;
-        int cols = mx[0].length;
-        return row >= 0 && col >= 0 && row < rows && col < cols;
-    }
 
 
     public static void println(Map<? extends Object, ? extends Collection<?>> map) {

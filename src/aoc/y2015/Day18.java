@@ -11,95 +11,63 @@ public class Day18 extends AU {
     }
 
     Day18() {
-        println("Day " + getDay() + " Q1: " + solveQ1());
-        println("Day " + getDay() + " Q2: " + solveQ2());
+        println("Day " + getDay() + " Q1: " + solve(false));
+        println("Day " + getDay() + " Q2: " + solve(true));
     }
 
-    Object solveQ2() {
-        return null;
-    }
+    Object solve(boolean q2) {
 
-    Object solveQ1() {
-        var input = getInputLines();
+        var grid = getInputLines()
+                .stream()
+                .map(s -> s.chars().mapToObj(c -> c == '#').toArray(Boolean[]::new))
+                .toArray(Boolean[][]::new);
 
-        var grid = input.stream().map(s -> s.chars().mapToObj(c -> c == '#').toArray(Boolean[]::new)).toArray(Boolean[][]::new);
-
+        fillCorners(q2, grid);
 
         for (int i = 0; i < 100; i++) {
-            grid = step(grid);
+            grid = step(grid, q2);
         }
 
-        int count = 0;
-
-        for (var row : grid) {
-            for (var cell : row) {
-                if (cell) {
-                    count++;
-                }
-            }
-        }
-
-        var result = 0;
-
-        return count;
+        return Arrays.stream(grid)
+                .mapToInt(a -> (int) Arrays.stream(a).filter(b -> b).count())
+                .sum();
     }
 
-    private Boolean[][] step(Boolean[][] grid) {
+    private void fillCorners(boolean q2, Boolean[][] grid) {
+        if (q2) {
+            grid[0][0] = true;
+            grid[0][grid[0].length - 1] = true;
+            grid[grid.length - 1][0] = true;
+            grid[grid.length - 1][grid[0].length - 1] = true;
+        }
+    }
+
+    private Boolean[][] step(Boolean[][] grid, boolean q2) {
 
         var newGrid = new Boolean[grid.length][grid[0].length];
-        newGrid[0][0] = true;
-        newGrid[0][newGrid[0].length - 1] = true;
-        newGrid[newGrid.length - 1][0] = true;
-        newGrid[newGrid.length - 1][newGrid[0].length - 1] = true;
-        grid[0][0] = true;
-        grid[0][newGrid[0].length - 1] = true;
-        grid[newGrid.length - 1][0] = true;
-        grid[newGrid.length - 1][newGrid[0].length - 1] = true;
 
         for (int y = 0; y < grid.length; y++) {
             for (int x = 0; x < grid[0].length; x++) {
-                var on = isOn(grid, x, y);
-                var neighbours = countNeighbours(grid, x, y);
 
-                if (on) {
+                var neighbours = countNeighbours(grid, x, y);
+                if (isOn(grid, x, y)) {
                     newGrid[y][x] = neighbours == 2 || neighbours == 3;
                 } else {
                     newGrid[y][x] = neighbours == 3;
                 }
             }
         }
-        newGrid[0][0] = true;
-        newGrid[0][newGrid[0].length - 1] = true;
-        newGrid[newGrid.length - 1][0] = true;
-        newGrid[newGrid.length - 1][newGrid[0].length - 1] = true;
+        fillCorners(q2, newGrid);
         return newGrid;
     }
 
     private int countNeighbours(Boolean[][] grid, int x, int y) {
-        var count = 0;
-
-        for (int[] tp : TPS8) {
-            if (isOn(grid, x + tp[0], y + tp[1])) {
-                count++;
-            }
-        }
-
-        return count;
+        return (int) Arrays.stream(TPS8).filter(tp -> isOn(grid, x + tp[0], y + tp[1])).count();
     }
 
     boolean isOn(Boolean[][] grid, int x, int y) {
         return x >= 0 && x < grid.length && y >= 0 && y < grid[0].length && grid[x][y];
     }
-
-    void printGrid(Boolean[][] grid) {
-        for (var row : grid) {
-            for (var cell : row) {
-                print(cell ? '#' : '.');
-            }
-            println("");
-        }
-    }
-
 
     @Override
     public String getDay() { return "18";};

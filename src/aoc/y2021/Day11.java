@@ -10,18 +10,19 @@ public class Day11 extends AU {
     static int count = 0;
 
     public static void main(String[] args) {
-        var input = getInputAsStream("src/aoc/y2021/input/day12")
-                .toList();
+        new Day11();
+    }
 
+    Day11() {
+        var input = getInputAsStream("src/aoc/y2021/input/day12").toList();
         solveQ1(input);
         solveQ2(input);
-
     }
 
     /**
      *  What is the first step during which all octopuses flash?
      */
-    static void solveQ2(List<String> input) {
+    void solveQ2(List<String> input) {
         int[][] mx = parse2DMatrixSingleDigit(input);
 
         int iterations = 1000;
@@ -37,7 +38,7 @@ public class Day11 extends AU {
     /**
      * Given the starting energy levels of the dumbo octopuses in your cavern, simulate 100 steps. How many total flashes are there after 100 steps?
      */
-    static void solveQ1(List<String> input) {
+    void solveQ1(List<String> input) {
         var mx = parse2DMatrixSingleDigit(input);
         for (int x = 1; x <= 100; x++) {
             incrementAll(mx);
@@ -45,7 +46,7 @@ public class Day11 extends AU {
         println("Day 11 Q1: " + count);
     }
 
-    static boolean incrementAll(int[][] mx) {
+    boolean incrementAll(int[][] mx) {
         for (int r = 0; r < mx.length; r++) {
             for (int c = 0; c < mx[0].length; c++) {
                 increment(mx, r, c);
@@ -54,7 +55,7 @@ public class Day11 extends AU {
         return resetFlashed(mx);
     }
 
-    static boolean resetFlashed(int[][] mx) {
+    boolean resetFlashed(int[][] mx) {
         boolean all = true;
         for (int r = 0; r < mx.length; r++) {
             for (int c = 0; c < mx[0].length; c++) {
@@ -68,8 +69,8 @@ public class Day11 extends AU {
         return all;
     }
 
-    static void increment(int[][] mx, int r, int c) {
-        if (!inRange(r,c,mx)) return;
+    void increment(int[][] mx, int r, int c) {
+        if (!isInGrid(r,c,mx)) return;
         if (mx[r][c] != -1) {
             mx[r][c]++;
             if (mx[r][c] == 10) {
@@ -80,7 +81,7 @@ public class Day11 extends AU {
         }
     }
 
-    static void incrementNeighbors(int[][] mx, int r, int c) {
+    void incrementNeighbors(int[][] mx, int r, int c) {
         Arrays.stream(TPS8).forEach(m -> increment(mx, r + m[0], c + m[1]));
     }
 }
