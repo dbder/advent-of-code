@@ -1,17 +1,17 @@
-package aoc;
+package aoc.y2015;
 
-import aoc.y2015.Day19;
+import aoc.AU;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Day extends AU {
-    private static final Logger log = LogManager.getLogger(Day.class);
+public class Day20 extends AU {
+    private static final Logger log = LogManager.getLogger(Day20.class);
 
     public static void main(String[] args) {
-        new Day();
+        new Day20();
     }
 
-    Day() {
+    Day20() {
         println("Day " + getDay() + " Q1: " + solveQ1());
         println("Day " + getDay() + " Q2: " + solveQ2());
     }
@@ -27,9 +27,10 @@ public class Day extends AU {
         return result;
     }
 
-
-//    @Override
-//    public String getDay() { return "";};
+    @Override
+    public String getDay() {
+        return "20";
+    }
 
 }
 
