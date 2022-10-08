@@ -12,31 +12,40 @@ import java.util.Map;
 public class Day07 extends AU {
     private static final String DAY = "07";
 
-    public static void main(String[] args) {
+    @Override
+    protected String getDay() {
+        return "07";
+    }
 
-        var input = getInputAsStream("src/aoc/y2015/input/day" + DAY + "-1").toList();
-        solveQ1(input);
+    static void main(String[] args) {
 
-        input = getInputAsStream("src/aoc/y2015/input/day" + DAY + "-2").toList();
-        solveQ2(input);
+        new Day07();
 
     }
 
-    static void solveQ2(List<String> input) {
+    Day07() {
+        var input = getInputLines("-1");
+        solveQ1(input);
+
+        input = getInputLines("-2");
+        solveQ2(input);
+    }
+
+    void solveQ2(List<String> input) {
         var map = new HashMap<String, Integer>();
 
         fillMap(input, map);
         println("Day " + DAY + " Q2: " + map.get("cost"));
     }
 
-    static void solveQ1(List<String> input) {
+    void solveQ1(List<String> input) {
         var map = new HashMap<String, Integer>();
 
         fillMap(input, map);
         println("Day " + DAY + " Q1: " + map.get("cost"));
     }
 
-    private static void fillMap(List<String> input, HashMap<String, Integer> map) {
+    private void fillMap(List<String> input, HashMap<String, Integer> map) {
         List<Operation> operations = new ArrayList<>();
         for (var str : input) {
             var operation = new Operation(str, map);
@@ -50,7 +59,7 @@ public class Day07 extends AU {
         }
     }
 
-    static Operation doOperation(List<Operation> operations, Map<String, Integer> map) {
+    Operation doOperation(List<Operation> operations, Map<String, Integer> map) {
         for (var operation : operations) {
             if (operation.operate(map)) {
                 return operation;

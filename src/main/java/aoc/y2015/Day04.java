@@ -9,25 +9,28 @@ import java.security.NoSuchAlgorithmException;
 public class Day04 extends AU {
 
     public static void main(String[] args) {
-        var input = getInputAsString("src/aoc/y2015/input/day03");
-        solveQ1(input);
-        solveQ2(input);
+        new Day04();
     }
 
-    static void solveQ1(String input) {
+    Day04() {
+        solveQ1();
+        solveQ2();
+    }
+
+    static void solveQ1() {
         for (int x = 1; x < 10000000; x++) {
             if (getMd5("ckczppom" + x).startsWith("00000")) {
-                println("Day 03 Q1: " + x);
+                println("Day 04 Q1: " + x);
                 break;
             }
         }
     }
 
 
-    static void solveQ2(String input) {
+    static void solveQ2() {
         for (int x = 1; x < 10000000; x++) {
             if (getMd5("ckczppom" + x).startsWith("000000")) {
-                println("Day 03 Q2: " + x);
+                println("Day 04 Q2: " + x);
                 break;
             }
         }
@@ -47,5 +50,10 @@ public class Day04 extends AU {
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public String getDay() {
+        return "04";
     }
 }

@@ -6,16 +6,24 @@ import java.util.Arrays;
 
 public class Day06 extends AU {
 
+    @Override
+    protected String getDay() {
+        return "06";
+    }
+
     public static void main(String[] args) {
 
-        var input = Arrays.stream(getInputAsString("src/aoc/y2021/input/day06")
-                .split(","))
+        new Day06();
+
+    }
+
+    Day06() {
+        var input = Arrays.stream(getInputString()
+                        .split(","))
                 .mapToInt(Integer::parseInt)
                 .toArray();
-
         solveQ1(input);
-        solveQ2(input);
-
+        solveQ1(input);
     }
 
     static void solveQ2(int[] input) {

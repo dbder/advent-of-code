@@ -7,6 +7,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class Day09 extends AU {
+
+    @Override
+    protected String getDay() {
+        return "09";
+    }
+
     static ArrayList<Integer> list = new ArrayList<>();
 
 
@@ -16,7 +22,7 @@ public class Day09 extends AU {
     }
 
     Day09() {
-        var input = getInputAsStream("src/aoc/y2021/input/day09").toList();
+        var input = getInputLines();
         solveQ1(input);
         solveQ2(input);
     }

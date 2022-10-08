@@ -12,13 +12,20 @@ import static java.util.stream.Collectors.toMap;
 
 public class Day14 extends AU {
 
-    public static void main(String[] args) {
-        var input = getInputAsStream("src/aoc/y2021/input/day14")
-                .toList();
+    @Override
+    protected String getDay() {
+        return "14";
+    }
 
+    public static void main(String[] args) {
+        new Day14();
+
+    }
+
+    Day14() {
+        var input = getInputLines();
         solveQ1(input);
         solveQ2(input);
-
     }
 
     /**

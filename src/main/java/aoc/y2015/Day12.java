@@ -9,22 +9,35 @@ import java.nio.charset.StandardCharsets;
 
 
 public class Day12 extends AU {
+
+    @Override
+    public String getDay() {
+        return "12";
+    }
+
     private static String day = "12";
 
     static ObjectMapper mapper = new ObjectMapper();
 
     public static void main(String[] args) throws IOException {
+        new Day12();
 
-        var input = getInputAsString("src/aoc/y2015/input/day" + day);
+    }
 
+    Day12() {
+        var input = getInputString();
         solveQ1(input);
-        solveQ2(input);
+        try {
+            solveQ2(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
     static void solveQ2(String input) throws IOException {
         var json = mapper.readTree(input.getBytes(StandardCharsets.UTF_8));
-        println("Day " + day +" Q2: " + getValue(json));
+        println("Day " + day + " Q2: " + getValue(json));
     }
 
     static int getValue(JsonNode node) {

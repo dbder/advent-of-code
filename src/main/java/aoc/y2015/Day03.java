@@ -9,10 +9,15 @@ import java.util.HashSet;
 public class Day03 extends AU {
 
     public static void main(String[] args) {
-        var input = getInputAsString("src/aoc/y2015/input/day03");
+
+    }
+
+    Day03() {
+        var input = getInputString();
         solveQ1(input);
         solveQ2(input);
     }
+
 
     static void solveQ1(String input) {
         var set = new HashSet<Position2D>();
@@ -64,6 +69,11 @@ public class Day03 extends AU {
             set.add(current2);
         }
         println("Day 03 Q2: " + set.size());
+    }
+
+    @Override
+    public String getDay() {
+        return "03";
     }
 }
 

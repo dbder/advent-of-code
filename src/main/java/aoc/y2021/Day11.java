@@ -7,6 +7,11 @@ import java.util.List;
 
 public class Day11 extends AU {
 
+    @Override
+    protected String getDay() {
+        return "11";
+    }
+
     static int count = 0;
 
     public static void main(String[] args) {
@@ -14,7 +19,7 @@ public class Day11 extends AU {
     }
 
     Day11() {
-        var input = getInputAsStream("src/aoc/y2021/input/day12").toList();
+        var input = getInputLines();
         solveQ1(input);
         solveQ2(input);
     }

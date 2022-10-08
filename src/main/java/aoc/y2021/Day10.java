@@ -10,19 +10,24 @@ import java.util.function.LongPredicate;
 
 public class Day10 extends AU {
 
+    @Override
+    protected String getDay() {
+        return "10";
+    }
+
     private static final LongPredicate isPositive = i -> i > 0;
     private static final Map<Character, Character> map1 = Map.of(')', '(', ']', '[', '}', '{', '>', '<');
     private static final Map<Character, Integer> map2 = Map.of('(', 1, '[', 2, '{', 3, '<', 4);
 
 
     public static void main(String[] args) {
+        new Day10();
+    }
 
-        var input = getInputAsStream("src/aoc/y2021/input/day12")
-                .toList();
-
+    Day10() {
+        var input = getInputLines();
         solveQ1(input);
         solveQ2(input);
-
     }
 
     /**

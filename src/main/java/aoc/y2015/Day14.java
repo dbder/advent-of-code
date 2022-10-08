@@ -21,8 +21,12 @@ public class Day14 extends AU {
     );
 
     public static void main(String[] args) {
-        println("Day " + new Day14().getDay() + " Q1: " + new Day14().solveQ1());
-        println("Day " + new Day14().getDay() + " Q2: " + new Day14().solveQ2());
+        new Day14();
+    }
+
+    Day14() {
+        println("Day " + getDay() + " Q1: " + solveQ1());
+        println("Day " + getDay() + " Q2: " + solveQ2());
     }
 
     Object solveQ2() {

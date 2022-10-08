@@ -9,13 +9,21 @@ import java.util.Set;
 
 public class Day08 extends AU {
 
-    public static void main(String[] args) {
-        var input = getInputAsStream("src/aoc/y2021/input/day08")
-                .toList();
+    @Override
+    protected String getDay() {
+        return "08";
+    }
 
+    public static void main(String[] args) {
+
+        new Day08();
+
+    }
+
+    Day08() {
+        var input = getInputLines();
         solveQ1(input);
         solveQ2(input);
-
     }
 
     /**

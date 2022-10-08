@@ -4,13 +4,23 @@ import aoc.AU;
 
 
 public class Day11 extends AU {
+
+    @Override
+    public String getDay() {
+        return "11";
+    }
+
     private static String day = "11";
 
     public static void main(String[] args) {
 
+        new Day11();
+
+    }
+
+    Day11() {
         var answer = solveQ1("hepxcrrq");
         solveQ2(answer);
-
     }
 
     static void solveQ2(String input) {

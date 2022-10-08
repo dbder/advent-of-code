@@ -11,9 +11,14 @@ import java.util.stream.Collectors;
 
 public class Day16 extends AU {
 
-    static Map<String, String> map = new HashMap<>();
+    @Override
+    protected String getDay() {
+        return "16";
+    }
 
-    static {
+    Map<String, String> map = new HashMap<>();
+
+    {
         map.put("0", "0000");
         map.put("1", "0001");
         map.put("2", "0010");
@@ -33,20 +38,24 @@ public class Day16 extends AU {
     }
 
     public static void main(String[] args) {
-        var input = getInputAsString("src/aoc/y2021/input/day16");
 
-        solveQ1(input);
-        solveQ2(input);
 
     }
 
-    static void solveQ2(String input) {
+    Day16() {
+        var input = getInputString();
+
+        solveQ1(input);
+        solveQ2(input);
+    }
+
+    void solveQ2(String input) {
 
         var binary = new StringBuilder(Arrays.stream(input.split("")).map(map::get).collect(Collectors.joining()));
         println("Day 16 Q2: " + traverse(binary));
     }
 
-    static void solveQ1(String input) {
+    void solveQ1(String input) {
 
         var binary = new StringBuilder(Arrays.stream(input.split("")).map(map::get).collect(Collectors.joining()));
         traverse(binary);

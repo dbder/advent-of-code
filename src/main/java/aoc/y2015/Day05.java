@@ -2,13 +2,17 @@ package aoc.y2015;
 
 import aoc.AU;
 
+import javax.sound.sampled.Line;
 import java.util.List;
 
 public class Day05 extends AU {
 
     public static void main(String[] args) {
+        new Day05();
+    }
 
-        var input = getInputAsStream("src/main/java/aoc/y2015/input/day05").toList();
+    Day05() {
+        var input = getInputLines();
 
         solveQ1(input);
         solveQ2(input);
@@ -67,6 +71,11 @@ public class Day05 extends AU {
         }
 
         println("Day 05 Q1: " + count);
+    }
+
+
+    public String getDay() {
+        return "05";
     }
 }
 

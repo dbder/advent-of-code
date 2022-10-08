@@ -5,17 +5,23 @@ import aoc.AU;
 import java.util.List;
 
 public class Day06 extends AU {
-    private static String day = "06";
-
+    @Override
+    public String getDay() {
+        return "06";
+    }
     public static void main(String[] args) {
+        new Day06();
+    }
 
-        var input = getInputAsStream("src/aoc/y2015/input/day" + day).toList();
+    Day06() {
+        var input = getInputLines();
 
         solveQ1(input);
         solveQ2(input);
     }
 
-    static void solveQ2(List<String> input) {
+
+    void solveQ2(List<String> input) {
         var grid = new int[1000][1000];
 
         for (var str : input) {
@@ -52,10 +58,10 @@ public class Day06 extends AU {
                 count += grid[r][c];
             }
         }
-        println("Day " + day + " Q2: " + count);
+        println("Day " + getDay() + " Q2: " + count);
     }
 
-    static void solveQ1(List<String> input) {
+    void solveQ1(List<String> input) {
         var grid = new boolean[1000][1000];
 
         for (var str : input) {
@@ -93,7 +99,7 @@ public class Day06 extends AU {
                 }
             }
         }
-        println("Day " + day + " Q1: " + count);
+        println("Day " + getDay() + " Q1: " + count);
     }
 }
 

@@ -13,16 +13,24 @@ import java.util.function.IntBinaryOperator;
 public class Day09 extends AU {
     private static String day = "09";
 
+    @Override
+    public String getDay() {
+        return day;
+    }
+
     public static void main(String[] args) {
 
-        var input = getInputAsStream("src/aoc/y2015/input/day" + day).toList();
-
-        println("Day " + day + " Q1: " + solve(input, AU::min));
-        println("Day " + day + " Q2: " + solve(input, AU::max));
+        new Day09();
 
     }
 
-    static int solve(List<String> input, IntBinaryOperator picker) {
+    Day09() {
+        var input = getInputLines();
+        println("Day " + day + " Q1: " + solve(input, AU::min));
+        println("Day " + day + " Q2: " + solve(input, AU::max));
+    }
+
+    int solve(List<String> input, IntBinaryOperator picker) {
 
         Map<String, Map<String, Integer>> map = new HashMap<>();
         for (String s : input) {
@@ -48,7 +56,7 @@ public class Day09 extends AU {
         return best[0];
     }
 
-    static void shortest(Map<String, Map<String, Integer>> map, Set<String> set, int sum, Set<String> visited, int[] best, String last, IntBinaryOperator picker) {
+    void shortest(Map<String, Map<String, Integer>> map, Set<String> set, int sum, Set<String> visited, int[] best, String last, IntBinaryOperator picker) {
         if (visited.size() == set.size()) {
             best[0] = picker.applyAsInt(best[0], sum);
             return;

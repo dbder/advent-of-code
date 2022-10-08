@@ -10,11 +10,13 @@ import java.util.Map;
 public class Day13 extends AU {
 
     public static void main(String[] args) {
-        var day = new Day13();
-        day.solveQ1();
-        day.solveQ2();
+        new Day13();
     }
 
+    Day13() {
+        solveQ1();
+        solveQ2();
+    }
 
     Map<String, Map<String, Integer>> map = new HashMap<>();
 

@@ -13,10 +13,21 @@ import java.util.stream.Collectors;
 
 public class Day12 extends AU {
 
+    @Override
+    protected String getDay() {
+        return "12";
+    }
+
     private static final String START = "start";
+
     public static void main(String[] args) {
-        var input = getInputAsStream("src/aoc/y2021/input/day12")
-                .toList();
+
+            new Day12();
+
+    }
+
+    Day12() {
+        var input = getInputLines();
 
         solveQ1(input);
         solveQ2(input);

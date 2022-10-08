@@ -4,9 +4,20 @@ import aoc.AU;
 
 
 public class Day10 extends AU {
+
+    @Override
+    public String getDay() {
+        return "10";
+    }
+
     private static String day = "10";
 
+
     public static void main(String[] args) {
+        new Day10();
+    }
+
+    Day10() {
         solveQ1("1113122113");
         solveQ2("1113122113");
     }

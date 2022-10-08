@@ -4,6 +4,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Day extends AU {
+    @Override
+    protected String getDay() {
+        throw new UnsupportedOperationException("Not implemented");
+    }
+
     private static final Logger log = LogManager.getLogger(Day.class);
 
     public static void main(String[] args) {

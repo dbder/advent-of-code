@@ -7,8 +7,19 @@ import java.util.List;
 
 public class Day07 extends AU {
 
+    @Override
+    protected String getDay() {
+        return "07";
+    }
+
     public static void main(String[] args) {
-        var input = Arrays.stream(getInputAsString("src/aoc/y2021/input/day07-2").split(","))
+
+            new Day07();
+
+    }
+
+    Day07() {
+        var input = Arrays.stream(getInputString().split(","))
                 .map(Integer::parseInt).sorted().toList();
 
 

@@ -72,19 +72,19 @@ public abstract class AU implements CombinationUtil, GridUtil {
         System.out.print(o);
     }
 
-    public static Stream<String> getInputAsStream(String path) {
+    private static Stream<String> getInputAsStream(String path) {
         try {
             return Files.lines(Path.of(path));
         } catch (IOException e) {
-            throw new AocException("could not read file.");
+            throw new AocException("could not read file. " + path);
         }
     }
 
-    public static String getInputAsString(String path) {
+    private static String getInputAsString(String path) {
         try {
             return Files.readString(Path.of(path));
         } catch (IOException e) {
-            throw new AocException("could not read file.");
+            throw new AocException("could not read file." + path);
         }
     }
 
@@ -136,12 +136,11 @@ public abstract class AU implements CombinationUtil, GridUtil {
         return IntStream.range(start,end);
     }
 
-    public String getDay() {
-        throw new AocException("getDay() not implemented");
-    }
+    protected abstract String getDay();
 
     public static final String INPUT_PATH = "src/main/java/aoc/y2015/input/";
     protected String getInputString() {return getInputAsString(INPUT_PATH + "day" + getDay());}
+    protected List<String> getInputLines(String suffix) {return getInputAsStream(INPUT_PATH + "day" + getDay() + suffix).toList();}
     protected List<String> getInputLines() {return getInputAsStream(INPUT_PATH + "day" + getDay()).toList();}
     protected Stream<String> getInputStream() {return getInputAsStream(INPUT_PATH + "day" + getDay());}
 

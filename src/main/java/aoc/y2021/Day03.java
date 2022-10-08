@@ -6,12 +6,18 @@ import java.util.List;
 
 public class Day03 extends AU {
 
+    @Override
+    protected String getDay() {
+        return "03";
+    }
+
     public static void main(String[] args) {
-        var input = getInputAsStream("src/aoc/y2021/input/day03")
-                .toList();
+        new Day03();
+    }
 
+    Day03() {
+        var input = getInputLines();
         solveQ1(input);
-
     }
 
     static void solveQ1(List<String> input) {

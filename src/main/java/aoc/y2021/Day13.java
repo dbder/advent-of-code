@@ -9,9 +9,17 @@ import java.util.stream.Collectors;
 
 public class Day13 extends AU {
 
+    @Override
+    protected String getDay() {
+        return "13";
+    }
+
     public static void main(String[] args) {
-        var input = getInputAsStream("src/aoc/y2021/input/day13")
-                .toList();
+        new Day13();
+    }
+
+    Day13() {
+        var input = getInputLines();
 
         solveQ1(input);
         solveQ2(input);

@@ -9,10 +9,13 @@ import java.util.function.ToIntFunction;
 public class Day15 extends AU {
 
     public static void main(String[] args) {
-        var day = new Day15();
-        println("Day " + day.getDay() + " Q1: " + day.solve(false));
-        day = new Day15();
-        println("Day " + day.getDay() + " Q2: " + day.solve(true));
+        new Day15();
+    }
+
+    Day15() {
+        println("Day " + getDay() + " Q1: " + solve(false));
+
+        println("Day " + getDay() + " Q2: " + solve(true));
     }
 
     static List<Candy> candies = Arrays.asList(

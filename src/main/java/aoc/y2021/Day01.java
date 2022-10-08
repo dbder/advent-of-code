@@ -2,17 +2,28 @@ package aoc.y2021;
 
 import aoc.AU;
 
+import java.util.Arrays;
+
 public class Day01 extends AU {
+
+    @Override
+    protected String getDay() {
+        return "01";
+    }
 
     public static void main(String[] args) {
 
-        var input = getInputAsStream("src/aoc/y2021/input/day01")
+
+
+    }
+
+    Day01() {
+        var input = getInputStream()
                 .mapToInt(Integer::parseInt)
                 .toArray();
 
         solveQ1(input);
         solveQ2(input);
-
     }
 
     private static void solveQ2(int[] input) {

@@ -8,15 +8,10 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 public class Day21 extends AU {
-    private static final Logger log = LogManager.getLogger(Day21.class);
 
     public static void main(String[] args) {
         new Day21();
     }
-
-    int bhp = 100;
-    int bd = 8;
-    int ba = 2;
 
     List<Triple> weapons = List.of(
             new Triple(8, 4, 0),
@@ -46,34 +41,21 @@ public class Day21 extends AU {
 
 
     Day21() {
-        println("Day " + getDay() + " Q1: " + solveQ1());
-        println("Day " + getDay() + " Q2: " + solveQ2());
+        println("Day " + getDay() + " Q1: " + solve(false));
+        println("Day " + getDay() + " Q2: " + solve(true));
     }
 
-    Object solveQ2() {
-        return null;
-    }
-
-    Object solveQ1() {
-
-        var result = 0;
-
+    Object solve(boolean q2) {
+        var result = q2 ? 0 : 10000;
         for (var weap : weapons) {
-            if (!wins(100, weap.dam(), 0)) {
-                result = Math.max(result, weap.cost());
-            }
             for (var arm : armors) {
-                if (!wins(100, weap.dam(), arm.arm())) {
-                    result = Math.max(result, weap.cost() + arm.cost());
-                }
-
                 for (var r1 : rings) {
-                    if (!wins(100, weap.dam() + r1.dam(), arm.arm() + r1.arm())) {
-                        result = Math.max(result, weap.cost()  + arm.cost() + r1.cost());
-                    }
                     for (var r2 : rings) {
+                        if (r1 == r2) continue;
                         if (!wins(100, weap.dam() + r1.dam() + r2.dam(), arm.arm() + r1.arm() + r2.arm())){
-                            result = Math.max(result, weap.cost() + arm.cost() + r1.cost() + r2.cost());
+                            if (q2) result = Math.max(result, weap.cost() + arm.cost() + r1.cost() + r2.cost());
+                        } else {
+                            if (!q2) result = Math.min(result, weap.cost() + arm.cost() + r1.cost() + r2.cost());
                         }
                     }
                 }
@@ -83,28 +65,26 @@ public class Day21 extends AU {
     }
 
     boolean wins(int hp, int damage, int armor) {
-        var bossHp = bhp;
+        int bdamage = 8;
+        int barmor = 2;
+        int hitpoints = 100;
 
-        while (hp > 0 && bossHp > 0) {
-            bossHp -= Math.max(1, damage - ba);
-            if (bossHp <= 0) {
+        while (true) {
+            hitpoints -= Math.max(1, damage - barmor);
+            if (hitpoints <= 0) {
                 return true;
             }
-            hp -= Math.max(1, bd - armor);
+            hp -= Math.max(1, bdamage - armor);
             if (hp <= 0) {
                 return false;
             }
         }
-        throw new AocException("Should not happen");
     }
-
 
     @Override
     public String getDay() {
         return "21";
     }
-
-
 }
 
 record Triple(int cost, int dam, int arm) {

@@ -6,8 +6,19 @@ import java.util.List;
 
 public class Day05 extends AU {
 
+    @Override
+    protected String getDay() {
+        return "05";
+    }
+
     public static void main(String[] args) {
-        var input = getInputAsStream("src/aoc/y2021/input/day05")
+
+            new Day05();
+
+    }
+
+    Day05() {
+        var input = getInputStream()
                 .map(Line::parse)
                 .toList();
 

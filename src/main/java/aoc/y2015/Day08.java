@@ -9,13 +9,19 @@ import java.util.regex.Pattern;
 public class Day08 extends AU {
     private static String day = "08";
 
-    public static void main(String[] args) {
+    public String getDay() {
+        return day;
+    }
 
-        var input = getInputAsStream("src/main/java/aoc/y2015/input/day" + day).toList();
+    public static void main(String[] args) {
+        new Day08();
+
+    }
+    Day08() {
+        var input = getInputLines();
 
         solveQ1(input);
         solveQ2(input);
-
     }
 
     static void solveQ2(List<String> input) {

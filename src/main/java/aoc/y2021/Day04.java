@@ -9,9 +9,11 @@ import java.util.List;
 public class Day04 extends AU {
 
     public static void main(String[] args) {
+        new Day04();
+    }
 
-        var input = getInputAsStream("src/aoc/y2021/input/day04")
-                .toList();
+    Day04() {
+        var input = getInputLines();
 
         var picks = Arrays.stream(input.get(0).split(","))
                 .map(Integer::parseInt)
@@ -21,7 +23,6 @@ public class Day04 extends AU {
 
         solveQ1(picks, cards);
         solveQ2(picks, cards);
-
     }
 
     static void solveQ2(List<Integer> picks, List<int[][]> cards) {
@@ -124,5 +125,9 @@ public class Day04 extends AU {
         return score * number;
     }
 
+    @Override
+    protected String getDay() {
+        return "04";
+    }
 }
 
