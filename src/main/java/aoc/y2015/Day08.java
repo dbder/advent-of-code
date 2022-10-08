@@ -11,7 +11,7 @@ public class Day08 extends AU {
 
     public static void main(String[] args) {
 
-        var input = getInputAsStream("src/aoc/y2015/input/day" + day).toList();
+        var input = getInputAsStream("src/main/java/aoc/y2015/input/day" + day).toList();
 
         solveQ1(input);
         solveQ2(input);

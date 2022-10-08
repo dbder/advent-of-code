@@ -2,13 +2,14 @@ package aoc;
 
 import aoc.utils.CombinationUtil;
 import aoc.utils.GridUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -23,12 +24,16 @@ import java.util.stream.Stream;
  * ( often thing are put/refactored here after the question is finished )
  */
 public abstract class AU implements CombinationUtil, GridUtil {
+    private static final Logger log = LogManager.getLogger(AU.class);
+
 
 
     protected static Set<Character> vowels = new HashSet<>(List.of('a', 'e', 'i', 'u', 'o'));
 
     protected AU() {
-
+        log.warn("-------------------------------------------------------------------");
+        log.warn("                    Starting day : " + getDay());
+        log.warn("-------------------------------------------------------------------");
     }
 
     protected static final Predicate<String> NOT_EMPTY = s -> !s.isEmpty();
@@ -52,7 +57,7 @@ public abstract class AU implements CombinationUtil, GridUtil {
         if (o instanceof List l) {
             printlist(l);
         } else {
-            System.out.println(o);
+            log.info(o);
         }
     }
     public static void printlist(List<Object[]> o) {
@@ -60,7 +65,7 @@ public abstract class AU implements CombinationUtil, GridUtil {
     }
     public static void println(Object[] o) {
         var str = Arrays.stream(o).map(Object::toString).collect(Collectors.joining(",", "[", "]"));
-        System.out.println(str);
+        log.info(str);
     }
 
     public static void print(Object o) {
@@ -135,21 +140,21 @@ public abstract class AU implements CombinationUtil, GridUtil {
         throw new AocException("getDay() not implemented");
     }
 
-
-    protected String getInputString() {return getInputAsString("src/aoc/y2015/input/day" + getDay());}
-    protected List<String> getInputLines() {return getInputAsStream("src/aoc/y2015/input/day" + getDay()).toList();}
-    protected Stream<String> getInputStream() {return getInputAsStream("src/aoc/y2015/input/day" + getDay());}
+    public static final String INPUT_PATH = "src/main/java/aoc/y2015/input";
+    protected String getInputString() {return getInputAsString(INPUT_PATH + "/day" + getDay());}
+    protected List<String> getInputLines() {return getInputAsStream(INPUT_PATH + "/day" + getDay()).toList();}
+    protected Stream<String> getInputStream() {return getInputAsStream(INPUT_PATH + "/day" + getDay());}
 
     protected String getInputStringT() {
         System.out.println("WARNING ! using test input");
-        return getInputAsString("src/aoc/y2015/input/day" + getDay() + "t");}
+        return getInputAsString("src/main/java/aoc/y2015/input/day" + getDay() + "t");}
     protected List<String> getInputLinesT() {
         System.out.println("WARNING ! using test input");
-        return getInputAsStream("src/aoc/y2015/input/day" + getDay() + "t").toList()
+        return getInputAsStream("src/main/java/aoc/y2015/input/day" + getDay() + "t").toList()
                 ;}
     protected Stream<String> getInputStreamT() {
         System.out.println("WARNING ! using test input");
-        return getInputAsStream("src/aoc/y2015/input/day" + getDay() + "t");
+        return getInputAsStream("src/main/java/aoc/y2015/input/day" + getDay() + "t");
     }
 
     protected String[] trim(String[] arr) {
@@ -160,52 +165,3 @@ public abstract class AU implements CombinationUtil, GridUtil {
     }
 
 }
-//
-//package aoc.y2015;
-//
-//        import aoc.AU;
-//
-//        import java.util.ArrayList;
-//        import java.util.HashMap;
-//        import java.util.HashSet;
-//        import java.util.List;
-//        import java.util.Map;
-//        import java.util.Set;
-//
-//public class Day19 extends AU {
-//
-//    String str = "CRnCaCaCaSiRnBPTiMgArSiRnSiRnMgArSiRnCaFArTiTiBSiThFYCaFArCaCaSiThCaPBSiThSiThCaCaPTiRnPBSiThRnFArArCaCaSiThCaSiThSiRnMgArCaPTiBPRnFArSiThCaSiRnFArBCaSiRnCaPRnFArPMgYCaFArCaPTiTiTiBPBSiThCaPTiBPBSiRnFArBPBSiRnCaFArBPRnSiRnFArRnSiRnBFArCaFArCaCaCaSiThSiThCaCaPBPTiTiRnFArCaPTiBSiAlArPBCaCaCaCaCaSiRnMgArCaSiThFArThCaSiThCaSiRnCaFYCaSiRnFYFArFArCaSiRnFYFArCaSiRnBPMgArSiThPRnFArCaSiRnFArTiRnSiRnFYFArCaSiRnBFArCaSiRnTiMgArSiThCaSiThCaFArPRnFArSiRnFArTiTiTiTiBCaCaSiRnCaCaFYFArSiThCaPTiBPTiBCaSiThSiRnMgArCaF";
-//    String s1 = "CRnCaCaCaSiRnBPTiMgArSiRnSiRnMgArSiRnCaFArTiTiBSiThFYCaFArCaCaSiThCaPBSiThSiThCaCaPTiRnPBSiThRnFArArCaCaSiThCaSiThSiRnMgArCaPTiBPRnFArSiThCaSiRnFArBCaSiRnCaPRnFArPMgYCaFArCaPTiTiTiBPBSiThCaPTiBPBSiRnFArBPBSiRnCaFArBPRnSiRnFArRnSiRnBFArCaFArCaCaCaSiThSiThCaCaPBPTiTiRnFArCaPTiBSiAlArPBCaCaCaCaCaSiRnMgArCaSiThFArThCaSiThCaSiRnCaFYCaSiRnFYFArFArCaSiRnFYFArCaSiRnBPMgArSiThPRnFArCaSiRnFArTiRnSiRnFYFArCaSiRnBFArCaSiRnTiMgArSiThCaSiThCaFArPRnFArSiRnFArTiTiTiTiBCaCaSiRnCaCaFYFArSiThCaPTiBPTiBCaSiThSiRnMgArF";
-//
-//    public static void main(String[] args) {
-//        new aoc.y2015.Day19();
-//    }
-//
-//    Day19() {
-//        println("Day " + getDay() + " Q1: " + solveQ1());
-//        println("Day " + getDay() + " Q2: " + solveQ2());
-//    }
-//
-//    Object solveQ2() {
-//        return null;
-//    }
-//
-//    Object solveQ1() {
-
-//    }
-//
-
-//
-//
-//    Set<String> replacements = new HashSet<>();
-//    Set<String> allreplacements = new HashSet<>();
-//
-//
-//    public String getDay() {
-//        return "19";
-//    }
-//
-//    ;
-
-//}
-

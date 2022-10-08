@@ -1,6 +1,8 @@
 package aoc.y2015;
 
 import aoc.AU;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Day19 extends AU {
-
+    private static final Logger log = LogManager.getLogger(Day19.class);
     String str = "CRnCaCaCaSiRnBPTiMgArSiRnSiRnMgArSiRnCaFArTiTiBSiThFYCaFArCaCaSiThCaPBSiThSiThCaCaPTiRnPBSiThRnFArArCaCaSiThCaSiThSiRnMgArCaPTiBPRnFArSiThCaSiRnFArBCaSiRnCaPRnFArPMgYCaFArCaPTiTiTiBPBSiThCaPTiBPBSiRnFArBPBSiRnCaFArBPRnSiRnFArRnSiRnBFArCaFArCaCaCaSiThSiThCaCaPBPTiTiRnFArCaPTiBSiAlArPBCaCaCaCaCaSiRnMgArCaSiThFArThCaSiThCaSiRnCaFYCaSiRnFYFArFArCaSiRnFYFArCaSiRnBPMgArSiThPRnFArCaSiRnFArTiRnSiRnFYFArCaSiRnBFArCaSiRnTiMgArSiThCaSiThCaFArPRnFArSiRnFArTiTiTiTiBCaCaSiRnCaCaFYFArSiThCaPTiBPTiBCaSiThSiRnMgArCaF";
 
     public static void main(String[] args) {
@@ -18,6 +20,7 @@ public class Day19 extends AU {
     }
 
     Day19() {
+        super();
         println("Day " + getDay() + " Q1: " + solveQ1());
         println("Day " + getDay() + " Q2: " + solveQ2());
     }
@@ -29,6 +32,7 @@ public class Day19 extends AU {
         for (String[] s : input) {
             map.putIfAbsent(s[1], s[0]);
         }
+
 
         int count = 0;
         while (map.keySet().stream().filter(s -> !s.equals("HF") && !s.equals("NAl")).anyMatch(s -> str.contains(s))) {
