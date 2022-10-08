@@ -12,6 +12,7 @@ import java.util.Set;
 public class Day19 extends AU {
 
     String str = "CRnCaCaCaSiRnBPTiMgArSiRnSiRnMgArSiRnCaFArTiTiBSiThFYCaFArCaCaSiThCaPBSiThSiThCaCaPTiRnPBSiThRnFArArCaCaSiThCaSiThSiRnMgArCaPTiBPRnFArSiThCaSiRnFArBCaSiRnCaPRnFArPMgYCaFArCaPTiTiTiBPBSiThCaPTiBPBSiRnFArBPBSiRnCaFArBPRnSiRnFArRnSiRnBFArCaFArCaCaCaSiThSiThCaCaPBPTiTiRnFArCaPTiBSiAlArPBCaCaCaCaCaSiRnMgArCaSiThFArThCaSiThCaSiRnCaFYCaSiRnFYFArFArCaSiRnFYFArCaSiRnBPMgArSiThPRnFArCaSiRnFArTiRnSiRnFYFArCaSiRnBFArCaSiRnTiMgArSiThCaSiThCaFArPRnFArSiRnFArTiTiTiTiBCaCaSiRnCaCaFYFArSiThCaPTiBPTiBCaSiThSiRnMgArCaF";
+    String s1 = "CRnCaCaCaSiRnBPTiMgArSiRnSiRnMgArSiRnCaFArTiTiBSiThFYCaFArCaCaSiThCaPBSiThSiThCaCaPTiRnPBSiThRnFArArCaCaSiThCaSiThSiRnMgArCaPTiBPRnFArSiThCaSiRnFArBCaSiRnCaPRnFArPMgYCaFArCaPTiTiTiBPBSiThCaPTiBPBSiRnFArBPBSiRnCaFArBPRnSiRnFArRnSiRnBFArCaFArCaCaCaSiThSiThCaCaPBPTiTiRnFArCaPTiBSiAlArPBCaCaCaCaCaSiRnMgArCaSiThFArThCaSiThCaSiRnCaFYCaSiRnFYFArFArCaSiRnFYFArCaSiRnBPMgArSiThPRnFArCaSiRnFArTiRnSiRnFYFArCaSiRnBFArCaSiRnTiMgArSiThCaSiThCaFArPRnFArSiRnFArTiTiTiTiBCaCaSiRnCaCaFYFArSiThCaPTiBPTiBCaSiThSiRnMgArF";
 
     public static void main(String[] args) {
         new Day19();
@@ -30,33 +31,60 @@ public class Day19 extends AU {
         var input = getInputLines().stream().map(s -> s.split(" => ")).toList();
         var result = 0;
 
-        Map<String, List<String>> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         for (String[] s : input) {
-            map.putIfAbsent(s[0], new ArrayList<>());
-            map.get(s[0]).add(s[1]);
+            map.putIfAbsent(s[1], s[0]);
         }
-        count(str, 0, map);
 
-        replacements.remove(str);
-        return replacements.size();
+        int count = 0;
+        while (map.keySet().stream().filter(s -> !s.equals("HF") || !s.equals("NAl")).anyMatch(s -> str.contains(s))) {
+            for (String s : map.keySet()) {
+                if (str.contains(s)) {
+                    int index = str.indexOf(s);
+                    var sub = map.get(s);
+                    System.out.println("Replacing " + s + " with " + sub + " str length: " + str.length());
+                    str = str.substring(0, index) + sub + str.substring(index + s.length());
+                    System.out.println("New str length: " + str.length());
+                    count++;
+                }
+            }
+            System.out.println(str);
+        }
+        replacements.add(str);
+        System.out.println(str);
+        while (!replacements.contains("e")) {
+
+            var tmp = new HashSet<String>(replacements);
+            replacements.clear();
+            tmp.parallelStream().forEach(s -> count(s, s.length() - 2, map));
+            count++;
+            System.out.println(count + " " + replacements.size());
+        }
+
+        return count;
     }
 
-    void count(String in, int index, Map<String, List<String>> map) {
+    void count(String in, int index, Map<String, String> map) {
         if (index >= in.length()) return;
         for (String s : map.keySet()) {
             if (in.indexOf(s, index) == index) {
-                for (String r : map.get(s)) {
-                    var newStr = in.substring(0, index) + r + in.substring(index + s.length());
+                var r = map.get(s);
+                var newStr = in.substring(0, index) + r + in.substring(index + s.length());
+                if (newStr.length() < str.length() + 10 && !allreplacements.contains(newStr)) {
                     replacements.add(newStr);
-                    //count(newStr, index + r.length(), map);
+                    allreplacements.add(newStr);
                 }
+
             }
         }
-        count(in, index + 1, map);
+        if (index > in.length() - 10) {
+            count(in, index - 1, map);
+        }
     }
 
 
     Set<String> replacements = new HashSet<>();
+    Set<String> allreplacements = new HashSet<>();
 
 
     public String getDay() {
