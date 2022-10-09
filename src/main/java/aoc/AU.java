@@ -34,10 +34,10 @@ public abstract class AU implements CombinationUtil, GridUtil {
             throw new AocException("getDay() must be implemented");
         }
         log.warn("-------------------------------------------------------------------");
-        log.warn("                    Starting day : " + getDay());
+        log.warn("                    Starting day : " + getDay() + "  " + this.getClass().toString().split("\\.")[1]);
         log.warn("-------------------------------------------------------------------");
 
-        INPUT_PATH = inputPathSource.replaceAll("\\{}", String.valueOf(this.getClass().toString().split("\\.")[1]));
+        INPUT_PATH = inputPathSource.replaceAll("\\{}", this.getClass().toString().split("\\.")[1]);
     }
 
     protected static final Predicate<String> NOT_EMPTY = s -> !s.isEmpty();
