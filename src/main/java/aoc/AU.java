@@ -27,7 +27,6 @@ public abstract class AU implements CombinationUtil, GridUtil {
     private static final Logger log = LogManager.getLogger(AU.class);
 
 
-
     protected static Set<Character> vowels = new HashSet<>(List.of('a', 'e', 'i', 'u', 'o'));
 
     protected AU() {
@@ -37,11 +36,11 @@ public abstract class AU implements CombinationUtil, GridUtil {
         log.warn("-------------------------------------------------------------------");
         log.warn("                    Starting day : " + getDay());
         log.warn("-------------------------------------------------------------------");
+
+        INPUT_PATH = inputPathSource.replaceAll("\\{}", String.valueOf(this.getClass().toString().split("\\.")[1]));
     }
 
     protected static final Predicate<String> NOT_EMPTY = s -> !s.isEmpty();
-
-
 
 
     public static void println(Map<? extends Object, ? extends Collection<?>> map) {
@@ -63,9 +62,11 @@ public abstract class AU implements CombinationUtil, GridUtil {
             log.info(o);
         }
     }
+
     public static void printlist(List<Object[]> o) {
         o.stream().forEach(AU::println);
     }
+
     public static void println(Object[] o) {
         var str = Arrays.stream(o).map(Object::toString).collect(Collectors.joining(",", "[", "]"));
         log.info(str);
@@ -141,24 +142,41 @@ public abstract class AU implements CombinationUtil, GridUtil {
     }
 
     public static IntStream range(int start, int end) {
-        return IntStream.range(start,end);
+        return IntStream.range(start, end);
     }
 
     protected abstract String getDay();
 
-    public static final String INPUT_PATH = "src/main/java/aoc/y2015/input/";
-    protected String getInputString() {return getInputAsString(INPUT_PATH + "day" + getDay());}
-    protected List<String> getInputLines(String suffix) {return getInputAsStream(INPUT_PATH + "day" + getDay() + suffix).toList();}
-    protected List<String> getInputLines() {return getInputAsStream(INPUT_PATH + "day" + getDay()).toList();}
-    protected Stream<String> getInputStream() {return getInputAsStream(INPUT_PATH + "day" + getDay());}
+    public static final String inputPathSource = "src/main/java/aoc/{}/input/";
+    public static String INPUT_PATH = "src/main/java/aoc/{}/input/";
+
+    protected String getInputString() {
+        return getInputAsString(INPUT_PATH + "day" + getDay());
+    }
+
+    protected List<String> getInputLines(String suffix) {
+        return getInputAsStream(INPUT_PATH + "day" + getDay() + suffix).toList();
+    }
+
+    protected List<String> getInputLines() {
+        return getInputAsStream(INPUT_PATH + "day" + getDay()).toList();
+    }
+
+    protected Stream<String> getInputStream() {
+        return getInputAsStream(INPUT_PATH + "day" + getDay());
+    }
 
     protected String getInputStringT() {
         System.out.println("WARNING ! using test input");
-        return getInputAsString(INPUT_PATH + getDay() + "t");}
+        return getInputAsString(INPUT_PATH + getDay() + "t");
+    }
+
     protected List<String> getInputLinesT() {
         System.out.println("WARNING ! using test input");
         return getInputAsStream(INPUT_PATH + getDay() + "t").toList()
-                ;}
+                ;
+    }
+
     protected Stream<String> getInputStreamT() {
         System.out.println("WARNING ! using test input");
         return getInputAsStream(INPUT_PATH + getDay() + "t");
