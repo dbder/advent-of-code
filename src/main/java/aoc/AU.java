@@ -31,6 +31,9 @@ public abstract class AU implements CombinationUtil, GridUtil {
     protected static Set<Character> vowels = new HashSet<>(List.of('a', 'e', 'i', 'u', 'o'));
 
     protected AU() {
+        if (getDay() == null || getDay().length() != 2) {
+            throw new AocException("getDay() must be implemented");
+        }
         log.warn("-------------------------------------------------------------------");
         log.warn("                    Starting day : " + getDay());
         log.warn("-------------------------------------------------------------------");
@@ -64,6 +67,11 @@ public abstract class AU implements CombinationUtil, GridUtil {
         o.stream().forEach(AU::println);
     }
     public static void println(Object[] o) {
+        var str = Arrays.stream(o).map(Object::toString).collect(Collectors.joining(",", "[", "]"));
+        log.info(str);
+    }
+
+    public static void println(String[] o) {
         var str = Arrays.stream(o).map(Object::toString).collect(Collectors.joining(",", "[", "]"));
         log.info(str);
     }
