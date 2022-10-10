@@ -191,8 +191,12 @@ public abstract class AU implements CombinationUtil, GridUtil {
     }
 
 
+    public int toInt(String str) {
+        return Integer.parseInt(str.trim());
+    }
 
     public static final DigestUtils digestUtils = new DigestUtils("MD5");
+
     public String getMD5Hash(String input) {
         return digestUtils.digestAsHex(input);
     }
