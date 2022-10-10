@@ -5,6 +5,7 @@ public class Run2016 {
         new Day01();
         new Day02();
         new Day03();
+        new Day04();
 
     }
 }

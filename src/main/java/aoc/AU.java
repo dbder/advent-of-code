@@ -2,6 +2,7 @@ package aoc;
 
 import aoc.utils.CombinationUtil;
 import aoc.utils.GridUtil;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -189,4 +190,10 @@ public abstract class AU implements CombinationUtil, GridUtil {
         return arr;
     }
 
+
+
+    public static final DigestUtils digestUtils = new DigestUtils("MD5");
+    public String getMD5Hash(String input) {
+        return digestUtils.digestAsHex(input);
+    }
 }
