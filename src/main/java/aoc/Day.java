@@ -1,8 +1,5 @@
 package aoc;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class Day extends AU {
 
     @Override
@@ -25,8 +22,9 @@ public class Day extends AU {
     }
 
     Object solveQ1() {
-        var input = getInputLines();
         var result = 0;
+        var input = getInputLines();
+
 
         return result;
     }
