@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -16,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -199,5 +202,22 @@ public abstract class AU implements CombinationUtil, GridUtil {
 
     public String getMD5Hash(String input) {
         return digestUtils.digestAsHex(input);
+    }
+
+    public List<Integer> toIntList(String str) {
+        List<String> arr = new ArrayList<>();
+        Pattern p = Pattern.compile("-?\\d+");
+        Matcher m = p.matcher(str);
+        while (m.find()) {
+            arr.add(m.group());
+        }
+        return arr.stream()
+                .map(Integer::parseInt)
+                .toList();
+    }
+
+    public Integer[] toInts(String str) {
+        return toIntList(str).stream()
+                .toArray(Integer[]::new);
     }
 }
