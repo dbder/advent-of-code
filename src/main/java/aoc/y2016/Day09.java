@@ -21,14 +21,14 @@ public class Day09 extends AU {
     }
 
     Object solveQ2() {
-        var input = getInputString();
+        var input = getInputLine();
         var res = new long[1];
         calc2(input, res);
         return res[0];
     }
 
     Object solveQ1() {
-        return calc1(getInputString());
+        return calc1(getInputLine());
     }
 
     void calc2(String str, long[] res) {

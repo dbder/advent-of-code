@@ -9,7 +9,7 @@ import java.util.HashSet;
 public class Day03 extends AU {
 
     Day03() {
-        var input = getInputString();
+        var input = getInputLine();
         solveQ1(input);
         solveQ2(input);
     }

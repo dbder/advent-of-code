@@ -154,7 +154,7 @@ public abstract class AU implements CombinationUtil, GridUtil {
     public static final String inputPathSource = "src/main/java/aoc/{}/input/";
     public static String INPUT_PATH = "src/main/java/aoc/{}/input/";
 
-    protected String getInputString() {
+    protected String getInputLine() {
         return getInputAsString(INPUT_PATH + "day" + getDay());
     }
 

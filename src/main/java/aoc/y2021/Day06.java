@@ -18,7 +18,7 @@ public class Day06 extends AU {
     }
 
     Day06() {
-        var input = Arrays.stream(getInputString()
+        var input = Arrays.stream(getInputLine()
                         .split(","))
                 .mapToInt(Integer::parseInt)
                 .toArray();

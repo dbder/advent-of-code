@@ -15,17 +15,17 @@ public class Day12 extends AU {
         return "12";
     }
 
-    private static String day = "12";
+    private static final String day = "12";
 
     static ObjectMapper mapper = new ObjectMapper();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         new Day12();
 
     }
 
     Day12() {
-        var input = getInputString();
+        var input = getInputLine();
         solveQ1(input);
         try {
             solveQ2(input);

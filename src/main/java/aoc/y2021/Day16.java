@@ -38,12 +38,11 @@ public class Day16 extends AU {
     }
 
     public static void main(String[] args) {
-
-
+        new Day16();
     }
 
     Day16() {
-        var input = getInputString();
+        var input = getInputLine();
 
         solveQ1(input);
         solveQ2(input);
