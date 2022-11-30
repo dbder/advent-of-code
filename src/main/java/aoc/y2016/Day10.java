@@ -27,9 +27,7 @@ public class Day10 extends AU {
     boolean q2;
     Object solve(boolean q2) {
         this.q2 = q2;
-        var result = 0;
         var input = getInputLines();
-
         var bots = new HashMap<Integer, Bot>();
         for (var str : input) {
             if (str.startsWith("value")) {
