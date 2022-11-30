@@ -2,6 +2,7 @@ package aoc.y2015;
 
 public class Run2015 {
     public static void main(String[] args) {
+        new Day01();
         new Day03();
         new Day04();
         new Day05();
@@ -24,5 +25,6 @@ public class Run2015 {
         new Day22();
         new Day23();
         new Day24();
+        new Day25();
     }
 }

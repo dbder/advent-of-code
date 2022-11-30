@@ -2,8 +2,6 @@ package aoc.y2021;
 
 import aoc.AU;
 
-import java.util.Arrays;
-
 public class Day01 extends AU {
 
     @Override

@@ -4,15 +4,11 @@ import aoc.AU;
 
 public class Day01 extends AU {
 
-    @Override
-    protected String getDay() {
-        return "01";
-    }
     public static void main(String[] args) {
         new Day01();
     }
 
-    Day01() {
+    {
         println("Day " + getDay() + " Q1: " + solveQ1());
         println("Day " + getDay() + " Q2: " + solveQ2());
     }

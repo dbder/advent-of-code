@@ -1,9 +1,6 @@
 package aoc.y2015;
 
 import aoc.AU;
-import aoc.AocException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 

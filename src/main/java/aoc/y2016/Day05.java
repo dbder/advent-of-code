@@ -3,7 +3,6 @@ package aoc.y2016;
 import aoc.AU;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class Day05 extends AU {

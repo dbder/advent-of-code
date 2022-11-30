@@ -149,7 +149,14 @@ public abstract class AU implements CombinationUtil, GridUtil {
         return IntStream.range(start, end);
     }
 
-    protected abstract String getDay();
+    protected String getDay() {
+        String day = this.getClass().toString().split("\\.")[2].substring(3);
+        var dayint = toInt(day);
+        if (dayint < 1 || dayint > 25) {
+            throw new AocException("Day must be between 1 and 25");
+        }
+        return day;
+    }
 
     public static final String inputPathSource = "src/main/java/aoc/{}/input/";
     public static String INPUT_PATH = "src/main/java/aoc/{}/input/";

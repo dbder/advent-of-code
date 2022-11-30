@@ -1,8 +1,6 @@
 package aoc.y2015;
 
 import aoc.AU;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.math.BigInteger;
 import java.util.Arrays;

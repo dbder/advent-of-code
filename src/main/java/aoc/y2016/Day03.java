@@ -1,8 +1,6 @@
 package aoc.y2016;
 
 import aoc.AU;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 
