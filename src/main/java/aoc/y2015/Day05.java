@@ -2,7 +2,6 @@ package aoc.y2015;
 
 import aoc.AU;
 
-import javax.sound.sampled.Line;
 import java.util.List;
 
 public class Day05 extends AU {
@@ -64,7 +63,7 @@ public class Day05 extends AU {
 
             int vowelc = 0;
             for (var c : str.toCharArray()) {
-                if (vowels.contains(c)) vowelc++;
+                if (VOWELS.contains(c)) vowelc++;
             }
             if (vowelc < 3) continue;
             count++;

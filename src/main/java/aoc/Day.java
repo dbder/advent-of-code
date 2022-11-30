@@ -18,7 +18,10 @@ public class Day extends AU {
     }
 
     Object solveQ2() {
-        return null;
+        var result = 0;
+        var input = getInputLines();
+        
+        return result;
     }
 
     Object solveQ1() {

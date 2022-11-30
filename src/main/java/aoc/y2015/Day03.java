@@ -2,15 +2,11 @@ package aoc.y2015;
 
 import aoc.AU;
 import aoc.AocException;
-import aoc.Position2D;
+import aoc.Pos2D;
 
 import java.util.HashSet;
 
 public class Day03 extends AU {
-
-    public static void main(String[] args) {
-
-    }
 
     Day03() {
         var input = getInputString();
@@ -20,7 +16,7 @@ public class Day03 extends AU {
 
 
     static void solveQ1(String input) {
-        var set = new HashSet<Position2D>();
+        var set = new HashSet<Pos2D>();
         var current = getP2D(0, 0);
         set.add(current);
         for (var c : input.toCharArray()) {
@@ -38,7 +34,7 @@ public class Day03 extends AU {
 
 
     static void solveQ2(String input) {
-        var set = new HashSet<Position2D>();
+        var set = new HashSet<Pos2D>();
         var current1 = getP2D(0, 0);
         var current2 = getP2D(0, 0);
         set.add(current1);

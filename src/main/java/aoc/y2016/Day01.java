@@ -1,14 +1,11 @@
 package aoc.y2016;
 
 import aoc.AU;
-import aoc.Position2D;
+import aoc.Pos2D;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.swing.text.Position;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class Day01 extends AU {
@@ -32,13 +29,13 @@ public class Day01 extends AU {
     Object solveQ2() {
         var input = getInputLines().get(0);
 
-        Position2D position = new Position2D(0, 0);
+        Pos2D position = new Pos2D(0, 0);
 
         var in = input.split(", ");
 
         var direction = 0;
-        Set<Position2D> set = new HashSet<>();
-        Position2D prev = position;
+        Set<Pos2D> set = new HashSet<>();
+        Pos2D prev = position;
 
         for (var d : in) {
             char c = d.charAt(0);
@@ -55,24 +52,24 @@ public class Day01 extends AU {
             }
             switch (direction) {
                 case 0:
-                    position = new Position2D(
+                    position = new Pos2D(
                             position.row() + Integer.parseInt(d.substring(1)),
                             position.col()
                     );
                     break;
                 case 1:
-                    position = new Position2D(
+                    position = new Pos2D(
                             position.row(),
                             position.col() + Integer.parseInt(d.substring(1))
                     );
                     break;
                 case 2:
-                    position = new Position2D(
+                    position = new Pos2D(
                             position.row() - Integer.parseInt(d.substring(1)),
                             position.col());
                     break;
                 case 3:
-                    position = new Position2D(
+                    position = new Pos2D(
                             position.row(),
                             position.col() - Integer.parseInt(d.substring(1)));
                     break;
@@ -80,10 +77,10 @@ public class Day01 extends AU {
 
             for (int r = (int) Math.min((int) prev.row(), position.row()); r <= (int) Math.max((int) prev.row(), position.row()); r++) {
                 for (int cl = (int) Math.min((int) prev.col(), position.col()); cl <= (int) Math.max((int) prev.col(), position.col()); cl++) {
-                    if (set.contains(new Position2D(r, cl)) && !new Position2D(r, cl).equals(prev)) {
+                    if (set.contains(new Pos2D(r, cl)) && !new Pos2D(r, cl).equals(prev)) {
                         return Math.abs(cl) + Math.abs(r);
                     }
-                    set.add(new Position2D(r, cl));
+                    set.add(new Pos2D(r, cl));
                 }
             }
         }
@@ -94,13 +91,13 @@ public class Day01 extends AU {
     Object solveQ1() {
         var input = getInputLines().get(0);
 
-        Position2D position = new Position2D(0, 0);
+        Pos2D position = new Pos2D(0, 0);
 
         var in = input.split(", ");
 
         var direction = 0;
-        Set<Position2D> set = new HashSet<>();
-        Position2D prev = position;
+        Set<Pos2D> set = new HashSet<>();
+        Pos2D prev = position;
 
         for (var d : in) {
             char c = d.charAt(0);
@@ -116,24 +113,24 @@ public class Day01 extends AU {
             }
             switch (direction) {
                 case 0:
-                    position = new Position2D(
+                    position = new Pos2D(
                             position.row() + Integer.parseInt(d.substring(1)),
                             position.col()
                     );
                     break;
                 case 1:
-                    position = new Position2D(
+                    position = new Pos2D(
                             position.row(),
                             position.col() + Integer.parseInt(d.substring(1))
                     );
                     break;
                 case 2:
-                    position = new Position2D(
+                    position = new Pos2D(
                             position.row() - Integer.parseInt(d.substring(1)),
                             position.col());
                     break;
                 case 3:
-                    position = new Position2D(
+                    position = new Pos2D(
                             position.row(),
                             position.col() - Integer.parseInt(d.substring(1)));
                     break;

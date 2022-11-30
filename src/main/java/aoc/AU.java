@@ -31,7 +31,7 @@ public abstract class AU implements CombinationUtil, GridUtil {
     private static final Logger log = LogManager.getLogger(AU.class);
 
 
-    protected static Set<Character> vowels = new HashSet<>(List.of('a', 'e', 'i', 'u', 'o'));
+    protected static final Set<Character> VOWELS = new HashSet<>(List.of('a', 'e', 'i', 'u', 'o', 'A', 'E', 'I', 'O', 'U'));
 
     protected AU() {
         if (getDay() == null || getDay().length() != 2) {
@@ -68,7 +68,7 @@ public abstract class AU implements CombinationUtil, GridUtil {
     }
 
     public static void printlist(List<Object[]> o) {
-        o.stream().forEach(AU::println);
+        o.forEach(AU::println);
     }
 
     public static void println(Object[] o) {
@@ -112,8 +112,8 @@ public abstract class AU implements CombinationUtil, GridUtil {
     }
 
 
-    public static Position2D getP2D(long row, long col) {
-        return new Position2D(row, col);
+    public static Pos2D getP2D(long row, long col) {
+        return new Pos2D(row, col);
     }
 
 

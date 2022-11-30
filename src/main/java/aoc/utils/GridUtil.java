@@ -1,6 +1,8 @@
 package aoc.utils;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public interface GridUtil {
 
@@ -37,7 +39,7 @@ public interface GridUtil {
         System.out.println();
         for (int r = 0; r < grid.length; r++) {
             for (int c = 0; c < grid[0].length; c++) {
-                System.out.print(grid[r][c]);
+                System.out.print(grid[r][c] + ",");
             }
             System.out.println();
         }
@@ -46,10 +48,11 @@ public interface GridUtil {
     default void print(int[][] grid) {
         System.out.println();
         for (int r = 0; r < grid.length; r++) {
-            for (int c = 0; c < grid[0].length; c++) {
-                System.out.print(grid[r][c]);
-            }
-            System.out.println();
+            System.out.println(Arrays
+                    .stream(grid[r])
+                    .mapToObj(String::valueOf)
+                    .collect(Collectors.joining(","))
+            );
         }
     }
 }
