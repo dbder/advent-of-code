@@ -7,8 +7,9 @@ import java.util.regex.Pattern;
 
 
 public class Day08 extends AU {
-    private static String day = "08";
+    private static final String day = "08";
 
+    @Override
     public String getDay() {
         return day;
     }
@@ -24,7 +25,7 @@ public class Day08 extends AU {
         solveQ2(input);
     }
 
-    static void solveQ2(List<String> input) {
+    void solveQ2(List<String> input) {
         var total = 0;
         var totalAfter = 0;
         for (var line : input) {
@@ -41,7 +42,7 @@ public class Day08 extends AU {
         println("Day " + day + " Q2: " + (totalAfter - total));
     }
 
-    static void solveQ1(List<String> input) {
+    void solveQ1(List<String> input) {
         var total = 0;
         var totalAfter = 0;
         Pattern p = Pattern.compile("\\\\x[0-9a-f]{2}");
@@ -55,7 +56,7 @@ public class Day08 extends AU {
                 var c1 = line.charAt(m.end() - 1);
                 var c2 = line.charAt(m.end() - 2);
                 if (isHexDigit(c1) && isHexDigit(c2)) {
-                    char c = (char) parseInt(line.substring(m.start() + 2, m.end()), 16);
+                    char c = (char) toInt(line.substring(m.start() + 2, m.end()), 16);
                     line = m.replaceFirst(String.valueOf(c));
                 } else {
                     println("c1: " + c1 + " c2: " + c2);

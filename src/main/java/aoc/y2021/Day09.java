@@ -81,7 +81,7 @@ public class Day09 extends AU {
 
 
     void getPuddle(int r, int c, int depth, int[][] mx, boolean[][] vis, int[] count) {
-        if (!isInGrid(r, c, mx)) return;
+        if (!isIN(r, c, mx)) return;
         if (vis[r][c]) return;
         if (mx[r][c] <= depth) return;
         if (mx[r][c] == 9) return;
@@ -96,7 +96,7 @@ public class Day09 extends AU {
     }
 
     int getVal(int[][] grid, int r, int c) {
-        if (!isInGrid(r, c, grid)) {
+        if (!isIN(r, c, grid)) {
             return 9;
         }
         return grid[r][c];

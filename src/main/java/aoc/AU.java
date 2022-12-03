@@ -1,7 +1,10 @@
 package aoc;
 
 import aoc.utils.CombinationUtil;
+import aoc.utils.DSUtil;
 import aoc.utils.GridUtil;
+import aoc.utils.MapUtil;
+import aoc.utils.MathUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +30,14 @@ import java.util.stream.Stream;
  * AdventUtil, convenience methods for Advent Questions.
  * ( often thing are put/refactored here after the question is finished )
  */
-public abstract class AU implements CombinationUtil, GridUtil {
+public abstract class AU implements
+        CombinationUtil,
+        GridUtil,
+        MapUtil,
+        MathUtil,
+        DSUtil
+
+{
     private static final Logger log = LogManager.getLogger(AU.class);
 
 
@@ -41,7 +51,7 @@ public abstract class AU implements CombinationUtil, GridUtil {
         log.warn("                    Starting day : " + getDay() + "  " + this.getClass().toString().split("\\.")[1]);
         log.warn("-------------------------------------------------------------------");
 
-        INPUT_PATH = inputPathSource.replaceAll("\\{}", this.getClass().toString().split("\\.")[1]);
+        INPUT_PATH = INPUT_PATH_SOURCE.replaceAll("\\{}", this.getClass().toString().split("\\.")[1]);
     }
 
     protected static final Predicate<String> NOT_EMPTY = s -> !s.isEmpty();
@@ -112,38 +122,16 @@ public abstract class AU implements CombinationUtil, GridUtil {
     }
 
 
-    public static Pos2D getP2D(long row, long col) {
+    public static Pos2D getP2D(int row, int col) {
         return new Pos2D(row, col);
     }
 
 
-    public static int max(int... arr) {
-        int max = Integer.MIN_VALUE;
-        for (int i : arr) {
-            max = Math.max(max, i);
-        }
-        return max;
-    }
 
-    public static int min(int... arr) {
-        int min = Integer.MAX_VALUE;
-        for (int i : arr) {
-            min = Math.min(min, i);
-        }
-        return min;
-    }
 
-    public static boolean isHexDigit(int c) {
-        return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
-    }
 
-    public static int parseInt(String str) {
-        return Integer.parseInt(str);
-    }
 
-    public static int parseInt(String str, int radix) {
-        return Integer.parseInt(str, radix);
-    }
+
 
     public static IntStream range(int start, int end) {
         return IntStream.range(start, end);
@@ -158,8 +146,8 @@ public abstract class AU implements CombinationUtil, GridUtil {
         return day;
     }
 
-    public static final String inputPathSource = "src/main/java/aoc/{}/input/";
-    public static String INPUT_PATH = "src/main/java/aoc/{}/input/";
+    public static final String INPUT_PATH_SOURCE = "src/main/java/aoc/{}/input/";
+    public static String INPUT_PATH = "";
 
     protected String getInputLine() {
         return getInputAsString(INPUT_PATH + "day" + getDay());
@@ -201,9 +189,6 @@ public abstract class AU implements CombinationUtil, GridUtil {
     }
 
 
-    public int toInt(String str) {
-        return Integer.parseInt(str.trim());
-    }
 
     public static final DigestUtils digestUtils = new DigestUtils("MD5");
 
@@ -220,11 +205,15 @@ public abstract class AU implements CombinationUtil, GridUtil {
         }
         return arr.stream()
                 .map(Integer::parseInt)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public Integer[] toInts(String str) {
         return toIntList(str).stream()
                 .toArray(Integer[]::new);
+    }
+
+    public static int toInt(String str) {
+        return Integer.parseInt(str.trim());
     }
 }

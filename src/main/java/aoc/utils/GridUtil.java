@@ -1,5 +1,7 @@
 package aoc.utils;
 
+import aoc.Pos2D;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,10 +11,17 @@ public interface GridUtil {
     int[][] TPS8 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}, {-1, -1}, {1, 1}, {1, -1}, {-1, 1}};
     int[][] TPS4 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
 
-    default boolean isInGrid(int row, int col, int[][] mx) {
+    List<Pos2D> TPS4List = Arrays.stream(TPS4).map(Pos2D::of).collect(Collectors.toList());
+    List<Pos2D> TPS8List = Arrays.stream(TPS8).map(Pos2D::of).collect(Collectors.toList());
+
+    default boolean isIN(int row, int col, int[][] mx) {
         int rows = mx.length;
         int cols = mx[0].length;
         return row >= 0 && col >= 0 && row < rows && col < cols;
+    }
+
+    default boolean isIN(Pos2D pos2D, int[][] mx) {
+        return isIN(pos2D.row(), pos2D.col(), mx);
     }
 
     default char[][] charGrid(List<String> lines) {
@@ -35,7 +44,7 @@ public interface GridUtil {
         return grid;
     }
 
-    default void print(char[][] grid) {
+    default void println(char[][] grid) {
         System.out.println();
         for (int r = 0; r < grid.length; r++) {
             for (int c = 0; c < grid[0].length; c++) {
@@ -45,7 +54,7 @@ public interface GridUtil {
         }
     }
 
-    default void print(int[][] grid) {
+    default void println(int[][] grid) {
         System.out.println();
         for (int r = 0; r < grid.length; r++) {
             System.out.println(Arrays

@@ -75,7 +75,7 @@ public class Day11 extends AU {
     }
 
     void increment(int[][] mx, int r, int c) {
-        if (!isInGrid(r,c,mx)) return;
+        if (!isIN(r,c,mx)) return;
         if (mx[r][c] != -1) {
             mx[r][c]++;
             if (mx[r][c] == 10) {

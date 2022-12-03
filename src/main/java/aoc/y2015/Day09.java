@@ -11,7 +11,7 @@ import java.util.function.IntBinaryOperator;
 
 
 public class Day09 extends AU {
-    private static String day = "09";
+    private static final String day = "09";
 
     @Override
     public String getDay() {
@@ -26,8 +26,8 @@ public class Day09 extends AU {
 
     Day09() {
         var input = getInputLines();
-        println("Day " + day + " Q1: " + solve(input, AU::min));
-        println("Day " + day + " Q2: " + solve(input, AU::max));
+        println("Day " + day + " Q1: " + solve(input, this::min));
+        println("Day " + day + " Q2: " + solve(input, this::max));
     }
 
     int solve(List<String> input, IntBinaryOperator picker) {
@@ -37,7 +37,7 @@ public class Day09 extends AU {
             String[] split = s.split(" ");
             String from = split[0];
             String to = split[2];
-            int dist = parseInt(split[4]);
+            int dist = toInt(split[4]);
             map.putIfAbsent(from, new HashMap<>());
             map.putIfAbsent(to, new HashMap<>());
             map.get(from).put(to, dist);

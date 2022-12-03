@@ -27,7 +27,7 @@ public class Day05 extends AU {
 
     }
 
-    static void solveQ2(List<Line> input) {
+    void solveQ2(List<Line> input) {
         int[][] grid = new int[1000][1000];
 
         for (Line line : input) {
@@ -53,7 +53,7 @@ public class Day05 extends AU {
     }
 
 
-    static void solveQ1(List<Line> input) {
+    void solveQ1(List<Line> input) {
         int[][] grid = new int[1000][1000];
 
         for (Line line : input) {
@@ -70,7 +70,7 @@ public class Day05 extends AU {
         println("Day5 Q1: " + countOverlapping(grid));
     }
 
-    static int countOverlapping(int[][] grid) {
+    int countOverlapping(int[][] grid) {
         int count = 0;
         for (var row : grid) {
             for (var i : row) {
@@ -86,10 +86,10 @@ public class Day05 extends AU {
         static Line parse(String string) {
             var parts = string.split(",| -> ");
             return new Line(
-                    parseInt(parts[0]),
-                    parseInt(parts[1]),
-                    parseInt(parts[2]),
-                    parseInt(parts[3])
+                    toInt(parts[0]),
+                    toInt(parts[1]),
+                    toInt(parts[2]),
+                    toInt(parts[3])
             );
         }
 
@@ -99,19 +99,19 @@ public class Day05 extends AU {
         }
 
         int minX() {
-            return min(x1, x2);
+            return Math.min(x1, x2);
         }
 
         int maxX() {
-            return max(x1, x2);
+            return Math.max(x1, x2);
         }
 
         int minY() {
-            return min(y1, y2);
+            return Math.min(y1, y2);
         }
 
         int maxY() {
-            return max(y1, y2);
+            return Math.max(y1, y2);
         }
     }
 }
