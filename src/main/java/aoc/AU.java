@@ -158,7 +158,7 @@ public abstract class AU implements
     }
 
     protected List<String> getInputLines() {
-        return getInputAsStream(INPUT_PATH + "day" + getDay()).toList();
+        return getInputAsStream(INPUT_PATH + "day" + getDay()).collect(Collectors.toList());
     }
 
     protected Stream<String> getInputStream() {

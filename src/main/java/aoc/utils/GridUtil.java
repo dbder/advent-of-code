@@ -48,7 +48,7 @@ public interface GridUtil {
         System.out.println();
         for (int r = 0; r < grid.length; r++) {
             for (int c = 0; c < grid[0].length; c++) {
-                System.out.print(grid[r][c] + ",");
+                System.out.print(grid[r][c]);
             }
             System.out.println();
         }

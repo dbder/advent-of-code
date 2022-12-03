@@ -12,6 +12,9 @@ public record Pos2D(int row, int col) {
     public Pos2D add(Pos2D mx) {
         return new Pos2D(row + mx.row, col + mx.col);
     }
+    public Pos2D add(int row, int col) {
+        return new Pos2D(this.row + row, this.col + col);
+    }
 
     public static Pos2D of(int row, int col) {
         return new Pos2D(row, col);
@@ -22,6 +25,12 @@ public record Pos2D(int row, int col) {
     }
 
     public boolean isIN(int[][] mx) {
+        int rows = mx.length;
+        int cols = mx[0].length;
+        return row >= 0 && col >= 0 && row < rows && col < cols;
+    }
+
+    public boolean isIN(char[][] mx) {
         int rows = mx.length;
         int cols = mx[0].length;
         return row >= 0 && col >= 0 && row < rows && col < cols;
