@@ -13,6 +13,9 @@ import static java.util.stream.Collectors.groupingBy;
 
 public interface MapUtil {
 
+    default Map<Integer, List<String>> mapCountT(String[] arr) {
+        return mapCountT(Arrays.asList(arr));
+    }
     default <T> Map<Integer, List<T>> mapCountT(List<T> str) {
         var map = mapTCount(str);
         Map<Integer, List<T>> result = new HashMap<>();
@@ -42,6 +45,10 @@ public interface MapUtil {
         return result;
     }
 
+    default Map<String, Integer> mapTCount(String[] arr) {
+        return mapTCount(Arrays.asList(arr));
+    }
+
     default <T> Map<T, Integer> mapTCount(List<T> str) {
         return str.stream().collect(groupingBy(s -> s, Collectors.counting()))
                 .entrySet()
@@ -49,6 +56,8 @@ public interface MapUtil {
                 .map(e -> Map.entry(e.getKey(), Math.toIntExact(e.getValue())))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
+
+
 
     /**
      * splits to chars and counts them as strings

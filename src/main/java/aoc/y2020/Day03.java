@@ -11,6 +11,8 @@ public class Day03 extends AU {
         new Day03();
     }
 
+
+
     Day03() {
         println("Day " + getDay() + " Q1: " + solveQ1());
         println("Day " + getDay() + " Q2: " + solveQ2());
@@ -48,9 +50,7 @@ public class Day03 extends AU {
         var result = 0L;
         var input = getInputLines();
 
-        for (int i = 0; i < input.size(); i++) {
-            input.set(i, input.get(i).repeat(100));
-        }
+        input.replaceAll(s -> s.repeat(100));
 
         var grid = charGrid(input);
         var pos = Pos2D.of(0, 0);

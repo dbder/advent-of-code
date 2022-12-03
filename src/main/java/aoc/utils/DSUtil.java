@@ -1,11 +1,18 @@
 package aoc.utils;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 
 public interface DSUtil {
 
+
+    default String stringSort(String s) {
+        var chars = s.toCharArray();
+        Arrays.sort(chars);
+        return new String(chars);
+    }
 
     default int max(int... arr) {
         int max = Integer.MIN_VALUE;
