@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.IntBinaryOperator;
 
 
 public class Day09 extends AU {
@@ -26,11 +25,11 @@ public class Day09 extends AU {
 
     Day09() {
         var input = getInputLines();
-//        println("Day " + day + " Q1: " + solve(input, ?this::min));
-//        println("Day " + day + " Q2: " + solve(input, max));
+        println("Day " + day + " Q1: " + solve(input, true));
+        println("Day " + day + " Q2: " + solve(input, false));
     }
 
-    int solve(List<String> input, IntBinaryOperator picker) {
+    int solve(List<String> input, boolean q1) {
 
         Map<String, Map<String, Integer>> map = new HashMap<>();
         for (String s : input) {
@@ -51,14 +50,18 @@ public class Day09 extends AU {
         for (String s : keys) {
             var visited = new HashSet<String>();
             visited.add(s);
-            shortest(map, keys, 0, visited, best, s, picker);
+            shortest(map, keys, 0, visited, best, s, q1);
         }
         return best[0];
     }
 
-    void shortest(Map<String, Map<String, Integer>> map, Set<String> set, int sum, Set<String> visited, int[] best, String last, IntBinaryOperator picker) {
+    void shortest(Map<String, Map<String, Integer>> map, Set<String> set, int sum, Set<String> visited, int[] best, String last, boolean q1) {
         if (visited.size() == set.size()) {
-            best[0] = picker.applyAsInt(best[0], sum);
+            if (q1) {
+                best[0] = min(best[0], sum);
+            } else {
+                best[0] = Math.max(best[0], sum);
+            }
             return;
         }
 
@@ -69,7 +72,7 @@ public class Day09 extends AU {
 
             var tmp = new HashSet<>(visited);
             tmp.add(s);
-            shortest(map, set, sum + map.get(last).get(s), tmp, best, s, picker);
+            shortest(map, set, sum + map.get(last).get(s), tmp, best, s, q1);
         }
     }
 }
