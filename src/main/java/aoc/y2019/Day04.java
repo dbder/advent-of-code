@@ -2,46 +2,26 @@ package aoc.y2019;
 
 import aoc.AU;
 
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
-
 public class Day04 extends AU {
 
     public static void main(String[] args) {
         new Day04();
     }
 
-    List<String> testData1 = """
-            """.lines().collect(toList());
-    List<String> testData2 = """
-            """.lines().collect(toList());
-
     Day04() {
-        if (!testData1.isEmpty()) println("Test Q1: " + solveQ1(testData1));
-        if (!testData2.isEmpty()) println("Test Q1: " + solveQ1(testData2));
-        println("Day " + getDay() + " Q1: " + solveQ1(getInputLines()));
-
-        if (!testData1.isEmpty()) println("Test Q2: " + solveQ1(testData1));
-        if (!testData2.isEmpty()) println("Test Q2: " + solveQ1(testData2));
-        println("Day " + getDay() + " Q2: " + solveQ2(getInputLines()));
+        println("Day " + getDay() + " Q1: " + solve(true));
+        println("Day " + getDay() + " Q2: " + solve(false));
     }
 
-    Object solveQ2(List<String> input) {
-        var result = 0L;
+    private static final int START = 356261;
+    private static final int END = 846303;
 
-        return result;
-    }
-
-    int start = 356261;
-    int end = 846303;
-
-    Object solveQ1(List<String> input) {
+    Object solve(boolean q1) {
         var result = 0L;
 
 
-        for (int i = start; i <= end; i++) {
-            if (isValid(i)) {
+        for (int i = START; i <= END; i++) {
+            if (isValid(i, q1)) {
                 result++;
             }
         }
@@ -49,16 +29,21 @@ public class Day04 extends AU {
         return result;
     }
 
-    private boolean isValid(int i) {
+    private boolean isValid(int i, boolean q1) {
 
         var s = String.valueOf(i);
         var map = mapCountChars(s);
-        if (map.keySet().stream().filter(j -> j == 2).count() != 1) return false;
+
+        if (q1) {
+            if (map.keySet().stream().noneMatch(j -> j > 1)) return false;
+        } else {
+            if (map.keySet().stream().filter(j -> j == 2).count() != 1) return false;
+        }
 
         boolean hasDouble = false;
-        for (int k = 1; k < s.length(); k ++) {
-            if (s.charAt(k) < s.charAt(k-1)) return false;
-            if (s.charAt(k) == s.charAt(k-1)) hasDouble = true;
+        for (int k = 1; k < s.length(); k++) {
+            if (s.charAt(k) < s.charAt(k - 1)) return false;
+            if (s.charAt(k) == s.charAt(k - 1)) hasDouble = true;
         }
         return hasDouble;
     }
