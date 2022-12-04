@@ -22,6 +22,14 @@ public interface DSUtil {
         return max;
     }
 
+    default int max(Integer... arr) {
+        int max = Integer.MIN_VALUE;
+        for (int i : arr) {
+            max = Math.max(max, i);
+        }
+        return max;
+    }
+
     default int min(int... arr) {
         int min = Integer.MAX_VALUE;
         for (int i : arr) {

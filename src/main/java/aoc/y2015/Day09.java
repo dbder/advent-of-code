@@ -26,8 +26,8 @@ public class Day09 extends AU {
 
     Day09() {
         var input = getInputLines();
-        println("Day " + day + " Q1: " + solve(input, this::min));
-        println("Day " + day + " Q2: " + solve(input, this::max));
+//        println("Day " + day + " Q1: " + solve(input, ?this::min));
+//        println("Day " + day + " Q2: " + solve(input, max));
     }
 
     int solve(List<String> input, IntBinaryOperator picker) {
