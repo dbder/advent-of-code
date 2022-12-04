@@ -83,6 +83,27 @@ public record Pos2D(int row, int col) {
         };
     }
 
+    public Pos2D move(char dir, int n) {
+        dir = Character.toUpperCase(dir);
+        return switch (dir) {
+            case 'U' -> up(n);
+            case 'D' -> down(n);
+            case 'L' -> left(n);
+            case 'R' -> right(n);
+            default -> throw new AocException("Invalid direction: " + dir);
+        };
+    }
+
+    public Pos2D move(String dir) {
+        return move(dir.charAt(0));
+    }
+
+    public Pos2D move(String dir, int n) {
+        return move(dir.charAt(0), n);
+    }
+
+
+
     public int manhattan() {
         return Math.abs(row) + Math.abs(col);
     }
