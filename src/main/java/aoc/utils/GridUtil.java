@@ -64,4 +64,15 @@ public interface GridUtil {
             );
         }
     }
+
+    default void print3d(int[][][] grid) {
+        System.out.println();
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[0].length; c++) {
+                System.out.print(Arrays.toString(grid[r][c]));
+
+            }
+            System.out.println();
+        }
+    }
 }

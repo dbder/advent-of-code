@@ -31,6 +31,11 @@ public record V2(int row, int col) {
         int cols = mx[0].length;
         return row >= 0 && col >= 0 && row < rows && col < cols;
     }
+    public boolean isIN(int[][][] mx) {
+        int rows = mx.length;
+        int cols = mx[0].length;
+        return row >= 0 && col >= 0 && row < rows && col < cols;
+    }
 
     public boolean isIN(char[][] mx) {
         int rows = mx.length;
@@ -127,6 +132,10 @@ public record V2(int row, int col) {
 
     public int manhattan() {
         return Math.abs(row) + Math.abs(col);
+    }
+
+    public int manhattan(V2 v) {
+        return Math.abs(row - v.row) + Math.abs(col - v.col);
     }
 
 }
