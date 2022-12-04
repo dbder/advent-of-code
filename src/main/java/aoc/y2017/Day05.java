@@ -13,6 +13,11 @@ public class Day05 extends AU {
     }
 
     List<String> testData1 = """
+            0
+            3
+            0
+            1
+            -3
             """.lines().collect(toList());
     List<String> testData2 = """
             """.lines().collect(toList());
@@ -35,8 +40,28 @@ public class Day05 extends AU {
 
     Object solveQ1(List<String> input) {
         var result = 0L;
+        var ints = input.stream().mapToInt(Integer::parseInt).toArray();
 
-        return result;
+        int count = 0;
+        int i = 0;
+        while (i >=0 && i < ints.length) {
+            count++;
+            var cur = ints[i];
+            if (cur == 0) {
+                ints[i] = 1;
+                continue;
+            }
+            if (cur > 2) {
+                ints[i] = cur - 1;
+            } else {
+                ints[i] = cur + 1;
+            }
+
+            i += cur;
+        }
+
+
+        return count;
     }
 
 }
