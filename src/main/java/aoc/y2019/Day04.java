@@ -33,11 +33,37 @@ public class Day04 extends AU {
         return result;
     }
 
+    int start = 356261;
+    int end = 846303;
+
     Object solveQ1(List<String> input) {
         var result = 0L;
+
+
+        for (int i = start; i <= end; i++) {
+            if (isValid(i)) {
+                result++;
+            }
+        }
 
         return result;
     }
 
+    private boolean isValid(int i) {
+
+        var s = String.valueOf(i);
+        var map = mapCountChars(s);
+        if (map.keySet().stream().filter(j -> j == 2).count() != 1) return false;
+
+        boolean hasDouble = false;
+        for (int k = 1; k < s.length(); k ++) {
+            if (s.charAt(k) < s.charAt(k-1)) return false;
+            if (s.charAt(k) == s.charAt(k-1)) hasDouble = true;
+        }
+        return hasDouble;
+    }
+
 }
+
+
 
