@@ -20,8 +20,8 @@ public class Day extends AU {
         if (!testData2.isEmpty()) println("Test Q1: " + solveQ1(testData2));
         println("Day " + getDay() + " Q1: " + solveQ1(getInputLines()));
 
-        if (!testData1.isEmpty()) println("Test Q2: " + solveQ1(testData1));
-        if (!testData2.isEmpty()) println("Test Q2: " + solveQ1(testData2));
+        if (!testData1.isEmpty()) println("Test Q2: " + solveQ2(testData1));
+        if (!testData2.isEmpty()) println("Test Q2: " + solveQ2(testData2));
         println("Day " + getDay() + " Q2: " + solveQ2(getInputLines()));
     }
 

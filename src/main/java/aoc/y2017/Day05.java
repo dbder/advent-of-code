@@ -19,27 +19,16 @@ public class Day05 extends AU {
             1
             -3
             """.lines().collect(toList());
-    List<String> testData2 = """
-            """.lines().collect(toList());
 
     Day05() {
         if (!testData1.isEmpty()) println("Test Q1: " + solveQ1(testData1));
-        if (!testData2.isEmpty()) println("Test Q1: " + solveQ1(testData2));
         println("Day " + getDay() + " Q1: " + solveQ1(getInputLines()));
 
-        if (!testData1.isEmpty()) println("Test Q2: " + solveQ1(testData1));
-        if (!testData2.isEmpty()) println("Test Q2: " + solveQ1(testData2));
+        if (!testData1.isEmpty()) println("Test Q2: " + solveQ2(testData1));
         println("Day " + getDay() + " Q2: " + solveQ2(getInputLines()));
     }
 
     Object solveQ2(List<String> input) {
-        var result = 0L;
-
-        return result;
-    }
-
-    Object solveQ1(List<String> input) {
-        var result = 0L;
         var ints = input.stream().mapToInt(Integer::parseInt).toArray();
 
         int count = 0;
@@ -57,6 +46,26 @@ public class Day05 extends AU {
                 ints[i] = cur + 1;
             }
 
+            i += cur;
+        }
+        return count;
+    }
+
+    Object solveQ1(List<String> input) {
+
+        var ints = input.stream().mapToInt(Integer::parseInt).toArray();
+
+        int count = 0;
+        int i = 0;
+        while (i >=0 && i < ints.length) {
+            count++;
+            var cur = ints[i];
+            if (cur == 0) {
+                ints[i] = 1;
+                continue;
+            }
+
+            ints[i] = cur + 1;
             i += cur;
         }
 
