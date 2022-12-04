@@ -1,7 +1,7 @@
 package aoc.y2015;
 
 import aoc.AU;
-import aoc.AocException;
+import aoc.misc.AocException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

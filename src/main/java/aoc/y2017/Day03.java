@@ -1,7 +1,7 @@
 package aoc.y2017;
 
 import aoc.AU;
-import aoc.V2;
+import aoc.misc.V2;
 
 import java.util.HashSet;
 

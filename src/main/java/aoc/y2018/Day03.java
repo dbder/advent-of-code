@@ -1,8 +1,8 @@
 package aoc.y2018;
 
 import aoc.AU;
-import aoc.AocException;
-import aoc.V2;
+import aoc.misc.AocException;
+import aoc.misc.V2;
 
 import java.util.ArrayList;
 import java.util.HashMap;

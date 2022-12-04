@@ -1,8 +1,8 @@
 package aoc.y2015;
 
 import aoc.AU;
-import aoc.AocException;
-import aoc.V2;
+import aoc.misc.AocException;
+import aoc.misc.V2;
 
 import java.util.HashSet;
 

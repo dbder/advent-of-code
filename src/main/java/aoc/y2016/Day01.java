@@ -1,9 +1,7 @@
 package aoc.y2016;
 
 import aoc.AU;
-import aoc.V2;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import aoc.misc.V2;
 
 import java.util.HashSet;
 import java.util.Set;

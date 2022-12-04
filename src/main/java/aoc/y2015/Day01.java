@@ -1,7 +1,7 @@
 package aoc.y2015;
 
 import aoc.AU;
-import aoc.AocException;
+import aoc.misc.AocException;
 
 public class Day01 extends AU {
 

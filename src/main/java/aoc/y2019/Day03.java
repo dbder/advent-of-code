@@ -1,7 +1,7 @@
 package aoc.y2019;
 
 import aoc.AU;
-import aoc.V2;
+import aoc.misc.V2;
 
 import java.util.ArrayList;
 import java.util.HashMap;

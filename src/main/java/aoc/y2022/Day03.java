@@ -1,7 +1,7 @@
 package aoc.y2022;
 
 import aoc.AU;
-import aoc.AocException;
+import aoc.misc.AocException;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package aoc;
+package aoc.misc;
 
 public record Range1d(int start, int end) {
 

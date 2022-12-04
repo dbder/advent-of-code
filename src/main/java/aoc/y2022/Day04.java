@@ -1,7 +1,7 @@
 package aoc.y2022;
 
 import aoc.AU;
-import aoc.Range1d;
+import aoc.misc.Range1d;
 
 import java.util.List;
 

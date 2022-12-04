@@ -1,7 +1,7 @@
 package aoc.y2016;
 
 import aoc.AU;
-import aoc.AocException;
+import aoc.misc.AocException;
 
 import java.util.ArrayList;
 import java.util.List;

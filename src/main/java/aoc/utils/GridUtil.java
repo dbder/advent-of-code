@@ -1,6 +1,6 @@
 package aoc.utils;
 
-import aoc.V2;
+import aoc.misc.V2;
 
 import java.util.Arrays;
 import java.util.List;
