@@ -1,8 +1,8 @@
 package aoc;
 
-public record V1(int start, int end) {
+public record Range1d(int start, int end) {
 
-    public V1{
+    public Range1d {
         if (start > end) {
             var tmp = start;
             start = end;
@@ -10,15 +10,15 @@ public record V1(int start, int end) {
         }
     }
 
-    public static V1 of(int start, int end) {
-        return new V1(start, end);
+    public static Range1d of(int start, int end) {
+        return new Range1d(start, end);
     }
 
-    public boolean overlaps(V1 other) {
+    public boolean overlaps(Range1d other) {
         return start <= other.end && end >= other.start;
     }
 
-    public boolean contains(V1 other) {
+    public boolean contains(Range1d other) {
         return start <= other.start && end >= other.end;
     }
 
