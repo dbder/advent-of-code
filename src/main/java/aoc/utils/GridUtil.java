@@ -1,6 +1,6 @@
 package aoc.utils;
 
-import aoc.Pos2D;
+import aoc.V2;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,8 +11,8 @@ public interface GridUtil {
     int[][] TPS8 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}, {-1, -1}, {1, 1}, {1, -1}, {-1, 1}};
     int[][] TPS4 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
 
-    List<Pos2D> TPS4List = Arrays.stream(TPS4).map(Pos2D::of).collect(Collectors.toList());
-    List<Pos2D> TPS8List = Arrays.stream(TPS8).map(Pos2D::of).collect(Collectors.toList());
+    List<V2> TPS4List = Arrays.stream(TPS4).map(V2::of).collect(Collectors.toList());
+    List<V2> TPS8List = Arrays.stream(TPS8).map(V2::of).collect(Collectors.toList());
 
     default boolean isIN(int row, int col, int[][] mx) {
         int rows = mx.length;
@@ -20,8 +20,8 @@ public interface GridUtil {
         return row >= 0 && col >= 0 && row < rows && col < cols;
     }
 
-    default boolean isIN(Pos2D pos2D, int[][] mx) {
-        return isIN(pos2D.row(), pos2D.col(), mx);
+    default boolean isIN(V2 v2, int[][] mx) {
+        return isIN(v2.row(), v2.col(), mx);
     }
 
     default char[][] charGrid(List<String> lines) {

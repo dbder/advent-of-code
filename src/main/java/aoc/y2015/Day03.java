@@ -2,7 +2,7 @@ package aoc.y2015;
 
 import aoc.AU;
 import aoc.AocException;
-import aoc.Pos2D;
+import aoc.V2;
 
 import java.util.HashSet;
 
@@ -16,7 +16,7 @@ public class Day03 extends AU {
 
 
     static void solveQ1(String input) {
-        var set = new HashSet<Pos2D>();
+        var set = new HashSet<V2>();
         var current = getP2D(0, 0);
         set.add(current);
         for (var c : input.toCharArray()) {
@@ -34,7 +34,7 @@ public class Day03 extends AU {
 
 
     static void solveQ2(String input) {
-        var set = new HashSet<Pos2D>();
+        var set = new HashSet<V2>();
         var current1 = getP2D(0, 0);
         var current2 = getP2D(0, 0);
         set.add(current1);

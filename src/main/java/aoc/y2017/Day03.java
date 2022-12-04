@@ -1,7 +1,7 @@
 package aoc.y2017;
 
 import aoc.AU;
-import aoc.Pos2D;
+import aoc.V2;
 
 import java.util.HashSet;
 
@@ -51,7 +51,7 @@ public class Day03 extends AU {
                     left--;
                     dir = 3;
                 }
-            } else if (dir == 3) {
+            } else {
                 r++;
                 if (r > bottom) {
                     bottom++;
@@ -71,9 +71,9 @@ public class Day03 extends AU {
 
     Object solveQ1() {
 
-        var pos = new Pos2D(0, 0);
-        var pos2 = new Pos2D(0, 1);
-        var set = new HashSet<Pos2D>();
+        var pos = new V2(0, 0);
+        var pos2 = new V2(0, 1);
+        var set = new HashSet<V2>();
 
         set.add(pos);
         set.add(pos2);

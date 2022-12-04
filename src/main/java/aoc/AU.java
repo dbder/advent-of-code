@@ -122,8 +122,8 @@ public abstract class AU implements
     }
 
 
-    public static Pos2D getP2D(int row, int col) {
-        return new Pos2D(row, col);
+    public static V2 getP2D(int row, int col) {
+        return new V2(row, col);
     }
 
 

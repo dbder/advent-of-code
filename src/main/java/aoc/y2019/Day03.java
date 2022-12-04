@@ -1,7 +1,7 @@
 package aoc.y2019;
 
 import aoc.AU;
-import aoc.Pos2D;
+import aoc.V2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,8 +20,8 @@ public class Day03 extends AU {
 
     Object solveQ2() {
         var input = getInputLines();
-        var set = new HashMap<Pos2D, Integer>();
-        var last = new Pos2D(0, 0);
+        var set = new HashMap<V2, Integer>();
+        var last = new V2(0, 0);
         var ps = input.get(0).split(",");
 
         // plot first wire with stepcount
@@ -43,7 +43,7 @@ public class Day03 extends AU {
         var list = new ArrayList<Integer>();
         steps = 0;
         ps = input.get(1).split(",");
-        last = new Pos2D(0, 0);
+        last = new V2(0, 0);
         for (var p : ps) {
             var dir = p.charAt(0);
             var len = toIntList(p).get(0);
@@ -60,8 +60,8 @@ public class Day03 extends AU {
 
     Object solveQ1() {
         var input = getInputLines();
-        var lineSegments = new HashSet<Pos2D>();
-        var current = new Pos2D(0, 0);
+        var lineSegments = new HashSet<V2>();
+        var current = new V2(0, 0);
         var instructions = input.get(0).split(",");
 
         // plot line 1
@@ -78,7 +78,7 @@ public class Day03 extends AU {
         // get intersections
         var list = new ArrayList<Integer>();
         instructions = input.get(1).split(",");
-        current = new Pos2D(0, 0);
+        current = new V2(0, 0);
         for (var in : instructions) {
             var dir = in.charAt(0);
             var len = toIntList(in).get(0);

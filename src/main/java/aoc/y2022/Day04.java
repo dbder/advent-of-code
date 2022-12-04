@@ -1,6 +1,7 @@
 package aoc.y2022;
 
 import aoc.AU;
+import aoc.V1;
 
 import java.util.List;
 
@@ -31,9 +32,7 @@ public class Day04 extends AU {
         var result = 0L;
         for (var ln : input) {
             var ints = toInts(ln.replace("-", " "));
-            if (ints[1] >= ints[2] && ints[0] <= ints[3]) {
-                result++;
-            }
+            if (V1.of(ints[0], ints[1]).overlaps(V1.of(ints[2], ints[3]))) result++;
         }
         return result;
     }
@@ -42,12 +41,9 @@ public class Day04 extends AU {
         var result = 0L;
         for (var ln : input) {
             var ints = toInts(ln.replace("-", " "));
-            if (ints[0] <= ints[2] && ints[1] >= ints[3]) {
-                result++;
-            } else
-            if (ints[2] <= ints[0] && ints[3] >= ints[1]) {
-                result++;
-            }
+            var v1 = V1.of(ints[0], ints[1]);
+            var v2 = V1.of(ints[2], ints[3]);
+            if (v1.contains(v2) || v2.contains(v1)) result++;
         }
         return result;
     }

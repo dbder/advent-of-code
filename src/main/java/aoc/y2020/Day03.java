@@ -1,7 +1,7 @@
 package aoc.y2020;
 
 import aoc.AU;
-import aoc.Pos2D;
+import aoc.V2;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,7 @@ public class Day03 extends AU {
 
             var grid = charGrid(input);
 
-            var pos = Pos2D.of(0, 0);
+            var pos = V2.of(0, 0);
 
             while (pos.isIN(grid)) {
                 if (grid[pos.row()][pos.col()] == '#') {
@@ -53,7 +53,7 @@ public class Day03 extends AU {
         input.replaceAll(s -> s.repeat(100));
 
         var grid = charGrid(input);
-        var pos = Pos2D.of(0, 0);
+        var pos = V2.of(0, 0);
 
         while (pos.isIN(grid)) {
             if (grid[pos.row()][pos.col()] == '#') {

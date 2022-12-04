@@ -2,7 +2,7 @@ package aoc.y2018;
 
 import aoc.AU;
 import aoc.AocException;
-import aoc.Pos2D;
+import aoc.V2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,13 +24,13 @@ public class Day03 extends AU {
 
         var input = getInputLines();
 
-        Map<Pos2D, List<Integer>> map = new HashMap<>();
+        Map<V2, List<Integer>> map = new HashMap<>();
 
         for (var l : input) {
             var ints = toInts(l);
             for (int r = ints[1]; r < ints[1] + ints[3]; r++) {
                 for (int c = ints[2]; c < ints[2] + ints[4]; c++) {
-                    map.computeIfAbsent(new Pos2D(r, c), k -> new ArrayList<>()).add(ints[0]);
+                    map.computeIfAbsent(new V2(r, c), k -> new ArrayList<>()).add(ints[0]);
                 }
             }
         }
@@ -41,7 +41,7 @@ public class Day03 extends AU {
             boolean dirty = false;
             for (int r = ints[1]; r < ints[1] + ints[3]; r++) {
                 for (int c = ints[2]; c < ints[2] + ints[4]; c++) {
-                    var p = new Pos2D(r, c);
+                    var p = new V2(r, c);
                     var list = map.computeIfAbsent(p, k -> new ArrayList<>());
                     if (list.size() > 1) dirty = true;
                 }
@@ -58,14 +58,14 @@ public class Day03 extends AU {
         var input = getInputLines();
 
 
-        Map<Pos2D, List<Integer>> map = new HashMap<>();
+        Map<V2, List<Integer>> map = new HashMap<>();
 
         for (var l : input) {
             var ints = toInts(l);
 
             for (int r = ints[1]; r < ints[1] + ints[3]; r++) {
                 for (int c = ints[2]; c < ints[2] + ints[4]; c++) {
-                    var p = new Pos2D(r, c);
+                    var p = new V2(r, c);
                     var list = map.computeIfAbsent(p, k -> new ArrayList<>());
                     list.add(ints[0]);
                     if (list.size() == 2) result++;
