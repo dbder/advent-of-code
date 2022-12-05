@@ -24,7 +24,7 @@ public class Day05 extends AU {
 
         var lists = getBase();
 
-        for (String s : input) {
+        for (String s : chunk(input).get(1)) {
             var ints = toInts(s);
             int amount = ints[0];
             int from = ints[1];
@@ -48,8 +48,7 @@ public class Day05 extends AU {
 
     Object solveQ1(List<String> input) {
         ArrayList<LinkedList<String>> lists = getBase();
-
-        for (String s : input) {
+        for (String s : chunk(input).get(1)) {
             var ints = toInts(s);
             int amount = ints[0];
             int from = ints[1];
@@ -64,7 +63,6 @@ public class Day05 extends AU {
                 lists.get(to).addLast(buffer.removeFirst());
             }
         }
-
         return lists.stream()
                 .map(LinkedList::removeLast)
                 .collect(Collectors.joining());

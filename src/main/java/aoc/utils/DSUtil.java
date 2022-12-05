@@ -1,12 +1,30 @@
 package aoc.utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public interface DSUtil {
 
+
+    default List<LinkedList<String>> chunk(List<String> input) {
+        var lists = new ArrayList<LinkedList<String>>();
+        var list = new LinkedList<String>();
+        for (var string : input) {
+            if (string.isBlank()) {
+                lists.add(list);
+                list = new LinkedList<>();
+            } else {
+                list.add(string);
+            }
+        }
+        lists.add(list);
+        return lists;
+    }
 
     default String stringSort(String s) {
         var chars = s.toCharArray();
