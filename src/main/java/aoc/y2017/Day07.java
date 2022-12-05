@@ -1,24 +1,23 @@
-package aoc;
+package aoc.y2017;
 
-import aoc.y2017.Day07;
+import aoc.AU;
 
 import java.util.List;
 import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.toList;
 
-public class Day extends AU {
+public class Day07 extends AU {
 
     public static void main(String[] args) {
 
-
-        if (!testData1.get().isEmpty()) new Day(testData1.get(), true);
-        if (!testData2.get().isEmpty()) new Day(testData2.get(), true);
-        new Day(null, true);
+        if (!testData1.get().isEmpty()) new Day07(testData1.get(), true);
+        if (!testData2.get().isEmpty()) new Day07(testData2.get(), true);
+        new Day07(null, true);
         if (true) return;
-        if (!testData1.get().isEmpty()) new Day(testData1.get(), false);
-        if (!testData2.get().isEmpty()) new Day(testData2.get(), false);
-        new Day(null, false);
+        if (!testData1.get().isEmpty()) new Day07(testData1.get(), false);
+        if (!testData2.get().isEmpty()) new Day07(testData2.get(), false);
+        new Day07(null, false);
     }
 
     static Supplier<List<String>> testData1 = () -> """
@@ -27,7 +26,7 @@ public class Day extends AU {
     static Supplier<List<String>> testData2 = () -> """
             """.lines().collect(toList());
 
-    Day(List<String> testData, boolean q1) {
+    Day07(List<String> testData, boolean q1) {
         switch ((q1 ? "q1" : "q2") + "-" + (testData == null ? "real" : "test")) {
             case "q1-test" -> println("Test Q1: " + solveQ1(testData));
             case "q1-real" -> println("Real Q1: " + solveQ1(getInputLines()));
@@ -48,5 +47,6 @@ public class Day extends AU {
 
         return result;
     }
+
 }
 

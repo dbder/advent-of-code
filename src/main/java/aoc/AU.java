@@ -49,9 +49,7 @@ public abstract class AU implements
         if (getDay() == null || getDay().length() != 2) {
             throw new AocException("getDay() must be implemented");
         }
-        log.warn("-------------------------------------------------------------------");
-        log.warn("                    Starting day : " + getDay() + "  " + this.getClass().toString().split("\\.")[1]);
-        log.warn("-------------------------------------------------------------------");
+        log.warn("----------------- Starting day : " + getDay() + "  " + this.getClass().toString().split("\\.")[1] + " -----------------");
 
         INPUT_PATH = INPUT_PATH_SOURCE.replaceAll("\\{}", this.getClass().toString().split("\\.")[1]);
     }
