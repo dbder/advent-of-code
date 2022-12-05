@@ -45,7 +45,7 @@ public interface MapUtil {
         return result;
     }
 
-    default Map<String, Integer> mapTCount(String[] arr) {
+    default Map<String, Integer> mapStringCount(String[] arr) {
         return mapTCount(Arrays.asList(arr));
     }
 
