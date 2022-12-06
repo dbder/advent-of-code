@@ -2,8 +2,16 @@ package aoc.y2018;
 
 import aoc.AU;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -22,6 +30,13 @@ public class Day07 extends AU {
     }
 
     static Supplier<List<String>> testData1 = () -> """
+            Step C must be finished before step A can begin.
+            Step C must be finished before step F can begin.
+            Step A must be finished before step B can begin.
+            Step A must be finished before step D can begin.
+            Step B must be finished before step E can begin.
+            Step D must be finished before step E can begin.
+            Step F must be finished before step E can begin.
             """.lines().collect(toList());
 
     static Supplier<List<String>> testData2 = () -> """
@@ -46,8 +61,42 @@ public class Day07 extends AU {
     Object solveQ1(List<String> input) {
         var result = 0L;
 
+        var all = new HashSet<String>();
 
-        return result;
+        var map = new HashMap<String, Set<String>>();
+
+        for (var s : input) {
+            var arr = s.split(" ");
+            all.add(arr[1]);
+            all.add(arr[7]);
+
+            var vals = map.computeIfAbsent(arr[7], i -> new HashSet<>());
+            if (map.get(arr[1]) == null) map.put(arr[1], new HashSet<>());
+            vals.add(arr[1]);
+
+        }
+
+        map.entrySet().forEach((f) -> System.out.println(f));
+
+
+        var list = new LinkedList<String>();
+        while (map.size() >0) {
+            var before = map.entrySet().stream().filter(e -> e.getValue().isEmpty()).sorted(Comparator.comparing(Map.Entry::getKey)).findFirst().orElse(null);
+//            if (before == null) break;
+            list.addLast(before.getKey());
+            map.remove(before.getKey());
+            for (var e : map.entrySet()) {
+                e.getValue().remove(before.getKey());
+            }
+        }
+        return list.stream().collect(Collectors.joining());
+
+        //ACBPFXIDHWEGZMNOJLRKSUQTVY
+        //RZTLGHKWPFCNXVEMABUOSIDQJY
+        //ZWTNXVUFSIQOMKHJEDCB
+        //PGRALBCDEFHIJKMNOQSTUVWXYZ
+
+//        return result;
     }
 }
 
