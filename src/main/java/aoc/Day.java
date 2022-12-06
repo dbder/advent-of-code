@@ -46,6 +46,7 @@ public class Day extends AU {
     Object solveQ1(List<String> input) {
         var result = 0L;
 
+
         return result;
     }
 }
