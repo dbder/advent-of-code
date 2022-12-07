@@ -2,6 +2,7 @@ package aoc.y2018;
 
 import aoc.AU;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -20,8 +22,8 @@ public class Day07 extends AU {
     public static void main(String[] args) {
 
 
-        if (!testData1.get().isEmpty()) new Day07(testData1.get(), true);
-        if (!testData2.get().isEmpty()) new Day07(testData2.get(), true);
+//        if (!testData1.get().isEmpty()) new Day07(testData1.get(), true);
+//        if (!testData2.get().isEmpty()) new Day07(testData2.get(), true);
         new Day07(null, true);
         if (true) return;
         if (!testData1.get().isEmpty()) new Day07(testData1.get(), false);
@@ -76,18 +78,42 @@ public class Day07 extends AU {
 
         }
 
-        map.entrySet().forEach((f) -> System.out.println(f));
+        record Worker(int id, int cost){}
 
+        var pq  = new PriorityQueue<Integer>((a,b) -> a - b);
+        pq.add(0);
+        pq.add(0);
+        pq.add(0);
+        pq.add(0);
+        pq.add(0);
 
         var list = new LinkedList<String>();
-        while (map.size() >0) {
-            var before = map.entrySet().stream().filter(e -> e.getValue().isEmpty()).sorted(Comparator.comparing(Map.Entry::getKey)).findFirst().orElse(null);
-//            if (before == null) break;
-            list.addLast(before.getKey());
-            map.remove(before.getKey());
-            for (var e : map.entrySet()) {
-                e.getValue().remove(before.getKey());
-            }
+        var visited = new HashSet<String>();
+        List<List<String>> batches = new ArrayList<>();
+        while (map.size() > 0) {
+//            pq.poll();
+//            var tmp = pq.poll();
+//            System.out.println(tmp);
+//            pq.clear();
+//            pq.add(tmp);
+//            pq.add(tmp);
+            var possible = all.stream().filter(a -> !visited.contains(a)).filter(a -> possible(visited, map, a)).collect(toList());
+            System.out.println(possible);
+            possible.forEach(i -> {
+                var poll = pq.poll();
+                int val = ((i.charAt(0) - (int)'A') +1);
+                poll += val;
+                pq.add(poll);
+            });
+            batches.add(possible);
+            visited.addAll(possible);
+
+
+            System.out.println(pq);
+            System.out.println(possible);
+
+
+
         }
         return list.stream().collect(Collectors.joining());
 
@@ -97,6 +123,10 @@ public class Day07 extends AU {
         //PGRALBCDEFHIJKMNOQSTUVWXYZ
 
 //        return result;
+    }
+
+    boolean possible(Set<String> visited, HashMap<String, Set<String>> map, String key) {
+        return visited.containsAll(map.get(key));
     }
 }
 
