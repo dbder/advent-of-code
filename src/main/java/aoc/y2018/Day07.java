@@ -1,6 +1,7 @@
 package aoc.y2018;
 
 import aoc.AU;
+import aoc.misc.AocException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,22 +82,19 @@ public class Day07 extends AU {
         record Worker(int id, int cost){}
 
         var pq  = new PriorityQueue<Integer>((a,b) -> a - b);
-        pq.add(0);
-        pq.add(0);
-        pq.add(0);
-        pq.add(0);
-        pq.add(0);
+        int workers = 2;
+        for (int i = 0; i < workers; i++) pq.add(0);
 
         var list = new LinkedList<String>();
         var visited = new HashSet<String>();
         List<List<String>> batches = new ArrayList<>();
         while (map.size() > 0) {
-//            pq.poll();
-//            var tmp = pq.poll();
-//            System.out.println(tmp);
-//            pq.clear();
-//            pq.add(tmp);
-//            pq.add(tmp);
+
+            var max = pq.stream().mapToInt(i -> i).max().orElseThrow(() -> new AocException("Can not"));
+            while (pq.size() < workers) {
+                pq.add(max);
+            }
+
             var possible = all.stream().filter(a -> !visited.contains(a)).filter(a -> possible(visited, map, a)).collect(toList());
             System.out.println(possible);
             possible.forEach(i -> {
@@ -107,6 +105,7 @@ public class Day07 extends AU {
             });
             batches.add(possible);
             visited.addAll(possible);
+
 
 
             System.out.println(pq);
