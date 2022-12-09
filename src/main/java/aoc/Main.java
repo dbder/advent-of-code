@@ -1,51 +1,99 @@
-package aoc;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-public class Main {
-
-    public static void main(String[] args) throws IOException {
-
-        List<String> input = new ArrayList<>(100000);
-        List<String> calcs = new ArrayList<>(100000);
-        boolean[] p1 = new boolean[1];
-        Files.lines(Path.of("./aoc_2022_day05_large_input-2.txt")).forEach(s -> {
-            if (s.isBlank()) p1[0] = true;
-
-            if (p1[0]) {
-                System.out.println(s);
-                var spl = s.split(" ");
-
-            } else {
-                input.add(s);
-            }
-         });
-
-        long time = System.currentTimeMillis();
-
-        int[] c = new int[1];
-//        l.forEach(i -> System.out.println(++c[0] + " " + i));
-//        l.takeWhile(i -> !i.isBlank()).map(Main::letter).forEach(i -> System.out.println(++c[0] + " " + Arrays.toString(i)));
-
-        int[] tops = new int[9];
-        int[][] bars = new int[1499995 * 3][9];
-
-
-        System.out.println("time : " + (System.currentTimeMillis() - time));
-    }
-
-    private static char[] letter(String str) {
-        char[] chars = new char[9];
-//        int i = 0;
-        for (int i = 0, j = 1; i < 9; i++, j += 4) {
-            chars[i] = str.charAt(j);
-        }
-
-        return chars;
-    }
-}
+//package aoc;
+//
+//import java.io.IOException;
+//import java.nio.file.Files;
+//import java.nio.file.Path;
+//import java.util.ArrayList;
+//import java.util.Collections;
+//import java.util.List;
+//import java.util.Set;
+//import java.util.function.BiConsumer;
+//import java.util.function.BinaryOperator;
+//import java.util.function.Function;
+//import java.util.function.Supplier;
+//import java.util.stream.Collector;
+//import java.util.stream.Collectors;
+//import java.util.stream.Stream;
+//
+//public class Main {
+//
+//    public static void main(String[] args) {
+//        try (Stream<String> stream = Files.lines(Path.of("input"))) {
+//
+//            int sum = stream.collect(ElfCollector.get())
+//                    .stream()
+//                    .map(s -> String.join("", s))
+//                    .map(Main::findSharedChar)
+//                    .mapToInt(Main::getScore).sum();
+//
+//            System.out.println(sum);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+//
+//    public static int getScore(Character sharedChar) {
+//        if (sharedChar >= 'A' && sharedChar <= 'Z')
+//            return sharedChar - 64 + 26;
+//        else
+//            return sharedChar - 96;
+//    }
+//
+//    private static Character findSharedChar(String s) {
+//        for (int i = 0; i < s.length(); i++) {
+//            char c = s.charAt(i);
+//            if (s.indexOf(c) > -0)
+//                return s.charAt(i);
+//        }
+//        throw new RuntimeException("No shared char found");
+//    }
+//
+//}
+//
+//class ElfCollector<String> implements Collector<String, List<List<String>>, List<List<String>>> {
+//
+//    static ElfCollector<java.lang.String> get() {
+//        return new ElfCollector<>();
+//    }
+//
+//    int counter = 0;
+//
+//    @Override
+//    public Supplier<List<List<String>>> supplier() {
+//        return ArrayList::new;
+//    }
+//
+//    @Override
+//    public BiConsumer<List<List<String>>, String> accumulator() {
+//        return (outerList, elf) -> {
+//            Stream.of("").collect(Collectors.toList())
+//            if (outerList.size() < 1) {
+//                outerList.add(new ArrayList<>());
+//            }
+//            if (outerList.get(counter).size() < 3) {
+//                outerList.get(counter).add(elf);
+//            } else {
+//                ArrayList<String> newList = new ArrayList<>();
+//                newList.add(elf);
+//                outerList.add(newList);
+//                counter++;
+//            }
+//        };
+//    }
+//
+//    @Override
+//    public BinaryOperator<List<List<String>>> combiner() {
+//        return null;
+//    }
+//
+//    @Override
+//    public Function<List<List<String>>, List<List<String>>> finisher() {
+//        return Collections::unmodifiableList;
+//    }
+//
+//    @Override
+//    public Set<Characteristics> characteristics() {
+//        return Set.of(Characteristics.IDENTITY_FINISH);
+//    }
+//}
+//
