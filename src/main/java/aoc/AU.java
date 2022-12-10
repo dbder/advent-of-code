@@ -218,7 +218,7 @@ public abstract class AU implements
                 .toArray(Integer[]::new);
     }
 
-    public static int toInt(String str) {
-        return Integer.parseInt(str.trim());
+    public int toInt(String str) {
+        return toInts(str)[0];
     }
 }

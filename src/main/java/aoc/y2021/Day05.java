@@ -86,10 +86,10 @@ public class Day05 extends AU {
         static Line parse(String string) {
             var parts = string.split(",| -> ");
             return new Line(
-                    toInt(parts[0]),
-                    toInt(parts[1]),
-                    toInt(parts[2]),
-                    toInt(parts[3])
+                    Integer.parseInt(parts[0]),
+                    Integer.parseInt(parts[1]),
+                    Integer.parseInt(parts[2]),
+                    Integer.parseInt(parts[3])
             );
         }
 

@@ -222,8 +222,11 @@ public class Day10 extends AU {
         cycle++;
         var l = List.of(20, 60, 100, 140, 180, 220);
         if (l.contains(cycle)) {
-            frame++;
             list.add(x * cycle);
+        }
+
+        if (l.contains(cycle + 20)) {
+            frame++;
         }
     }
 
