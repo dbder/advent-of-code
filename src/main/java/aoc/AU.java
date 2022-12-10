@@ -70,7 +70,7 @@ public abstract class AU implements
     }
 
     public static void println(Object o) {
-        if (o instanceof List l) {
+        if (o instanceof ArrayList l) {
             printlist(l);
         } else {
             log.info(o);
@@ -88,6 +88,11 @@ public abstract class AU implements
 
     public static void println(String[] o) {
         var str = Arrays.stream(o).map(Object::toString).collect(Collectors.joining(",", "[", "]"));
+        log.info(str);
+    }
+
+    public static void println(char[] o) {
+        var str = Arrays.toString(o);
         log.info(str);
     }
 

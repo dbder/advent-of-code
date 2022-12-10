@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -24,11 +25,8 @@ public class Day10 extends AU {
 
     public static void main(String[] args) {
         if (!testData1.get().isEmpty()) new Day10(testData1.get(), true);
-        if (!testData2.get().isEmpty()) new Day10(testData2.get(), true);
         new Day10(null, true);
-        if (true) return;
         if (!testData1.get().isEmpty()) new Day10(testData1.get(), false);
-        if (!testData2.get().isEmpty()) new Day10(testData2.get(), false);
         new Day10(null, false);
     }
 
@@ -181,45 +179,32 @@ public class Day10 extends AU {
             noop
             """.lines().collect(toList());
 
-    static Supplier<List<String>> testData2 = () -> """
-            """.lines().collect(toList());
-
     Object solveQ2(List<String> input) {
-        var result = 0L;
-        //DAY2 !!
-        return result;
+        for (var line : input) {
+            increase();
+            if (line.equals("noop")) continue;
+            x += toInts(line)[0];
+            increase();
+        }
+        return chars.stream().map(String::valueOf).collect(Collectors.joining("\n", "\n", "\n"));
     }
 
     Object solveQ1(List<String> input) {
-        var result = 0L;
 
         for (var line : input) {
-            if (line.equals("noop")) {
-                increase();
-                continue;
-            }
-
-
             increase();
-            var i = toInts(line)[0];
-            x += i;
+            if (line.equals("noop")) continue;
+            x += toInts(line)[0];
             increase();
-
         }
-
-        System.out.println(list);
-
-        chars.stream().forEach(System.out::println);
-
         return list.stream().mapToInt(i -> i).sum();
     }
-    int x  = 1;
-    int cycle = 1;
 
+    int x = 1;
+    int cycle = 1;
     int frame = 0;
 
     List<char[]> chars = new ArrayList<>();
-
     {
         for (int i = 0; i < 10; i++) {
             chars.add(new char[100]);
@@ -230,16 +215,11 @@ public class Day10 extends AU {
     List<Integer> list = new ArrayList<>();
 
     void increase() {
-
-        int pixel = ((cycle-1) % 40);
-        if (pixel == x || pixel == x-2 || pixel == x-1) {
+        int pixel = ((cycle - 1) % 40);
+        if (pixel == x || pixel == x - 2 || pixel == x - 1) {
             chars.get(frame)[pixel] = 'X';
         }
-
-
         cycle++;
-
-
         var l = List.of(20, 60, 100, 140, 180, 220);
         if (l.contains(cycle)) {
             frame++;
