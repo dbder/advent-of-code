@@ -2,13 +2,11 @@ package aoc.y2022;
 
 import aoc.AU;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
-
-import static java.util.Arrays.asList;
+import java.util.stream.IntStream;
 
 public class Day05 extends AU {
 
@@ -22,67 +20,57 @@ public class Day05 extends AU {
     }
 
     Object solveQ2(List<String> input) {
-
-        var lists = getBase();
-
-        for (String s : chunk(input).get(1)) {
-            var ints = toInts(s);
-            int amount = ints[0];
-            int from = ints[1];
-            int to = ints[2];
-
-            var buffer = new LinkedList<String>();
-            for (int i = 0; i < amount; i++) {
-                buffer.add(lists.get(from).removeLast());
-            }
-
-            for (int i = 0; i < amount; i++) {
-                lists.get(to).addLast(buffer.removeLast());
-            }
-
-        }
-
-        return lists.stream()
-                .map(LinkedList::removeLast)
-                .collect(Collectors.joining());
+        var lists = chunk(input);
+        var stacks = getStacks(lists.get(0));
+        doInstructions(stacks, lists.get(1), (ch, stack) -> stack.addFirst(ch));
+        return stacks.stream().map(s -> "" + s.peekLast()).collect(Collectors.joining());
     }
 
     Object solveQ1(List<String> input) {
-        ArrayList<LinkedList<String>> lists = getBase();
-        for (String s : chunk(input).get(1)) {
-            var ints = toInts(s);
+        var lists = chunk(input);
+        var stacks = getStacks(lists.get(0));
+        doInstructions(stacks, lists.get(1), (ch, stack) -> stack.addLast(ch));
+        return stacks.stream().map(s -> "" + s.peekLast()).collect(Collectors.joining());
+    }
+
+
+    public void doInstructions(List<LinkedList<Character>> stacks, List<String> instructions, BiConsumer<Character, LinkedList<Character>> bufferFillStrategy) {
+        for (var line : instructions) {
+            var ints = toInts(line);
             int amount = ints[0];
-            int from = ints[1];
-            int to = ints[2];
+            int from = ints[1] - 1;
+            int to = ints[2] - 1;
 
-            var buffer = new LinkedList<String>();
-            for (int i = 0; i < amount; i++) {
-                buffer.add(lists.get(from).removeLast());
-            }
+            var buffer = new LinkedList<Character>();
 
-            for (int i = 0; i < amount; i++) {
-                lists.get(to).addLast(buffer.removeFirst());
-            }
+            IntStream.range(0, amount)
+                    .mapToObj(i -> stacks.get(from))
+                    .map(LinkedList::removeLast)
+                    .forEach(ch -> bufferFillStrategy.accept(ch, buffer));
+
+            stacks.get(to).addAll(buffer);
+
         }
-        return lists.stream()
-                .map(LinkedList::removeLast)
-                .collect(Collectors.joining());
     }
 
-    private static ArrayList<LinkedList<String>> getBase() {
-        var lists = new ArrayList<LinkedList<String>>();
-        lists.add(new LinkedList<>(asList("")));
-        lists.add(new LinkedList<>(asList("P", "F", "M", "Q", "W", "G", "R", "T")));
-        lists.add(new LinkedList<>(asList("H", "F", "R")));
-        lists.add(new LinkedList<>(asList("P", "Z", "R", "V", "G", "H", "S", "D")));
-        lists.add(new LinkedList<>(asList("Q", "H", "P", "B", "F", "W", "G")));
-        lists.add(new LinkedList<>(asList("P", "S", "M", "J", "H")));
-        lists.add(new LinkedList<>(asList("M", "Z", "T", "H", "S", "R", "P", "L")));
-        lists.add(new LinkedList<>(asList("P", "T", "H", "N", "M", "L")));
-        lists.add(new LinkedList<>(asList("F", "D", "Q", "R")));
-        lists.add(new LinkedList<>(asList("D", "S", "C", "N", "L", "P", "H")));
-        return lists;
-    }
+    List<LinkedList<Character>> getStacks(List<String> input) {
+        int index = 0;
+        int numberOfStacks = 9;
 
+        var stacks = IntStream
+                .range(0, numberOfStacks)
+                .mapToObj(i -> new LinkedList<Character>())
+                .toList();
+
+        while (input.get(index).charAt(0) != ' ') {
+            var line = input.get(index);
+            for (int i = 0; i < 9; i++) {
+                var ch = line.charAt(1 + (i * 4));
+                if (ch != ' ') stacks.get(i).addFirst(ch);
+            }
+            index++;
+        }
+        return stacks;
+    }
 }
 
