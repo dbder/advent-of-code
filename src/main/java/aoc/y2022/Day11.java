@@ -85,11 +85,13 @@ public class Day11 extends AU {
 
 
 
+        long modulo = 1;
         while (i < input.size()) {
             int id = toInt(input.get(i++));
             var items = toInts(input.get(i++));
             i++;
             var test = toInt(input.get(i++));
+            modulo *= test;
             var ontrue = toInt(input.get(i++));
             var onfalse = toInt(input.get(i++));
             i++;
@@ -101,7 +103,7 @@ public class Day11 extends AU {
 
         for (int j = 0 ; j < 10000; j++) {
 //           if (j % 100 == 0) println("j = " + j);
-          doRound(monkeys);
+          doRound(monkeys, modulo);
         }
         for (var v : map.values()) {
             System.out.println(v.id + " " + v.items);
@@ -113,11 +115,10 @@ public class Day11 extends AU {
 
         return map.values().stream().map(m -> m.inspected[0]).sorted((a,b) -> b.compareTo(a)).limit(2).reduce(1L, (a,b) -> a *  b);
     }
-
     record Monkey(int id, List<Long> items, int test, int ontrue, int onfalse, long[] inspected) {
     }
 
-    void doRound(List<Monkey> monkeys) {
+    void doRound(List<Monkey> monkeys, long modulo) {
 
 //        var monkeys = map.values().stream().sorted((a,b) -> a.id - b.id).collect(toList());
 
@@ -128,7 +129,7 @@ public class Day11 extends AU {
             var trues = new LinkedList<BigInteger>();
             for (var item : monkey.items) {
                 monkey.inspected[0]++;
-                item = dom(monkey.id, item, monkey.test);
+                item = dom(monkey.id, item, modulo);
 //                item /= 3;
                 if (item % monkey.test == 0) {
                     monkeys.get(monkey.ontrue).items.add(item);
@@ -159,7 +160,7 @@ public class Day11 extends AU {
 //        } % (23 * 19 * 13 * 17);
 //    }
 
-    long dom(int id, long val, int mod) {
+    long dom(int id, long val, long mod) {
         return switch (id) {
             case 0 -> val * 13;
             case 1 -> val + 2;
@@ -170,7 +171,8 @@ public class Day11 extends AU {
             case 6 -> val * val;
             case 7 -> val + 6;
             default -> throw new AocException("Unknown id");
-        } % (3 * 13 * 19* 17 * 5 *7* 11 * 2);
+        } % (mod);
+//        } % (3 * 13 * 19* 17 * 5 *7* 11 * 2);
     }
 
 }
