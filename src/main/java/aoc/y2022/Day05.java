@@ -20,37 +20,41 @@ public class Day05 extends AU {
     }
 
     Object solveQ2(List<String> input) {
-        var lists = chunk(input);
-        var stacks = getStacks(lists.get(0));
-        doInstructions(stacks, lists.get(1), (ch, stack) -> stack.addFirst(ch));
+        var stacks = doInstructions(input, (ch, stack) -> stack.addFirst(ch));
         return stacks.stream().map(s -> "" + s.peekLast()).collect(Collectors.joining());
     }
 
     Object solveQ1(List<String> input) {
-        var lists = chunk(input);
-        var stacks = getStacks(lists.get(0));
-        doInstructions(stacks, lists.get(1), (ch, stack) -> stack.addLast(ch));
+        var stacks = doInstructions(input, (ch, stack) -> stack.addLast(ch));
         return stacks.stream().map(s -> "" + s.peekLast()).collect(Collectors.joining());
     }
 
+    public List<LinkedList<Character>> doInstructions(List<String> input, BiConsumer<Character, LinkedList<Character>> bufferFillStrategy) {
+        var lists = chunk(input);
+        var stacks = getStacks(lists.get(0));
+        lists.get(1).stream()
+                .map(this::toInstruction)
+                .forEach(instr -> process(stacks, instr, bufferFillStrategy));
+        return stacks;
+    }
 
-    public void doInstructions(List<LinkedList<Character>> stacks, List<String> instructions, BiConsumer<Character, LinkedList<Character>> bufferFillStrategy) {
-        for (var line : instructions) {
-            var ints = toInts(line);
-            int amount = ints[0];
-            int from = ints[1] - 1;
-            int to = ints[2] - 1;
+    private void process(List<LinkedList<Character>> stacks, Instruction instruction, BiConsumer<Character, LinkedList<Character>> bufferFillStrategy) {
+        var buffer = new LinkedList<Character>();
 
-            var buffer = new LinkedList<Character>();
+        IntStream.range(0, instruction.amount)
+                .mapToObj(i -> stacks.get(instruction.from))
+                .map(LinkedList::removeLast)
+                .forEach(ch -> bufferFillStrategy.accept(ch, buffer));
 
-            IntStream.range(0, amount)
-                    .mapToObj(i -> stacks.get(from))
-                    .map(LinkedList::removeLast)
-                    .forEach(ch -> bufferFillStrategy.accept(ch, buffer));
+        stacks.get(instruction.to).addAll(buffer);
+    }
 
-            stacks.get(to).addAll(buffer);
+    private Instruction toInstruction(String str) {
+        var ints = toInts(str);
+        return new Instruction(ints[0], ints[1] - 1, ints[2] - 1);
+    }
 
-        }
+    record Instruction(int amount, int from, int to) {
     }
 
     List<LinkedList<Character>> getStacks(List<String> input) {
