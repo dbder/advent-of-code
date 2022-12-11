@@ -3,17 +3,12 @@ package aoc.y2022;
 import aoc.AU;
 import aoc.misc.AocException;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
+import static java.util.Comparator.reverseOrder;
 import static java.util.stream.Collectors.toList;
 
 public class Day11 extends AU {
@@ -29,12 +24,7 @@ public class Day11 extends AU {
     }
 
     public static void main(String[] args) {
-//        if (!testData1.get().isEmpty()) new Day11(testData1.get(), true);
-//        if (!testData2.get().isEmpty()) new Day11(testData2.get(), true);
         new Day11(null, true);
-        if (true) return;
-        if (!testData1.get().isEmpty()) new Day11(testData1.get(), false);
-        if (!testData2.get().isEmpty()) new Day11(testData2.get(), false);
         new Day11(null, false);
     }
 
@@ -68,55 +58,48 @@ public class Day11 extends AU {
                  If false: throw to monkey 1
             """.lines().collect(toList());
 
-    static Supplier<List<String>> testData2 = () -> """
-            """.lines().collect(toList());
-
     Object solveQ2(List<String> input) {
-        var result = 0L;
-        //DAY2 !!
-        return result;
+        var monkeys = getMonkeys(input);
+        int modulo = monkeys.stream().map(m -> m.test).reduce(1, (a, b) -> a * b);
+        for (int j = 0 ; j < 10000; j++) doRound(monkeys, modulo, 1);
+        return monkeys.stream().map(m -> m.inspected[0]).sorted(reverseOrder()).limit(2).reduce(1L, (a, b) -> a *  b);
     }
 
     Object solveQ1(List<String> input) {
+        var monkeys = getMonkeys(input);
+        int modulo = monkeys.stream().map(m -> m.test).reduce(1, (a, b) -> a * b);
+        for (int j = 0 ; j < 20; j++) {
+            doRound(monkeys, modulo, 3);
+        }
+        return monkeys.stream().map(m -> m.inspected[0]).sorted(reverseOrder()).limit(2).reduce(1L, (a, b) -> a *  b);
+    }
 
-        int i = 0;
-
+    List<Monkey> getMonkeys(List<String> input) {
         var monkeys = new ArrayList<Monkey>();
-        long modulo = 1;
+        int i = 0;
         while (i < input.size()) {
             int id = toInt(input.get(i++));
             var items = toInts(input.get(i++));
             i++;
             var test = toInt(input.get(i++));
-            modulo *= test;
             var ontrue = toInt(input.get(i++));
             var onfalse = toInt(input.get(i++));
             i++;
-            var monkey = new Monkey(id, Arrays.stream(items).map(lo -> Long.valueOf(lo)).collect(toList()), test, ontrue, onfalse, new long[1]);
-            monkeys.add(id, monkey);
+            var monkey = new Monkey(id, Arrays.stream(items).map(Long::valueOf).collect(toList()), test, ontrue, onfalse, new long[1]);
+            monkeys.add(monkey);
         }
-
-
-        for (int j = 0 ; j < 10000; j++) {
-          doRound(monkeys, modulo);
-        }
-        for (var v : monkeys) {
-            System.out.println(v.id + " " + v.items);
-        }
-
-        var ins = monkeys.stream().map(m -> m.inspected[0]).collect(toList());
-        System.out.println(ins);
-
-        return monkeys.stream().map(m -> m.inspected[0]).sorted((a,b) -> b.compareTo(a)).limit(2).reduce(1L, (a,b) -> a *  b);
-    }
-    record Monkey(int id, List<Long> items, int test, int ontrue, int onfalse, long[] inspected) {
+        return monkeys;
     }
 
-    void doRound(List<Monkey> monkeys, long modulo) {
+    record Monkey(int id, List<Long> items, int test, int ontrue, int onfalse, long[] inspected) {}
+
+    void doRound(List<Monkey> monkeys, long modulo, int div) {
+        modulo *= div;
         for (var monkey : monkeys) {
             for (var item : monkey.items) {
                 monkey.inspected[0]++;
                 item = dom(monkey.id, item, modulo);
+                item /= div;
                 if (item % monkey.test == 0) {
                     monkeys.get(monkey.ontrue).items.add(item);
                 } else {
@@ -126,16 +109,6 @@ public class Day11 extends AU {
             monkey.items.clear();
         }
     }
-//
-//    long dom(int id, long val, int mod) {
-//        return switch (id) {
-//            case 0 -> val  * 19;
-//            case 1 -> val + 6;
-//            case 2 -> val * val;
-//            case 3 -> val + 3;
-//            default -> throw new AocException("Unknown id");
-//        } % (23 * 19 * 13 * 17);
-//    }
 
     long dom(int id, long val, long mod) {
         return switch (id) {
@@ -149,7 +122,6 @@ public class Day11 extends AU {
             case 7 -> val + 6;
             default -> throw new AocException("Unknown id");
         } % (mod);
-//        } % (3 * 13 * 19* 17 * 5 *7* 11 * 2);
     }
 
 }
