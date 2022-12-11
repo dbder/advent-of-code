@@ -4,6 +4,7 @@ import aoc.AU;
 import aoc.misc.AocException;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -77,14 +78,10 @@ public class Day11 extends AU {
     }
 
     Object solveQ1(List<String> input) {
-        var result = 0L;
 
         int i = 0;
 
-        var map = new HashMap<Integer, Monkey>();
-
-
-
+        var monkeys = new ArrayList<Monkey>();
         long modulo = 1;
         while (i < input.size()) {
             int id = toInt(input.get(i++));
@@ -96,59 +93,39 @@ public class Day11 extends AU {
             var onfalse = toInt(input.get(i++));
             i++;
             var monkey = new Monkey(id, Arrays.stream(items).map(lo -> Long.valueOf(lo)).collect(toList()), test, ontrue, onfalse, new long[1]);
-            map.put(id, monkey);
+            monkeys.add(id, monkey);
         }
 
-        var monkeys = map.values().stream().sorted((a,b) -> a.id - b.id).collect(toList());
 
         for (int j = 0 ; j < 10000; j++) {
-//           if (j % 100 == 0) println("j = " + j);
           doRound(monkeys, modulo);
         }
-        for (var v : map.values()) {
+        for (var v : monkeys) {
             System.out.println(v.id + " " + v.items);
-//            map.values().stream()
         }
 
-        var ins = map.values().stream().map(m -> m.inspected[0]).collect(toList());
+        var ins = monkeys.stream().map(m -> m.inspected[0]).collect(toList());
         System.out.println(ins);
 
-        return map.values().stream().map(m -> m.inspected[0]).sorted((a,b) -> b.compareTo(a)).limit(2).reduce(1L, (a,b) -> a *  b);
+        return monkeys.stream().map(m -> m.inspected[0]).sorted((a,b) -> b.compareTo(a)).limit(2).reduce(1L, (a,b) -> a *  b);
     }
     record Monkey(int id, List<Long> items, int test, int ontrue, int onfalse, long[] inspected) {
     }
 
     void doRound(List<Monkey> monkeys, long modulo) {
-
-//        var monkeys = map.values().stream().sorted((a,b) -> a.id - b.id).collect(toList());
-
-
         for (var monkey : monkeys) {
-
-            var falses = new LinkedList<BigInteger>();
-            var trues = new LinkedList<BigInteger>();
             for (var item : monkey.items) {
                 monkey.inspected[0]++;
                 item = dom(monkey.id, item, modulo);
-//                item /= 3;
                 if (item % monkey.test == 0) {
                     monkeys.get(monkey.ontrue).items.add(item);
                 } else {
                     monkeys.get(monkey.onfalse).items.add(item);
-
                 }
-
-
             }
-
             monkey.items.clear();
-
         }
-
     }
-
-//    boolean test(int id, int)
-
 //
 //    long dom(int id, long val, int mod) {
 //        return switch (id) {
