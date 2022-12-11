@@ -4,6 +4,7 @@ import aoc.AU;
 import aoc.misc.AocException;
 import aoc.misc.V2;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -62,82 +63,56 @@ public class Day09 extends AU {
     }
 
     Object solveQ1(List<String> input) {
-        var result = 0L;
-
-        var current = new V2(0,0);
-//        var tail = new V2(0,0);
         var visited = new HashSet<V2>();
-
         V2[] knots = new V2[10];
         for (int i = 0; i < knots.length; i++) {
-            knots[i] = new V2(0,0);
+            knots[i] = new V2(0, 0);
         }
 
 
         for (var line : input) {
-            var split =line.split(" ");
+            var split = line.split(" ");
             var dir = split[0];
             var steps = Integer.parseInt(split[1]);
 
             for (int i = 0; i < steps; i++) {
-
-                current = current.move(dir);
-                knots[0] = current;
+                V2[] newknots = new V2[10];
+                newknots[0] = knots[0].move(dir);
                 for (int j = 1; j < knots.length; j++) {
-                    var tail = knots[j];
-                    var cur = knots[j-1];
-                    int r = 0;
-                    int c = 0;
-                    int rd = Math.abs(cur.row() - tail.row());
-                    int cd = Math.abs(cur.col() - tail.col());
-                    boolean distanced = rd == 2 || cd == 2;
-                    if (cur.col() == tail.col() && cur.row() == tail.row()) {
-                        continue;
-                    }
-                    if (rd == 1 && cd == 1) {
-                        continue;
-                    }
+                    var last = newknots[j - 1];
+                    var cur = knots[j];
 
-                    if (cur.row() != tail.row() && (distanced || Math.abs(cur.row() - tail.row()) > 1)) {
 
-                        if (tail.row() < cur.row()) {
-                            r = 1;
-                        } else {
-                            r = -1;
-                        }
-
+                    if (last.diffAbs(cur).row() == 2 || last.diffAbs(cur).col() == 2) {
+                        newknots[j] = knots[j - 1];
+                    } else {
+                        newknots[j] = knots[j];
                     }
-                    if (cur.col() != tail.col() && (distanced || Math.abs(cur.col() - tail.col()) > 1)) {
-                        if (tail.col() < cur.col()) {
-                            c = 1;
-                        } else {
-                            c = -1;
-                        }
+                    if (j == knots.length - 2) {
+                        visited.add(newknots[j]);
                     }
-                    var next = tail.add(r, c);
-                    knots[j] = next;
-                    if (j == knots.length-1) {
-                        visited.add(tail);
-                    }
-
                 }
-//                println(knots);
+                knots = newknots;
             }
 
 
         }
 
-        System.out.println(visited);
-
-        int[][] grid = new int[400][400];
-
-//        for (var v : visited) {
-//            grid[-v.row()+ 70][v.col() + 70] = 1;
-//        }
-//
-//        println(grid);
+        printGrid(visited);
 
         return visited.size();
+    }
+
+    private static void printGrid(HashSet<V2> visited) {
+        var minr = visited.stream().mapToInt(V2::row).min().orElse(0);
+        var minc = visited.stream().mapToInt(V2::col).min().orElse(0);
+        var maxr = visited.stream().mapToInt(V2::row).max().orElse(0);
+        var maxc = visited.stream().mapToInt(V2::col).max().orElse(0);
+
+        boolean[][] grid = new boolean[maxr + 1 - minr][maxc + 1 - minc];
+
+        for (var v : visited) grid[v.row() - minr][v.col() - minc] = true;
+        println(grid);
     }
 }
 

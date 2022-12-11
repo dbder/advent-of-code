@@ -86,6 +86,16 @@ public abstract class AU implements
         log.info(str);
     }
 
+    public static void println(boolean[][] o) {
+        for (boolean[] booleans : o) {
+            for (boolean aBoolean : booleans) {
+                System.out.print(aBoolean ? "█" : " ");
+            }
+            System.out.println();
+        }
+
+    }
+
     public static void println(String[] o) {
         var str = Arrays.stream(o).map(Object::toString).collect(Collectors.joining(",", "[", "]"));
         log.info(str);

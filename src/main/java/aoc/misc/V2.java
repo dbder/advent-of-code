@@ -138,4 +138,12 @@ public record V2(int row, int col) {
         return Math.abs(row - v.row) + Math.abs(col - v.col);
     }
 
+    public V2 diff(V2 other) {
+        return new V2(row - other.row, col - other.col);
+    }
+
+    public V2 diffAbs(V2 other) {
+        return new V2(Math.abs(row - other.row), Math.abs(col - other.col));
+    }
+
 }

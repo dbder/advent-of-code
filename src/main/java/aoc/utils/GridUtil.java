@@ -60,7 +60,7 @@ public interface GridUtil {
             System.out.println(Arrays
                     .stream(grid[r])
                     .mapToObj(String::valueOf)
-                    .collect(Collectors.joining(","))
+                    .collect(Collectors.joining(""))
             );
         }
     }
