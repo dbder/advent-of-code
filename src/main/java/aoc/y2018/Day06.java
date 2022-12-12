@@ -103,7 +103,7 @@ public class Day06 extends AU {
             var nextlevel = new ArrayList<V2>();
 
             for (var v2 : level) {
-                for (var tp : v2.tps()) {
+                for (var tp : v2.neighbors()) {
                     if (!visited.contains(tp) && tp.isIN(grid)) {
                         visited.add(tp);
                         grid[tp.row()][tp.col()][id] = depth;

@@ -5,6 +5,9 @@ import java.util.List;
 
 public record V2(int row, int col) {
 
+    public static V2 origin() {
+        return new V2(0, 0);
+    }
 
     public V2 add(int[] mx) {
         return new V2(row + mx[0], col + mx[1]);
@@ -75,7 +78,7 @@ public record V2(int row, int col) {
         return new V2(row, col + n);
     }
 
-    public List<V2> tps() {
+    public List<V2> neighbors() {
         return Arrays.asList(up(), down(), left(), right());
     }
 
