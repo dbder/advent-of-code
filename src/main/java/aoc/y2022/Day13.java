@@ -23,12 +23,9 @@ public class Day13 extends AU {
     }
 
     public static void main(String[] args) {
-//        if (!testData1.get().isEmpty()) new Day13(testData1.get(), true);
-//        if (!testData2.get().isEmpty()) new Day13(testData2.get(), true);
+        if (!testData1.get().isEmpty()) new Day13(testData1.get(), true);
         new Day13(null, true);
-        if (true) return;
         if (!testData1.get().isEmpty()) new Day13(testData1.get(), false);
-        if (!testData2.get().isEmpty()) new Day13(testData2.get(), false);
         new Day13(null, false);
     }
 
@@ -58,60 +55,33 @@ public class Day13 extends AU {
             [1,[2,[3,[4,[5,6,0]]]],8,9]
             """.lines().collect(toList());
 
-    static Supplier<List<String>> testData2 = () -> """
-            [[1],[2,3,4]]
-            [[1],4]
-            """.lines().collect(toList());
-
     Object solveQ2(List<String> input) {
-        var result = 0L;
-        //DAY2 !!
-        return result;
-    }
-
-    Object solveQ1(List<String> input) {
         var result = 1L;
-        input.add("[[2]]");
-        input.add("[[6]]");
-
-//        var pairs = chunk(input);
-
+        var addedItems = List.of("[[2]]", "[[6]]");
+        input.addAll(addedItems);
         input.removeAll(List.of(""));
         input.sort((a, b) -> {
-
             var intlista = new IntList(null, null, null);
             build(a, intlista, 0);
-
             var intlistb = new IntList(null, null, null);
             build(b, intlistb, 0);
             return compare(intlistb, intlista);
         });
 
-
         for (int i = 1; i <= input.size(); i++) {
-            var str = input.get(i-1);
-            if (str.equals("[[2]]")) {
-                result *= i;
-            }
-            if (str.equals("[[6]]")) {
-                result *= i;
-            }
-
+            if (addedItems.contains(input.get(i-1))) result *= i;
         }
+        return result;
+    }
 
-        input.forEach(System.out::println);
-
-//        for (int i = 0; i < pairs.size(); i++) {
-//            System.out.print("i = " + (i + 1));
-//            if (isInOrder(pairs.get(i).get(0), pairs.get(i).get(1)) == 1) {
-//                System.out.println("true");
-//                result += i + 1;
-//                System.out.println(i);
-//            }else {
-//                System.out.println("false");
-//            }
-//        }
-
+    Object solveQ1(List<String> input) {
+        var result = 0L;
+        var pairs = chunk(input);
+        for (int i = 0; i < pairs.size(); i++) {
+            if (isInOrder(pairs.get(i).get(0), pairs.get(i).get(1)) == 1) {
+                result += i + 1;
+            }
+        }
         return result;
     }
 
@@ -121,33 +91,20 @@ public class Day13 extends AU {
         build(a, intlista, 0);
         var intlistb = new IntList(null, null, null);
         build(b, intlistb, 0);
-        System.out.println("-------");
-        System.out.println(intlista);
-        System.out.println(intlistb);
         return compare(intlista, intlistb);
     }
 
 
     int compare(IntList a, IntList b) {
-        if (a == null) return 1;
-        if (b == null) return -1;
         if (a.value != null && b.value != null) {
-            if ( a.value > b.value) return -1;
-            if ( a.value < b.value) return 1;
-            return 0;
+            return b.value.compareTo(a.value);
         }
         if (a.value != null ^ b.value != null) {
             if (a.value != null) {
-                var nl = new IntList(List.of(a), null, null);
-                return compare(nl, b);
+                return compare(new IntList(List.of(a), null, null), b);
             }
-            var nl = new IntList(List.of(b), null, null);
-            return compare(a, nl);
+            return compare(a, new IntList(List.of(b), null, null));
         }
-
-//        if (a.children.isEmpty()) return 1;
-//        if (b.children.isEmpty()) return -1;
-
 
         for (int i = 0; i < b.children.size(); i++) {
             if (a.children.size() <= i) return 1;
@@ -155,6 +112,7 @@ public class Day13 extends AU {
             if (com == 1) return 1;
             if (com == -1) return -1;
         }
+
         if (a.children.size() > b.children.size()) return -1;
         if (a.children.size() < b.children.size()) return 1;
 
@@ -169,9 +127,7 @@ public class Day13 extends AU {
             list.children.add(sub);
             build(str, sub, index + 1);
         } else if (c == ']') {
-            //if (list.value == null) build(str, list.parent, index+1);
             build(str, list.parent, index + 1);
-
         } else if (c == ',') {
             build(str, list, index + 1);
         } else {
@@ -199,7 +155,3 @@ public class Day13 extends AU {
     }
 
 }
-// 287
-// 4842 too high
-// 4627 too low
-// 4821
