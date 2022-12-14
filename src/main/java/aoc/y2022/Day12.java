@@ -89,6 +89,7 @@ public class Day12 extends AU {
     // runner
     Object solveQ2(List<String> input) {
 
+        var starttime = System.currentTimeMillis();
         var grid = charGrid(input);
         var start = V2.origin();
 
@@ -103,7 +104,7 @@ public class Day12 extends AU {
 
         int[] minDist = new int[]{Integer.MAX_VALUE};
         getDistQ2(grid, List.of(start), new HashSet<>(), 0, minDist);
-
+        System.out.println("Q2: " + minDist[0] + " in " + (System.currentTimeMillis() - starttime) + "ms");
         return minDist[0];
     }
 

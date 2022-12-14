@@ -233,15 +233,5 @@ public abstract class AU implements
     }
 
 
-    private static void printGrid(HashSet<V2> visited) {
-        var minr = visited.stream().mapToInt(V2::row).min().orElse(0);
-        var minc = visited.stream().mapToInt(V2::col).min().orElse(0);
-        var maxr = visited.stream().mapToInt(V2::row).max().orElse(0);
-        var maxc = visited.stream().mapToInt(V2::col).max().orElse(0);
 
-        boolean[][] grid = new boolean[maxr + 1 - minr][maxc + 1 - minc];
-
-        for (var v : visited) grid[v.row() - minr][v.col() - minc] = true;
-        println(grid);
-    }
 }

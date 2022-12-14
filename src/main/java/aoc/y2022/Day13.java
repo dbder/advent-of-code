@@ -56,6 +56,7 @@ public class Day13 extends AU {
             """.lines().collect(toList());
 
     Object solveQ2(List<String> input) {
+        var starttime = System.currentTimeMillis();
         var result = 1L;
         var addedItems = List.of("[[2]]", "[[6]]");
         input.addAll(addedItems);
@@ -71,6 +72,7 @@ public class Day13 extends AU {
         for (int i = 1; i <= input.size(); i++) {
             if (addedItems.contains(input.get(i-1))) result *= i;
         }
+        println("Time: " + (System.currentTimeMillis() - starttime));
         return result;
     }
 
