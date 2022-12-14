@@ -35,7 +35,9 @@ public class Day14 extends AU {
             """.lines().collect(toList());
 
     Object solveQ2(List<String> input) {
-        var result = 0L;
+
+        var starttime = System.currentTimeMillis();
+        var result = 1L;
 
         var set = new HashSet<V2>();
 
@@ -66,32 +68,34 @@ public class Day14 extends AU {
             }
         }
 
-        var max = set.stream()
-                .mapToInt(V2::row)
-                .max()
-                .orElse(0) + 2;
 
-        for (int c = -1000; c <= 1000; c++) set.add(V2.of(max, c));
+        var sandSet = new HashSet<V2>();
 
-        while (true) {
-            var sand = new V2(0, 500);
-            if (set.contains(sand)) return result;
-            boolean moved = true;
-            result++;
-            while (moved) {
+        sandSet.add(V2.of(0, 500));
+        var max =set.stream().mapToInt(V2::row).max().orElse(0)+2;
+
+        while (!sandSet.isEmpty()) {
+            var newSandSet = new HashSet<V2>();
+
+            for (var sand : sandSet) {
                 var down = sand.up();
-                if (!set.contains(down)) {
-                    sand = down;
-                } else if (!set.contains(down.left())) {
-                    sand = down.left();
-                } else if (!set.contains(down.right())) {
-                    sand = down.right();
-                } else {
-                    moved = false;
+                if (down.row() >= max)  {
+                    System.out.println("time: " + (System.currentTimeMillis() - starttime));
+                    return result;
                 }
+                var left = down.left();
+                var right = down.right();
+                if (!set.contains(down)) newSandSet.add(down);
+                if (!set.contains(left)) newSandSet.add(left);
+                if (!set.contains(right)) newSandSet.add(right);
             }
-            set.add(sand);
+            sandSet = newSandSet;
+            result += sandSet.size();
+
         }
+        throw new AocException("Not found");
+
+
     }
 
     Object solveQ1(List<String> input) {
@@ -125,6 +129,7 @@ public class Day14 extends AU {
                 lastV = nextV;
             }
         }
+
 
         while (true) {
             var sand = new V2(0, 500);
