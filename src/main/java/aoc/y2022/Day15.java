@@ -28,11 +28,9 @@ public class Day15 extends AU {
 
     public static void main(String[] args) {
 //        if (!testData1.get().isEmpty()) new Day15(testData1.get(), true);
-        if (!testData2.get().isEmpty()) new Day15(testData2.get(), true);
         new Day15(null, true);
         if (true) return;
         if (!testData1.get().isEmpty()) new Day15(testData1.get(), false);
-        if (!testData2.get().isEmpty()) new Day15(testData2.get(), false);
         new Day15(null, false);
     }
 
@@ -63,11 +61,9 @@ public class Day15 extends AU {
     }
 
     Object solveQ1(List<String> input) {
-        var result = 0L;
 
+        long start = System.currentTimeMillis();
         var map = new HashMap<V2, Integer>();
-
-        Set<V2> list = new HashSet<>();
 
         for (var line : input) {
             var ints = toInts(line);
@@ -79,7 +75,6 @@ public class Day15 extends AU {
 
 
         for (var va : map.keySet()) {
-            System.out.println(va);
             var dist = map.get(va);
             var top = new V2(va.row() + dist + 1, va.col());
             var bottom = new V2(va.row() - dist - 1, va.col());
@@ -90,52 +85,112 @@ public class Day15 extends AU {
             var tmp = top;
 
             while (!tmp.equals(left)) {
-                if (isWithinBounds(tmp)) {
-                    if (!isWithin(map, tmp)) {
-                        return calc(tmp);
-                    }
-
+                int out = isWithinBounds(tmp);
+                int range = 0;
+                if (out == 0) {
+                    range = isWithin(map, tmp);
                 }
-                tmp = tmp.left().down();
+
+                if (out  == 0 && range == -1) {
+                    System.out.println("time: " + (System.currentTimeMillis() - start) + "ms");
+                    return calc(tmp);
+                }
+                if (out > 0) range = out;
+                range /= 2;
+                if (range== 0) {
+                    tmp = tmp.left().down();
+                    continue;
+                }
+                if (tmp.col() - range <= left.col()) {
+                    tmp = left;
+                } else {
+                    tmp = tmp.add(-range, -range);
+                }
             }
             while (!tmp.equals(bottom)) {
-                if (isWithinBounds(tmp)) {
-                    if (!isWithin(map, tmp)) {
-                        return calc(tmp);
-                    }
+                int out = isWithinBounds(tmp);
+                int range = 0;
+                if (out == 0) {
+                    range = isWithin(map, tmp);
                 }
-                tmp = tmp.right().down();
+
+                if (out  == 0 && range == -1) {
+                    System.out.println("time: " + (System.currentTimeMillis() - start) + "ms");
+                    return calc(tmp);
+                }
+                if (out > 0) range = out;
+                range /= 2;
+                if (range== 0) {
+                    tmp = tmp.right().down();
+                    continue;
+                }
+                if (tmp.row() - range <= bottom.row()) {
+                    tmp = bottom;
+                } else {
+                    tmp = tmp.add(-range, range);
+                }
             }
             while (!tmp.equals(right)) {
-                if (isWithinBounds(tmp)) {
-                    if (!isWithin(map, tmp)) {
-                        return calc(tmp);
-                    }
-
+                int out = isWithinBounds(tmp);
+                int range = 0;
+                if (out == 0) {
+                    range = isWithin(map, tmp);
                 }
-                tmp = tmp.right().up();
+
+                if (out  == 0 && range == -1) {
+                    System.out.println("time: " + (System.currentTimeMillis() - start) + "ms");
+                    return calc(tmp);
+                }
+                if (out > 0) range = out;
+                range /= 2;
+                if (range== 0) {
+                    tmp = tmp.right().up();
+                    continue;
+                }
+                if (tmp.col() + range >= right.col()) {
+                    tmp = right;
+                } else {
+                    tmp = tmp.add(range, range);
+                }
             }
             while (!tmp.equals(top)) {
-                if (isWithinBounds(tmp)) {
-                    if (!isWithin(map, tmp)) {
-                        return calc(tmp);
-                    }
+                int out = isWithinBounds(tmp);
+                int range = 0;
+                if (out == 0) {
+                    range = isWithin(map, tmp);
                 }
-                tmp = tmp.left().up();
+
+                if (out  == 0 && range == -1) {
+                        System.out.println("time: " + (System.currentTimeMillis() - start) + "ms");
+                        return calc(tmp);
+                }
+                if (out > 0) range = out;
+                range /= 2;
+                if (range== 0) {
+                    tmp = tmp.left().up();
+                    continue;
+                }
+                if (tmp.row() + range <= top.row()) {
+                    tmp = top;
+                } else {
+                    tmp = tmp.add(range, -range);
+                }
             }
 
         }
 
+        System.out.println("time: " + (System.currentTimeMillis() - start) + "ms");
 
         return 0;
     }
 
-    boolean isWithinBounds(V2 v) {
-//        println("isWithinBounds " + v);
-        if (v.row() < 0 || v.col() < 0) return false;
-        if (v.row() > 4000000 || v.col() > 4000000) return false;
-//        if (v.row() > 20 || v.col() > 20) return false;
-        return true;
+    int isWithinBounds(V2 v) {
+        int dist = 0;
+        if (v.row() < -1) dist += -v.row();
+        if (v.col() < -1) dist += -v.col();
+        if (v.row() > 4000001) dist += v.row() - 4000000;
+        if (v.col() > 4000001) dist += v.col() - 4000000;
+        return dist;
     }
 
     BigInteger calc(V2 v) {
@@ -143,14 +198,14 @@ public class Day15 extends AU {
         return BigInteger.valueOf(v.col()).multiply(BigInteger.valueOf(4000000)).add(BigInteger.valueOf(v.row()));
     }
 
-    boolean isWithin(HashMap<V2, Integer> map, V2 v2) {
-//        println("isWithin " + v2);
+    int isWithin(HashMap<V2, Integer> map, V2 v2) {
+        int dist = -1;
         for (var entry : map.entrySet()) {
             if (v2.manhattan(entry.getKey()) <= entry.getValue()) {
-                return true;
+                dist= Math.max(dist,  entry.getValue() -v2.manhattan(entry.getKey()));
             }
         }
-        return false;
+        return dist;
     }
 }
 
