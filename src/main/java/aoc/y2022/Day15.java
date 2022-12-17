@@ -4,6 +4,9 @@ import aoc.AU;
 import aoc.misc.AocException;
 import aoc.misc.V2;
 
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,10 +79,11 @@ public class Day15 extends AU {
 
         for (var va : map.keySet()) {
             var dist = map.get(va);
-            var top = new V2(va.row() + dist + 1, va.col());
-            var bottom = new V2(va.row() - dist - 1, va.col());
-            var left = new V2(va.row(), va.col() - dist - 1);
-            var right = new V2(va.row(), va.col() + dist + 1);
+
+            var top = va.up(dist + 1);
+            var bottom = va.down(dist + 1);
+            var left = va.left(dist + 1);
+            var right = va.right(dist + 1);
 
 
             var tmp = top;
@@ -91,13 +95,13 @@ public class Day15 extends AU {
                     range = isWithin(map, tmp);
                 }
 
-                if (out  == 0 && range == -1) {
+                if (out == 0 && range == -1) {
                     System.out.println("time: " + (System.currentTimeMillis() - start) + "ms");
                     return calc(tmp);
                 }
                 if (out > 0) range = out;
                 range /= 2;
-                if (range== 0) {
+                if (range == 0) {
                     tmp = tmp.left().down();
                     continue;
                 }
@@ -114,13 +118,13 @@ public class Day15 extends AU {
                     range = isWithin(map, tmp);
                 }
 
-                if (out  == 0 && range == -1) {
+                if (out == 0 && range == -1) {
                     System.out.println("time: " + (System.currentTimeMillis() - start) + "ms");
                     return calc(tmp);
                 }
                 if (out > 0) range = out;
                 range /= 2;
-                if (range== 0) {
+                if (range == 0) {
                     tmp = tmp.right().down();
                     continue;
                 }
@@ -137,13 +141,13 @@ public class Day15 extends AU {
                     range = isWithin(map, tmp);
                 }
 
-                if (out  == 0 && range == -1) {
+                if (out == 0 && range == -1) {
                     System.out.println("time: " + (System.currentTimeMillis() - start) + "ms");
                     return calc(tmp);
                 }
                 if (out > 0) range = out;
                 range /= 2;
-                if (range== 0) {
+                if (range == 0) {
                     tmp = tmp.right().up();
                     continue;
                 }
@@ -160,13 +164,13 @@ public class Day15 extends AU {
                     range = isWithin(map, tmp);
                 }
 
-                if (out  == 0 && range == -1) {
-                        System.out.println("time: " + (System.currentTimeMillis() - start) + "ms");
-                        return calc(tmp);
+                if (out == 0 && range == -1) {
+                    System.out.println("time: " + (System.currentTimeMillis() - start) + "ms");
+                    return calc(tmp);
                 }
                 if (out > 0) range = out;
                 range /= 2;
-                if (range== 0) {
+                if (range == 0) {
                     tmp = tmp.left().up();
                     continue;
                 }
@@ -202,11 +206,12 @@ public class Day15 extends AU {
         int dist = -1;
         for (var entry : map.entrySet()) {
             if (v2.manhattan(entry.getKey()) <= entry.getValue()) {
-                dist= Math.max(dist,  entry.getValue() -v2.manhattan(entry.getKey()));
+                dist = Math.max(dist, entry.getValue() - v2.manhattan(entry.getKey()));
             }
         }
         return dist;
     }
+
 }
 
 //7556396000000 too low

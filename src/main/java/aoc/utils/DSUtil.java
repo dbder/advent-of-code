@@ -14,6 +14,15 @@ import java.util.Set;
 public interface DSUtil {
 
 
+    default <T> List<T[]> chunkN(T[] arr, int n) {
+        List<T[]> chunks = new ArrayList<>();
+        for (int i = 0; i < arr.length; i += n) {
+            T[] chunk = Arrays.copyOfRange(arr, i, i + n);
+            chunks.add(chunk);
+        }
+        return chunks;
+    }
+
     default List<LinkedList<String>> chunk(List<String> input) {
         var lists = new ArrayList<LinkedList<String>>();
         var list = new LinkedList<String>();

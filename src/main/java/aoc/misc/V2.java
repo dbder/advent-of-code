@@ -1,5 +1,6 @@
 package aoc.misc;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +27,10 @@ public record V2(int row, int col) {
     }
 
     public static V2 of(int[] arr) {
+        return V2.of(arr[0], arr[1]);
+    }
+
+    public static V2 of(Integer[] arr) {
         return V2.of(arr[0], arr[1]);
     }
 
@@ -148,5 +153,45 @@ public record V2(int row, int col) {
     public V2 diffAbs(V2 other) {
         return new V2(Math.abs(row - other.row), Math.abs(col - other.col));
     }
+
+    public List<V2> pathToDiagonally(V2 other) {
+        var list = new ArrayList<V2>();
+        var tmp = this;
+        while (!tmp.equals(other)) {
+            if (!tmp.equals(this)) {
+                list.add(tmp);
+            }
+            var row = tmp.row;
+            var col = tmp.col;
+            if (row < other.row) {
+                row++;
+            } else if (row > other.row) {
+                row--;
+            }
+            if (col < other.col) {
+                col++;
+            } else if (col > other.col) {
+                col--;
+            }
+            tmp = new V2(row, col);
+        }
+        return list;
+    }
+    public List<V2> pathToDiagonallyInclusive(V2 other) {
+        var list = new ArrayList<V2>();
+        list.add(this);
+        list.addAll(pathToDiagonally(other));
+        list.add(other);
+        return list;
+    }
+
+    public static void main(String[] args) {
+        var v1 = new V2(0, 0);
+        var v2 = new V2(3, 3);
+        System.out.println(v1.pathToDiagonally(v2));
+        System.out.println(v1.pathToDiagonallyInclusive(v2));
+    }
+
+
 
 }
