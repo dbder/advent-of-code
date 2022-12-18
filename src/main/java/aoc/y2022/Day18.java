@@ -2,6 +2,7 @@ package aoc.y2022;
 
 import aoc.AU;
 import aoc.misc.AocException;
+import aoc.misc.V3;
 
 import java.util.HashSet;
 import java.util.List;
@@ -24,11 +25,8 @@ public class Day18 extends AU {
 
     public static void main(String[] args) {
         if (!testData1.get().isEmpty()) new Day18(testData1.get(), true);
-        if (!testData2.get().isEmpty()) new Day18(testData2.get(), true);
         new Day18(null, true);
-        if (true) return;
         if (!testData1.get().isEmpty()) new Day18(testData1.get(), false);
-        if (!testData2.get().isEmpty()) new Day18(testData2.get(), false);
         new Day18(null, false);
     }
 
@@ -48,138 +46,62 @@ public class Day18 extends AU {
             2,3,5
             """.lines().collect(toList());
 
-    static Supplier<List<String>> testData2 = () -> """
-            """.lines().collect(toList());
+    Set<V3> cubes = new HashSet<>();
+    V3 fieldsize = new V3(20, 20, 20);
 
-    Object solveQ2(List<String> input) {
-        var result = 0L;
-        //DAY2 !!
-        return result;
-    }
-
-    Set<Cube> cubes = new HashSet<>();
-
-    Object solveQ1(List<String> input) {
-        var result = 0L;
-
+    void parseCubes(List<String> input) {
         for (var line : input) {
             var ints = toInts(line);
-            var cube = new Cube(ints[0], ints[1], ints[2]);
+            var cube = new V3(ints[0], ints[1], ints[2]);
             cubes.add(cube);
         }
+    }
 
-        System.out.println(cubes.size());
+    Object solveQ2(List<String> input) {
 
-        for (int x = 0 ; x <=20; x++) {
-            for (int y = 0 ; y <=20; y++) {
-                for (int z = 0 ; z <=20; z++) {
-                    var cube = new Cube(x, y, z);
-                    if (isinDrop(cube)) {
-                        cubes.add(cube);
-                        System.out.println("drop " + cube);
-                    } else {
+        parseCubes(input);
 
-                    }
+        for (int x = 0; x <= 20; x++) {
+            for (int y = 0; y <= 20; y++) {
+                for (int z = 0; z <= 20; z++) {
+                    var cube = new V3(x, y, z);
+                    if (isinDrop(cube)) cubes.add(cube);
                 }
             }
         }
 
-        System.out.println(cubes.size());
-
-        for (var cube : cubes) {
-            var top = new Cube(cube.x, cube.y + 1, cube.z);
-            var bottom = new Cube(cube.x, cube.y - 1, cube.z);
-            var left = new Cube(cube.x - 1, cube.y, cube.z);
-            var right = new Cube(cube.x + 1, cube.y, cube.z);
-            var front = new Cube(cube.x, cube.y, cube.z - 1);
-            var back = new Cube(cube.x, cube.y, cube.z + 1);
-            if (!cubes.contains(top)) result++;
-            if (!cubes.contains(bottom)) result++;
-            if (!cubes.contains(left)) result++;
-            if (!cubes.contains(right)) result++;
-            if (!cubes.contains(front)) result++;
-            if (!cubes.contains(back)) result++;
-
-
-        }
-//
-//        for (var cube : cubes) {
-//            var in = isinDrop(cube);
-//            if (!in) {
-//                System.out.println("Not in: " + cube);
-//            }
-//        }
-
-
-        return result;
+        return countVisibleFaces();
     }
 
-    boolean isinDrop(Cube cube) {
-        if (cube.equals(new Cube(19, 19, 19))) {
-            System.out.println("HERE");
-        }
-        var level = new HashSet<Cube>();
-        Set<Cube> visited = new HashSet<>();
+
+    Object solveQ1(List<String> input) {
+
+        parseCubes(input);
+
+        return countVisibleFaces();
+    }
+
+    long countVisibleFaces() {
+        return cubes.stream()
+                .map(V3::getNeighbours6)
+                .mapToLong(n -> n.stream().filter(c -> !cubes.contains(c)).count())
+                .sum();
+    }
+
+    boolean isinDrop(V3 cube) {
+        var level = new HashSet<V3>();
+        Set<V3> visited = new HashSet<>();
         level.add(cube);
         while (!level.isEmpty()) {
-            var nextLevel = new HashSet<Cube>();
+            var nextLevel = new HashSet<V3>();
             for (var c : level) {
-                if (visited.contains(c)) continue;
-                if (!c.equals(cube) && cubes.contains(c)) continue;
-                if (c.x < 0 || c.y < 0 || c.z < 0) return false;
-                if (c.x > 20 || c.y > 20 || c.z > 20) return false;
-                var top = new Cube(c.x, c.y + 1, c.z);
-                var bottom = new Cube(c.x, c.y - 1, c.z);
-                var left = new Cube(c.x - 1, c.y, c.z);
-                var right = new Cube(c.x + 1, c.y, c.z);
-                var front = new Cube(c.x, c.y, c.z - 1);
-                var back = new Cube(c.x, c.y, c.z + 1);
-                nextLevel.add(top);
-                nextLevel.add(bottom);
-                nextLevel.add(left);
-                nextLevel.add(right);
-                nextLevel.add(front);
-                nextLevel.add(back);
+                if (visited.contains(c) || cubes.contains(c)) continue;
+                if (!fieldsize.contains(c)) return false;
+                nextLevel.addAll(c.getNeighbours6());
             }
             visited.addAll(level);
             level = nextLevel;
-            if (level.size() >7000) return false;
         }
-
-
         return true;
     }
-
-
-    record Cube(int x, int y, int z) {
-
-    }
-
-
 }
-//
-//    Set<Cube> cubes = new HashSet<>();
-//        for (var line : input) {
-//                var ints = toInts(line);
-//                var cube = new Cube(ints[0], ints[1], ints[2]);
-//                cubes.add(cube);
-//                }
-//
-//                System.out.println(cubes);
-//
-//                for (var cube : cubes) {
-//                var top = new Cube(cube.x, cube.y + 1, cube.z);
-//                var bottom = new Cube(cube.x, cube.y - 1, cube.z);
-//                var left = new Cube(cube.x - 1, cube.y, cube.z);
-//                var right = new Cube(cube.x + 1, cube.y, cube.z);
-//                var front = new Cube(cube.x, cube.y, cube.z - 1);
-//                var back = new Cube(cube.x, cube.y, cube.z + 1);
-//                if (!cubes.contains(top)) result++;
-//                if (!cubes.contains(bottom)) result++;
-//                if (!cubes.contains(left)) result++;
-//                if (!cubes.contains(right)) result++;
-//                if (!cubes.contains(front)) result++;
-//                if (!cubes.contains(back)) result++;
-//
-//
-//                }
