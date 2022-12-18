@@ -10,6 +10,7 @@ import static java.util.stream.Collectors.toList;
 public class Day extends AU {
 
     Day(List<String> testData, boolean q1) {
+        var startTime = System.currentTimeMillis();
         switch ((q1 ? "q1" : "q2") + "-" + (testData == null ? "real" : "test")) {
             case "q1-test" -> println("Test Q1: " + solveQ1(testData));
             case "q1-real" -> println("Real Q1: " + solveQ1(getInputLines()));
@@ -17,6 +18,7 @@ public class Day extends AU {
             case "q2-real" -> println("Real Q2: " + solveQ2(getInputLines()));
             default -> throw new AocException("Unknown case");
         }
+        println("Time: " + (System.currentTimeMillis() - startTime) + "ms");
     }
 
     public static void main(String[] args) {
