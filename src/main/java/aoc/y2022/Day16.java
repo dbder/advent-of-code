@@ -17,6 +17,7 @@ import static java.util.stream.Collectors.toList;
 public class Day16 extends AU {
 
     Day16(List<String> testData, boolean q1) {
+        var startTime = System.currentTimeMillis();
         switch ((q1 ? "q1" : "q2") + "-" + (testData == null ? "real" : "test")) {
             case "q1-test" -> println("Test Q1: " + solveQ1(testData));
             case "q1-real" -> println("Real Q1: " + solveQ1(getInputLines()));
@@ -24,6 +25,7 @@ public class Day16 extends AU {
             case "q2-real" -> println("Real Q2: " + solveQ2(getInputLines()));
             default -> throw new AocException("Unknown case");
         }
+        println("Time: " + (System.currentTimeMillis() - startTime) + "ms");
     }
 
     public static void main(String[] args) {
@@ -56,51 +58,47 @@ public class Day16 extends AU {
         var t = h.targets.stream().toList();
 
         var level = addLevel1(t);
-        System.out.println("1 " + level.size());
         int l= 2;
 
         level = addLevel2P1(t, level);
         level = addLevel2P2(t, level);
         var max = new int[]{0};
+
+        var buffer = 100;
+
         max[0] = level.stream().mapToInt(c -> h.scorev2(c)).max().orElse(0);
-        println((l++) + " size:" + level.size() + " max: " + max[0]);
 
         level = addLevel2P1(t, level);
-        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - 400).collect(toList());
+        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - buffer).collect(toList());
         level = addLevel2P2(t, level);
-        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - 400).collect(toList());
+        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - buffer).collect(toList());
         max[0] = level.stream().mapToInt(c -> h.scorev2(c)).max().orElse(0);
-        println((l++) + " size:" + level.size() + " max: " + max[0]);
-
-
-        level = addLevel2P1(t, level);
-        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - 400).collect(toList());
-        level = addLevel2P2(t, level);
-        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - 400).collect(toList());
-        max[0] = level.stream().mapToInt(c -> h.scorev2(c)).max().orElse(0);
-        println((l++) + " size:" + level.size() + " max: " + max[0]);
 
 
         level = addLevel2P1(t, level);
-        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - 400).collect(toList());
+        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - buffer).collect(toList());
         level = addLevel2P2(t, level);
-        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - 400).collect(toList());
+        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - buffer).collect(toList());
         max[0] = level.stream().mapToInt(c -> h.scorev2(c)).max().orElse(0);
-        println((l++) + " size:" + level.size() + " max: " + max[0]);
+
 
         level = addLevel2P1(t, level);
-        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - 400).collect(toList());
+        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - buffer).collect(toList());
         level = addLevel2P2(t, level);
-        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - 400).collect(toList());
+        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - buffer).collect(toList());
         max[0] = level.stream().mapToInt(c -> h.scorev2(c)).max().orElse(0);
-        println((l++) + " size:" + level.size() + " max: " + max[0]);
 
         level = addLevel2P1(t, level);
-        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - 400).collect(toList());
+        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - buffer).collect(toList());
         level = addLevel2P2(t, level);
-        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - 400).collect(toList());
+        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - buffer).collect(toList());
         max[0] = level.stream().mapToInt(c -> h.scorev2(c)).max().orElse(0);
-        println((l++) + " size:" + level.size() + " max: " + max[0]);
+
+        level = addLevel2P1(t, level);
+        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - buffer).collect(toList());
+        level = addLevel2P2(t, level);
+        level = level.parallelStream().filter(c -> h.scorev2(c) > max[0] - buffer).collect(toList());
+        max[0] = level.stream().mapToInt(c -> h.scorev2(c)).max().orElse(0);
 
         return result;
     }
