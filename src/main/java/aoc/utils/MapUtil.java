@@ -1,10 +1,14 @@
 package aoc.utils;
 
+import aoc.misc.AocException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -77,6 +81,39 @@ public interface MapUtil {
 
     default int toInt(String str, int radix) {
         return Integer.parseInt(str.trim(), radix);
+    }
+
+
+    default int getNextStepTo(Map<String, Set<String>> map, String from, String to) {
+
+        record Node(String name, Node parent) {
+        }
+        if (from.equals(to)) return 0;
+        if (map.get(from).contains(to)) return 1;
+        var visited = new HashSet<String>();
+        var level = new ArrayList<Node>();
+        var current = new Node(from, null);
+        var root = current;
+        visited.add(from);
+        level.add(current);
+        int count = 0;
+        while (!level.isEmpty()) {
+            count++;
+            var next = new ArrayList<Node>();
+            for (var node : level) {
+                var links = map.get(node.name);
+                for (var link : links) {
+                    if (visited.contains(link)) continue;
+                    visited.add(link);
+                    if (link.equals(to)) {
+                        return count;
+                    }
+                    next.add(new Node(link, node));
+                }
+            }
+            level = next;
+        }
+        throw new AocException("No path found");
     }
 
 

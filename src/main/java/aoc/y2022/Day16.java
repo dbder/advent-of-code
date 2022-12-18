@@ -16,6 +16,7 @@ import java.util.TreeSet;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.toList;
 
 public class Day16 extends AU {
@@ -76,7 +77,11 @@ public class Day16 extends AU {
             rates.put(split[1], toInts(line)[0]);
 
         }
-        targets = rates.entrySet().stream().filter(e -> e.getValue() > 0).map(e -> e.getKey()).collect(Collectors.toSet());
+
+
+        targets = rates.entrySet().stream().filter(e -> e.getValue() > 0).map(Map.Entry::getKey).collect(Collectors.toSet());
+
+
         for (var from : map.keySet()) {
             for (var to : map.keySet()) {
                 distances.put(new Pair(from, to), 1 + getNextStepTo(map, from, to));
@@ -84,210 +89,156 @@ public class Day16 extends AU {
         }
 
 
-        var powerset = powerSet(targets.stream().toList()).sorted((a, b) -> a.size() - b.size()).collect(toList());
+//        var c = new Combo(List.of("JJ", "BB", "CC"), List.of("DD", "HH", "EE"), new HashSet<>());
+//        var sc = scorev2(c);
+//        System.out.println("sc = " + sc);
+
+        getBestOne(new Combo(new ArrayList<>(), new ArrayList<>(), new HashSet<>()));
+        return maxtotal;
+    }
 
 
-        int maxScore = 0;
-        for (int i = 1; i <= 7; i++) {
-            var powersegment = getOfSize(powerset, i);
+    record Pair(String from, String to) {
+    }
 
-            for (var list : powersegment) {
-                for (var perm : getPermutations(list.toArray(new String[0]))) {
-                    for (var perm2 : getPermutations(list.toArray(new String[0]))) {
-                        Map<Integer, Set<String>> nodes = new HashMap<>();
-                        var cur = "AA";
-                        var totaldist = 0;
-                        for (var item : perm) {
-                            var dist = distances.get(new Pair(cur, item));
-                            totaldist += dist;
-                            nodes.computeIfAbsent(totaldist, e -> new HashSet<>()).add(item);
-                            cur = item;
-                        }
+    record Combo(List<String> p1, List<String> p2, Set<String> common) {
 
-                        cur = "AA";
-                        totaldist = 0;
-                        for (var item : perm2) {
-                            var dist = distances.get(new Pair(cur, item));
-                            totaldist += dist;
-                            nodes.computeIfAbsent(totaldist, e -> new HashSet<>()).add(item);
-                            cur = item;
-                        }
+    }
 
-                        var score = score(nodes);
+    Set<Combo> visited = new HashSet<>();
+    Map<Set<String>, Integer> scoremap = new HashMap<>();
+    int maxminutes = 30;
 
-                        if (score > maxScore) {
-                            maxScore = score;
-                            println(i + "New max score: " + maxScore + " " + Arrays.toString(perm) + " " + Arrays.toString(perm2));
-                            System.out.println(nodes);
-                        }
-                    }
-                }
+    void getBestOne(Combo combo) {
 
+
+
+        if (getPotency(combo) < maxtotal) return;
+//
+        if (visited.contains(combo)) return;
+        visited.add(combo);
+
+        int d1 = getDist(combo.p1);
+        int d2 = getDist(combo.p2);
+
+        if (combo.common.size() == targets.size() || (d1 >= maxminutes && d2 >= maxminutes)) {
+            var score = scorev2(combo);
+            if (score > maxtotal) {
+                maxtotal = score;
+                println("New best: " + combo + " " + score);
             }
+        }
+//
+//        for (var t : targets) {
+//            if (combo.common.contains(t)) continue;
+//            var newp2 = new ArrayList<>(combo.p2);
+//            newp2.add(t);
+//            var newcommon = new HashSet<>(combo.common);
+//            newcommon.add(t);
+//            getBestOne(new Combo(combo.p1, newp2, newcommon));
+//        }
 
-
+        for (var t : targets) {
+            if (combo.common.contains(t)) continue;
+            var newp1 = new ArrayList<>(combo.p1);
+            newp1.add(t);
+            var newcommon = new HashSet<>(combo.common);
+            newcommon.add(t);
+            getBestOne(new Combo(newp1, combo.p2, newcommon));
         }
 
 
-        return maxScore;
     }
 
-    int score(Map<Integer, Set<String>> nodes) {
+    int getPotency(Combo combo) {
+        Map<Integer, List<String>> nodes = new HashMap<>();
+        var cur = "AA";
+        int totaldist1 = 0;
+        for (var p1 : combo.p1) {
+            var dist = distances.get(new Pair(cur, p1));
+            totaldist1 += dist;
+            nodes.computeIfAbsent(totaldist1, k -> new ArrayList<>()).add(p1);
+            cur = p1;
+        }
+
+        cur = "AA";
+        var totaldist2 = 0;
+        for (var p2 : combo.p2) {
+            var dist = distances.get(new Pair(cur, p2));
+            totaldist2 += dist;
+            nodes.computeIfAbsent(totaldist2, k -> new ArrayList<>()).add(p2);
+            cur = p2;
+        }
+        var left = targets.stream().collect(Collectors.toSet());
+        left.removeAll(combo.common);
+
+        var totaldist3 = 0;
+        if (totaldist1 < totaldist2) {
+            totaldist3 = totaldist1;
+        } else {
+            totaldist3 = totaldist2;
+        }
+        int minsleft = maxminutes - totaldist3;
+        for (var p3 : left) {
+            nodes.computeIfAbsent(totaldist3, k -> new ArrayList<>()).add(p3);
+            totaldist3 += 2;
+        }
+
+        return score(nodes);
+
+    }
+
+    int scorev2(Combo combo) {
+        Map<Integer, List<String>> nodes = new HashMap<>();
+        var cur = "AA";
+        int totaldist = 0;
+        for (var p1 : combo.p1) {
+            var dist = distances.get(new Pair(cur, p1));
+            totaldist += dist;
+            nodes.computeIfAbsent(totaldist, k -> new ArrayList<>()).add(p1);
+            cur = p1;
+        }
+
+//        cur = "AA";
+//        totaldist = 0;
+//        for (var p2 : combo.p2) {
+//            var dist = distances.get(new Pair(cur, p2));
+//            totaldist += dist;
+//            nodes.computeIfAbsent(totaldist, k -> new ArrayList<>()).add(p2);
+//            cur = p2;
+//        }
+
+        return score(nodes);
+    }
+
+    int getDist(List<String> path) {
+        int total = 0;
+        String cur = "AA";
+        for (int i = 0; i < path.size() - 1; i++) {
+            total += distances.get(new Pair(cur, path.get(i)));
+            cur = path.get(i);
+        }
+        return total;
+    }
+
+    int score(Map<Integer, List<String>> nodes) {
         var score = 0;
         var base = 0;
-        Set<String> used = new HashSet<>();
-        for (int i = 0; i < 26; i++) {
-            nodes.computeIfAbsent(i, e -> new HashSet<>());
-            for (var item : nodes.get(i)) {
-                if (!used.contains(item)) {
-                    used.add(item);
-                    base += rates.get(item);
-                }
+        for (int i = 0; i < maxminutes; i++) {
+            var list = nodes.computeIfAbsent(i, k -> new ArrayList<>());
+            for (var node : list) {
+                base += rates.get(node);
             }
             score += base;
         }
-
         return score;
-    }
-
-    List<List<String>> getOfSize(List<List<String>> lists, int size) {
-        var result = new ArrayList<List<String>>();
-        for (var list : lists) {
-            if (list.size() == size) result.add(list);
-        }
-        return result;
-    }
-
-    record Pair(String a, String b) {
     }
 
     Map<Pair, Integer> distances = new HashMap<>();
     Set<String> targets = new HashSet<>();
-    long maxpressure = 0;
-
-    record Check(String player, String elephant, String opened, int depth) {
-    }
-
-    Set<Check> visited = new HashSet<>();
     Map<String, Set<String>> map = new HashMap<>();
     Map<String, Integer> rates = new HashMap<>();
 
-    void getmax(
-            final String player,
-            final String elephant,
-            final int playerStepsLeft,
-            final int eleStepsLeft,
-            final int depth,
-            int pressure,
-            final Set<String> opened
-    ) {
-
-        int diff = 26 - depth;
-
-        if (diff * 81 + pressure < maxtotal) {
-            return;
-        }
-
-
-//        println("player: " + player + " elephant: " + elephant + " playerStepsLeft: " + playerStepsLeft + " eleStepsLeft: " + eleStepsLeft + " depth: " + depth + " pressure: " + pressure + " opened: " + opened);
-        if (playerStepsLeft == 0) {
-
-            var newopened = new HashSet<>(opened);
-            newopened.add(player);
-
-            var curtargets = targets.stream().filter(t -> !newopened.contains(t)).collect(toList());
-            if (curtargets.isEmpty()) {
-
-                getmax(player, elephant, 1, eleStepsLeft, depth, pressure, newopened);
-
-            } else {
-
-                for (var target : targets) {
-                    if (target.equals(player)) continue;
-                    getmax(target, elephant, distances.get(new Pair(player, target)), eleStepsLeft, depth, pressure, newopened);
-                }
-
-            }
-            return;
-        }
-
-        if (eleStepsLeft == 0) {
-            var newopened = new HashSet<>(opened);
-            newopened.add(elephant);
-            var curtargets = targets.stream().filter(t -> !newopened.contains(t)).collect(toList());
-            if (curtargets.isEmpty()) {
-                getmax(player, elephant, playerStepsLeft, 1, depth, pressure, newopened);
-            } else {
-                for (var target : targets) {
-                    if (target.equals(elephant)) continue;
-                    getmax(player, target, playerStepsLeft, distances.get(new Pair(elephant, target)), depth, pressure, newopened);
-                }
-            }
-            return;
-        }
-
-        if (depth == 27) return;
-        var addedPressure = opened.stream().mapToInt(rates::get).sum();
-        pressure += addedPressure;
-
-        if (depth >= 26) {
-            if (depth > 26) throw new AocException("Depth too high");
-            if (pressure > maxpressure) {
-                System.out.println("maxpressure = " + pressure);
-                maxpressure = pressure;
-            }
-            return;
-        }
-
-
-        if (playerStepsLeft > 0 && eleStepsLeft > 0) {
-            getmax(player, elephant, playerStepsLeft - 1, eleStepsLeft - 1, depth + 1, pressure, opened);
-            return;
-        }
-
-
-//        var newplateroute = plateroute.stream().collect(Collectors.toList());
-//        newplateroute.add(depth + 1 + " " + player);
-//        var newelephantroute = elephantroute.stream().collect(Collectors.toList());
-//        newelephantroute.add(depth + 1 + " " + elephant);
-//        if (pressure + (26 - depth) * maxtotal + pressure < maxpressure) {
-//            return;
-//        }
-
-
-    }
-
-    public int getNextStepTo(Map<String, Set<String>> map, String from, String to) {
-
-        record Node(String name, Node parent) {
-        }
-        if (from.equals(to)) return 0;
-        if (map.get(from).contains(to)) return 1;
-        var visited = new HashSet<String>();
-        var level = new ArrayList<Node>();
-        var current = new Node(from, null);
-        var root = current;
-        visited.add(from);
-        level.add(current);
-        int count = 0;
-        while (!level.isEmpty()) {
-            count++;
-            var next = new ArrayList<Node>();
-            for (var node : level) {
-                var links = map.get(node.name);
-                for (var link : links) {
-                    if (visited.contains(link)) continue;
-                    visited.add(link);
-                    if (link.equals(to)) {
-                        return count;
-                    }
-                    next.add(new Node(link, node));
-                }
-            }
-            level = next;
-        }
-        throw new AocException("No path found");
-    }
 
 }
 

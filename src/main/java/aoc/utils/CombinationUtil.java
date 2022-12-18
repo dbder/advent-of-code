@@ -62,4 +62,14 @@ public interface CombinationUtil {
     }
 
 
+    default List<List<String>> getOfSize(List<List<String>> lists, int size) {
+        var result = new ArrayList<List<String>>();
+        for (var list : lists) {
+            if (list.size() == size) result.add(list);
+        }
+        return result;
+    }
+
+
+
 }
