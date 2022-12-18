@@ -29,10 +29,10 @@ public class Day16 extends AU {
     }
 
     public static void main(String[] args) {
-//        if (!testData1.get().isEmpty()) new Day16(testData1.get(), true);
+        if (!testData1.get().isEmpty()) new Day16(testData1.get(), true);
 //        new Day16(null, true);
-//        if (true) return;
-//        if (!testData1.get().isEmpty()) new Day16(testData1.get(), false);
+        if (true) return;
+        if (!testData1.get().isEmpty()) new Day16(testData1.get(), false);
         new Day16(null, false);
     }
 
@@ -58,7 +58,7 @@ public class Day16 extends AU {
         var t = h.targets.stream().toList();
 
         var level = addLevel1(t);
-        int l= 2;
+        int l = 2;
 
         level = addLevel2P1(t, level);
         level = addLevel2P2(t, level);
@@ -180,8 +180,19 @@ public class Day16 extends AU {
 
     Day16Helper h;
 
+
+    record Node(String name, int score, Node parent) {
+    }
+
     Object solveQ1(List<String> input) {
+        init(input, 30);
         var result = 0L;
+
+        var lists = new ArrayList<List<Node>>();
+        range(1, 31).forEach(i -> lists.add(new ArrayList<>()));
+
+
+
         return maxtotal;
     }
 
@@ -197,6 +208,9 @@ public class Day16 extends AU {
         Map<Pair, Integer> distances = new HashMap<>();
         Map<String, Set<String>> map = new HashMap<>();
         Map<String, Integer> rates = new HashMap<>();
+        Map<String, Integer> tointmap = new HashMap<>();
+        int counter = 0;
+        tointmap.put("AA", 0);
         for (var line : input) {
             var split = line.replaceAll(",", "").split(" ");
             for (int i = 9; i < split.length; i++) {
