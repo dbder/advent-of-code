@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 public class Day18 extends AU {
 
@@ -50,11 +51,10 @@ public class Day18 extends AU {
     V3 fieldsize = new V3(20, 20, 20);
 
     void parseCubes(List<String> input) {
-        for (var line : input) {
-            var ints = toInts(line);
-            var cube = new V3(ints[0], ints[1], ints[2]);
-            cubes.add(cube);
-        }
+        cubes = input.stream()
+                .map(this::toInts)
+                .map(V3::of)
+                .collect(toSet());
     }
 
     Object solveQ2(List<String> input) {

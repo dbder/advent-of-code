@@ -17,6 +17,9 @@ public record V3(int x, int y, int z) {
 
 
     public boolean contains(V3 other) {return x > other.x && y > other.y && z > other.z;}
+    public static V3 of(int x, int y, int z) {return new V3(x, y, z);}
+    public static V3 of (int[] ints) {return new V3(ints[0], ints[1], ints[2]);}
+    public static V3 of (Integer[] ints) {return new V3(ints[0], ints[1], ints[2]);}
 
 }
 

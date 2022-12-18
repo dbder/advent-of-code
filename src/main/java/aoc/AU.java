@@ -44,7 +44,6 @@ public abstract class AU implements
 
 
     protected static final Set<Character> VOWELS = new HashSet<>(List.of('a', 'e', 'i', 'u', 'o', 'A', 'E', 'I', 'O', 'U'));
-
     protected AU() {
         if (getDay() == null || getDay().length() != 2) {
             throw new AocException("getDay() must be implemented");
@@ -231,7 +230,5 @@ public abstract class AU implements
     public int toInt(String str) {
         return toInts(str)[0];
     }
-
-
 
 }
