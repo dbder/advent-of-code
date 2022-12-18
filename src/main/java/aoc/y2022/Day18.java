@@ -61,14 +61,7 @@ public class Day18 extends AU {
 
         parseCubes(input);
 
-        for (int x = 0; x <= 20; x++) {
-            for (int y = 0; y <= 20; y++) {
-                for (int z = 0; z <= 20; z++) {
-                    var cube = new V3(x, y, z);
-                    if (isinDrop(cube)) cubes.add(cube);
-                }
-            }
-        }
+        fillConfinedSpaces();
 
         return countVisibleFaces();
     }
@@ -88,10 +81,24 @@ public class Day18 extends AU {
                 .sum();
     }
 
+    void fillConfinedSpaces() {
+        for (int x = 0; x <= 20; x++) {
+            for (int y = 0; y <= 20; y++) {
+                for (int z = 0; z <= 20; z++) {
+                    var cube = new V3(x, y, z);
+                    if (isinDrop(cube)) cubes.add(cube);
+                }
+            }
+        }
+    }
+
     boolean isinDrop(V3 cube) {
-        var level = new HashSet<V3>();
+
         Set<V3> visited = new HashSet<>();
+
+        var level = new HashSet<V3>();
         level.add(cube);
+
         while (!level.isEmpty()) {
             var nextLevel = new HashSet<V3>();
             for (var c : level) {
