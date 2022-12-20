@@ -28,10 +28,10 @@ public class Day19 extends AU {
     public static void main(String[] args) {
 //        if (!testData1.get().isEmpty()) new Day19(testData1.get(), true);
 //        if (!testData2.get().isEmpty()) new Day19(testData2.get(), true);
-        new Day19(null, true);
-        if (true) return;
-        if (!testData1.get().isEmpty()) new Day19(testData1.get(), false);
-        if (!testData2.get().isEmpty()) new Day19(testData2.get(), false);
+//        new Day19(null, true);
+//        if (true) return;
+//        if (!testData1.get().isEmpty()) new Day19(testData1.get(), false);
+//        if (!testData2.get().isEmpty()) new Day19(testData2.get(), false);
         new Day19(null, false);
     }
 
@@ -40,16 +40,120 @@ public class Day19 extends AU {
             Blueprint 2: Each ore robot costs 2 ore. Each clay robot costs 3 ore. Each obsidian robot costs 3 ore and 8 clay.  Each geode robot costs 3 ore and 12 obsidian.
             """.lines().collect(toList());
 
-    static Supplier<List<String>> testData2 = () -> """
-            """.lines().collect(toList());
-
     Object solveQ2(List<String> input) {
         var result = 0L;
-        //DAY2 !!
+        for (var line : input) {
+            var ints = toInts(line);
+            var bp = new Blueprint(ints[0], new int[]{ints[1], 0, 0}, new int[]{ints[2], 0, 0}, new int[]{ints[3], ints[4], 0}, new int[]{ints[5], 0, ints[6]});
+            max = 0;
+
+            List<List<State>> states = new ArrayList<>();
+            range(0, 33).forEach(i -> states.add(new ArrayList<>()));
+            states.get(1).add(new State(0, 0, 0, 0, 1, 0, 0, 0, 1));
+
+            int maxore = maxOf(bp.clay[0], bp.obsidian[0], bp.geode[0], bp.ore[0]);
+            int maxclay = bp.obsidian[1];
+            int maxobsidian = bp.geode[2];
+
+//            List<Masks>
+
+            for (int i = 1; i <= 32; i++) {
+                for (int j = 0; j < states.get(i).size(); j++) {
+                    var state = states.get(i).get(j);
+                    if (state.oreRobot < maxore) {
+                        int amountneeded = (maxOf(0, bp.ore[0] - state.ore));
+                        int daysNeeded = amountneeded / state.oreRobot;
+                        if (amountneeded % state.oreRobot != 0) daysNeeded++;
+                        var newState = new State(
+                                state.ore + daysNeeded * state.oreRobot - bp.ore[0],
+                                state.clay + daysNeeded * state.clayRobot,
+                                state.obsidian + daysNeeded * state.obsidian,
+                                state.geode + daysNeeded * state.geode,
+                                state.oreRobot + 1,
+                                state.clayRobot,
+                                state.obsidianRobot,
+                                state.geodeRobot, i);
+                        var index = i + daysNeeded;
+                        if (index <= 32) {
+                            states.get(index).add(newState);
+                        }
+                    }
+                    if (state.clayRobot < maxclay) {
+                        int amountneeded = (maxOf(0, bp.clay[0] - state.ore));
+                        int daysNeeded = amountneeded / state.oreRobot;
+                        if (amountneeded % state.oreRobot != 0) daysNeeded++;
+                        var newState = new State(
+                                state.ore + daysNeeded * state.oreRobot - bp.clay[0],
+                                state.clay + daysNeeded * state.clayRobot,
+                                state.obsidian + daysNeeded * state.obsidian,
+                                state.geode + daysNeeded * state.geode,
+                                state.oreRobot,
+                                state.clayRobot + 1,
+                                state.obsidianRobot,
+                                state.geodeRobot, i);
+                        var index = i + daysNeeded;
+                        if (index <= 32) {
+                            states.get(index).add(newState);
+                        }
+                    }
+
+                    if (state.obsidianRobot < maxobsidian && state.clayRobot > 0) {
+                        int amountOreneeded = (maxOf(0, bp.obsidian[0] - state.ore));
+                        int daysNeeded = amountOreneeded / state.oreRobot;
+                        if (amountOreneeded % state.oreRobot != 0) daysNeeded++;
+
+                        int amountClayneeded = (maxOf(0, bp.obsidian[1] - state.clay));
+                        daysNeeded = maxOf(0, daysNeeded,  (amountClayneeded / state.clayRobot) + (amountOreneeded % state.clayRobot != 0 ? 1 : 0));
+
+                        var newState = new State(
+                                state.ore + daysNeeded * state.oreRobot - bp.obsidian[0],
+                                state.clay + daysNeeded * state.clayRobot - bp.obsidian[1],
+                                state.obsidian + daysNeeded * state.obsidian,
+                                state.geode + daysNeeded * state.geode,
+                                state.oreRobot,
+                                state.clayRobot,
+                                state.obsidianRobot + 1,
+                                state.geodeRobot, i);
+                        var index = i + daysNeeded;
+                        if (index <= 32) {
+                            states.get(index).add(newState);
+                        }
+                    }
+
+//                    if (state.obsidianRobot > 0) {
+//                        int amountOreneeded = (maxOf(0, bp.geode[0] - state.ore));
+//                        int daysNeeded = amountOreneeded / state.oreRobot;
+//                        if (amountOreneeded % state.oreRobot != 0) daysNeeded++;
+//
+//                        int amountObsidianneeded = (maxOf(0, bp.geode[2] - state.obsidianRobot));
+//                        daysNeeded = maxOf(daysNeeded,  amountObsidianneeded / state.obsidianRobot + (amountOreneeded % state.obsidianRobot != 0 ? 1 : 0));
+//
+//                        var newState = new State(
+//                                state.ore + daysNeeded * state.oreRobot - bp.geode[0],
+//                                state.clay + daysNeeded * state.clayRobot,
+//                                state.obsidian + daysNeeded * state.obsidian - bp.geode[2],
+//                                state.geode + daysNeeded * state.geode,
+//                                state.oreRobot,
+//                                state.clayRobot,
+//                                state.obsidianRobot,
+//                                state.geodeRobot + 1, i);
+//                        var index = i + daysNeeded;
+//                        if (index <= 32) {
+//                            states.get(index).add(newState);
+//                        }
+//                    }
+                }
+            }
+
+            System.out.println(states.get(32).size());
+            System.out.println();
+
+        }
         return result;
     }
 
-    record Blueprint(int name, int[] ore, int[] clay, int[] obsidian, int[] geode) {}
+    record Blueprint(int name, int[] ore, int[] clay, int[] obsidian, int[] geode) {
+    }
 
     Object solveQ1(List<String> input) {
         var result = 1L;
@@ -175,15 +279,6 @@ public class Day19 extends AU {
             int minute
     ) {
         if (minute > 33) return;
-
-
-//        if (geode + 10 < dpgeo[minute]) {
-//            return;
-//        } else {
-//            if (geode > dpgeo[minute]) {
-//                dpgeo[minute] = geode;
-//            }
-//        }
 
         if (geodeR + 2 < dp[minute]) {
             return;
