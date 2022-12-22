@@ -1,12 +1,18 @@
 package aoc.utils;
 
+import aoc.AU;
 import aoc.misc.V2;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public interface GridUtil {
+
+    static final org.apache.logging.log4j.Logger log = LogManager.getLogger(AU.class);
+
 
     int[][] TPS8 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}, {-1, -1}, {1, 1}, {1, -1}, {-1, 1}};
     int[][] TPS4 = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
@@ -49,10 +55,11 @@ public interface GridUtil {
     default void println(char[][] grid) {
         System.out.println();
         for (int r = 0; r < grid.length; r++) {
+            var sb = new StringBuilder();
             for (int c = 0; c < grid[0].length; c++) {
-                System.out.print(grid[r][c]);
+                 sb.append(grid[r][c]);
             }
-            System.out.println();
+            log.info(sb.toString());
         }
     }
 
