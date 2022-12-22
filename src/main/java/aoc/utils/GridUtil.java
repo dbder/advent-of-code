@@ -25,8 +25,10 @@ public interface GridUtil {
     }
 
     default char[][] charGrid(List<String> lines) {
-        char[][] grid = new char[lines.size()][lines.get(0).length()];
-        for (int r = 0; r < lines.size(); r++) {
+        int max = lines.stream().mapToInt(String::length).max().orElse(0);
+        char[][] grid = new char[lines.size()][max];
+        for (int r = lines.size()-1; r >=0 ; r--) {
+            Arrays.fill(grid[r], ' ');
             for (int c = 0; c < lines.get(r).length(); c++) {
                 grid[r][c] = lines.get(r).charAt(c);
             }
