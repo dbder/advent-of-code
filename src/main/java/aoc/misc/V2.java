@@ -87,6 +87,10 @@ public record V2(int row, int col) {
         return Arrays.asList(up(), down(), left(), right());
     }
 
+    public List<V2> neighbors8() {
+        return Arrays.asList(up(), down(), left(), right(), up().left(), up().right(), down().left(), down().right());
+    }
+
     public V2 move(char dir) {
         dir = Character.toUpperCase(dir);
         return switch (dir) {
