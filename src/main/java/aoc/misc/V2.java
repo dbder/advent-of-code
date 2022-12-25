@@ -1,10 +1,19 @@
 package aoc.misc;
 
+import aoc.AU;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+
+import static aoc.AU.println;
 
 public record V2(int row, int col) {
+
+    private static final Logger log = LogManager.getLogger(AU.class);
 
     public static V2 origin() {
         return new V2(0, 0);
@@ -39,6 +48,7 @@ public record V2(int row, int col) {
         int cols = mx[0].length;
         return row >= 0 && col >= 0 && row < rows && col < cols;
     }
+
     public boolean isIN(int[][][] mx) {
         int rows = mx.length;
         int cols = mx[0].length;
@@ -84,7 +94,12 @@ public record V2(int row, int col) {
     }
 
     public List<V2> neighbors() {
-        return Arrays.asList(up(), down(), left(), right());
+        var list = new ArrayList<V2>();
+        list.add(up());
+        list.add(down());
+        list.add(left());
+        list.add(right());
+        return list;
     }
 
     public List<V2> neighbors8() {
@@ -181,6 +196,7 @@ public record V2(int row, int col) {
         }
         return list;
     }
+
     public List<V2> pathToDiagonallyInclusive(V2 other) {
         var list = new ArrayList<V2>();
         list.add(this);
@@ -197,5 +213,25 @@ public record V2(int row, int col) {
     }
 
 
+    static void printset(Set<V2> set) {
+
+        var minr = set.stream().mapToInt(V2::row).min().orElse(0);
+        var minc = set.stream().mapToInt(V2::col).min().orElse(0);
+        var maxr = set.stream().mapToInt(V2::row).max().orElse(0);
+        var maxc = set.stream().mapToInt(V2::col).max().orElse(0);
+
+        var grid = new char[1 + maxr - minr][1 + maxc - minc];
+        for (var arr : grid) {
+            Arrays.fill(arr, '.');
+        }
+
+        for (var s : set) {
+            grid[s.row() - minr][s.col() - minc] = '#';
+        }
+
+        println(grid);
+        System.out.println("----");
+
+    }
 
 }

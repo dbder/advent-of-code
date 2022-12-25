@@ -4,7 +4,9 @@ import aoc.AU;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Day01 extends AU {
 
@@ -12,48 +14,31 @@ public class Day01 extends AU {
         new Day01();
     }
 
-    Day01 () {
+    Day01() {
         println("Day " + getDay() + " Q1: " + solveQ1());
         println("Day " + getDay() + " Q2: " + solveQ2());
     }
 
     Object solveQ2() {
-        var input = getInputLines();
-
-        int sub = 0;
-        List<Integer> list = new ArrayList<>();
-        for (var line : input) {
-            if (line.equals("")) {
-                list.add(sub);
-                sub = 0;
-                continue;
-            }
-            var tmp = toInt(line);
-            sub += tmp;
-
-        }
-        list.add(sub);
-        Collections.sort(list);
-
-        return list.get(list.size() - 1) + list.get(list.size() - 2) + list.get(list.size() - 3);
+        return chunk(getInputLines())
+                .stream()
+                .map(list -> list.stream()
+                        .map(Integer::parseInt)
+                        .reduce(0, Integer::sum)
+                )
+                .sorted(Comparator.reverseOrder())
+                .limit(3)
+                .reduce(1, Integer::sum);
     }
 
     Object solveQ1() {
-        var result = 0;
-        var input = getInputLines();
-
-        int sub = 0;
-        for (var line : input) {
-            if (line.equals("")) {
-                sub = 0;
-                continue;
-            }
-            var tmp = toInt(line);
-            sub += tmp;
-            result = Math.max(result, sub);
-        }
-
-        return result;
+        return chunk(getInputLines())
+                .stream()
+                .map(list -> list.stream()
+                        .map(Integer::parseInt)
+                        .reduce(0, Integer::sum)
+                )
+                .reduce(0, Integer::max);
     }
 
 }

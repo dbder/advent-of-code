@@ -93,7 +93,7 @@ public class Day23 extends AU {
 
             for (var elf : set) {
                 if (elf.neighbors8().stream().filter(set::contains).count() == 0) {
-                    newSet.add(elf);
+                    finalSet.add(elf);
                 } else if (isDir.get(0).test(elf)) {
                     var ne = newElf.get(0).apply(elf);
                     if (newSet.contains(ne)) dups.add(ne);
@@ -116,7 +116,7 @@ public class Day23 extends AU {
             }
             boolean changed = false;
             for (var elf : set) {
-                if (elf.neighbors8().stream().filter(set::contains).count() == 0) {
+                if (elf.neighbors8().stream().noneMatch(set::contains)) {
                     finalSet.add(elf);
                 } else if (isDir.get(0).test(elf)) {
                     var tmp = newElf.get(0).apply(elf);
@@ -166,10 +166,10 @@ public class Day23 extends AU {
         }
 
 
-        var minr = set.stream().mapToInt(v -> v.row()).min().orElse(0);
-        var minc = set.stream().mapToInt(v -> v.col()).min().orElse(0);
-        var maxr = set.stream().mapToInt(v -> v.row()).max().orElse(0);
-        var maxc = set.stream().mapToInt(v -> v.col()).max().orElse(0);
+        var minr = set.stream().mapToInt(V2::row).min().orElse(0);
+        var minc = set.stream().mapToInt(V2::col).min().orElse(0);
+        var maxr = set.stream().mapToInt(V2::row).max().orElse(0);
+        var maxc = set.stream().mapToInt(V2::col).max().orElse(0);
 
 
         result = (1+maxr - minr) * (1+maxc - minc) - set.size();
@@ -208,15 +208,6 @@ public class Day23 extends AU {
         if (set.contains(tmp.up())) return false;
         if (set.contains(tmp.down())) return false;
         return true;
-    }
-
-
-    void printMinmax() {
-        var minr = set.stream().mapToInt(v -> v.row()).min().orElse(0);
-        var minc = set.stream().mapToInt(v -> v.col()).min().orElse(0);
-        var maxr = set.stream().mapToInt(v -> v.row()).max().orElse(0);
-        var maxc = set.stream().mapToInt(v -> v.col()).max().orElse(0);
-        println("\nminr: " + minr + " maxr: " + maxr + "\n minc: " + minc + " maxc: " + maxc);
     }
 
     void printset(Set<V2> set) {
