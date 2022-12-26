@@ -5,10 +5,8 @@ import aoc.AU;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.toList;
@@ -35,39 +33,44 @@ public class Day07 extends AU {
 
 
     Object solveQ2(List<String> input) {
-        var current = new Dir("", null, new HashSet<>(), new HashMap<>());
-        var root = current;
-        String mode = "";
-        for (var line : input) {
-            var spl = line.split(" ");
-            if (line.startsWith("$")) {
-                switch (spl[1]) {
-                    case "cd" -> {
-                        if (spl[2].equals("..")) {
-                            current = current.parent;
-                        } else {
-                            if (!spl[2].equals("/")) {
-                                current = current.children.get(spl[2]);
-                            }
-                        }
-                    }
-                    case "ls" -> mode = "ls";
-                }
-            } else if (mode.equals("ls")) {
-                if (spl[0].equals("dir")) {
-                    current.children.put(spl[1], Dir.of(spl[1], current));
-                } else {
-                    var size = toInt(spl[0]);
-                    current.files.add(new File(spl[1], size));
-                }
-            }
-        }
+
+        Dir root = buildTree(input);
+
 
         var list = new ArrayList<Integer>();
-        procesLS(root, list);
+        sumAllIntoMemo(root, list);
+
+
         int min = 30000000 - 26401404;
         Collections.sort(list);
         return list.stream().filter(i -> i >= min).findFirst().orElse(-1);
+    }
+
+    Dir buildTree(List<String> input) {
+
+        var current = new Dir("", null, new ArrayList<>(), new HashMap<>());
+        var root = current;
+
+        for (var line : input) {
+            var spl = line.split(" ");
+
+            // ls does not really do anything, so we can skip it
+            if (line.equals("$ ls")) continue;
+
+            if (line.equals("$ cd /")) { // cd /  goes to root
+                current = root;
+            } else if (line.equals("$ cd ..")) { // cd .. goes to parent
+                current = current.parent;
+            } else if (line.startsWith("$ cd ")) { // if there is still a cd, we need to go to a child
+                current = current.children.get(spl[2]);
+            } else if (line.startsWith("dir")) { // if there is a dir, we need to add a child to the current dir
+                current.children.put(spl[1], Dir.of(spl[1], current));
+            } else { // only option left is : a file. we only need it's size
+                current.files.add(Integer.parseInt(spl[0]));
+            }
+
+        }
+        return root;
     }
 
     static Supplier<List<String>> testData1 = () -> """
@@ -97,58 +100,35 @@ public class Day07 extends AU {
             """.lines().collect(toList());
 
     Object solveQ1(List<String> input) {
-        var current = new Dir("", null, new HashSet<>(), new HashMap<>());
-        var root = current;
 
-        String mode = "";
-        for (var line : input) {
-            var spl = line.split(" ");
-            if (line.startsWith("$")) {
-                switch (spl[1]) {
-                    case "cd" -> {
-                        if (spl[2].equals("..")) {
-                            current = current.parent;
-                        } else {
-                            if (!spl[2].equals("/")) {
-                                current = current.children.get(spl[2]);
-                            }
-                        }
-                    }
-                    case "ls" -> mode = "ls";
-                }
-            } else if (mode.equals("ls")) {
-                if (spl[0].equals("dir")) {
-                    current.children.put(spl[1], Dir.of(spl[1], current));
-                } else {
-                    var size = toInt(spl[0]);
-                    current.files.add(new File(spl[1], size));
-                }
-            }
-        }
+        Dir root = buildTree(input);
 
         var list = new ArrayList<Integer>();
-        procesLS(root, list);
+        sumAllIntoMemo(root, list);
         return list.stream().filter(i -> i < 100000).mapToInt(i -> i).sum();
 
     }
 
-    int procesLS(Dir dir, List<Integer> counts) {
-        int size = dir.files.stream().mapToInt(f -> f.size).sum();
-        int count = 0;
+    int sumAllIntoMemo(Dir dir, List<Integer> countMemo) {
+
+        // sum up all files
+        int size = dir.files.stream().mapToInt(f -> f).sum();
+
+        // add all child Dir filetotals
         for (var child : dir.children.entrySet()) {
-            count += procesLS(child.getValue(), counts);
+            size += sumAllIntoMemo(child.getValue(), countMemo);
         }
 
-        counts.add(size + count);
-        return size + count;
+        // add to the memo
+        countMemo.add(size);
+
+        //return the size so that the parent can add it to it's total
+        return size;
     }
 
-    record File(String name, int size) {
-    }
-
-    record Dir(String name, Dir parent, Set<File> files, Map<String, Dir> children) {
+    record Dir(String name, Dir parent, List<Integer> files, Map<String, Dir> children) {
         static Dir of(String name, Dir parent) {
-            return new Dir(name,parent, new HashSet<>(), new HashMap<>());
+            return new Dir(name, parent, new ArrayList<>(), new HashMap<>());
         }
 
         @Override
