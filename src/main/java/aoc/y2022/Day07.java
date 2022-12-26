@@ -34,16 +34,36 @@ public class Day07 extends AU {
 
     Object solveQ2(List<String> input) {
 
+        // 1. Build tree
         Dir root = buildTree(input);
 
-
+        // 2. Sum all
         var list = new ArrayList<Integer>();
         sumAllIntoMemo(root, list);
 
-
-        int min = 30000000 - 26401404;
+        // 3. calculate space needed
         Collections.sort(list);
-        return list.stream().filter(i -> i >= min).findFirst().orElse(-1);
+        int totalDiskSpace = 70000000; // size from puzzle
+        int filledDiskSpace = list.get(list.size() - 1); // it's sorted, so last is the biggest
+        int freeDiskSpace = totalDiskSpace - filledDiskSpace;
+        int neededDiskSpace = 30000000 - freeDiskSpace; // size from puzzle
+
+        // 4. because the list of folders is sorted smallest to largest, we can just take the first that is larger or equal than needed
+        return list.stream().filter(i -> i >= neededDiskSpace).findFirst().orElse(-1);
+    }
+
+
+    Object solveQ1(List<String> input) {
+
+        // 1. Build tree
+        Dir root = buildTree(input);
+
+        // 2. Sum all
+        var list = new ArrayList<Integer>();
+        sumAllIntoMemo(root, list);
+
+        // 3. Filter all below 100000 and sum
+        return list.stream().filter(i -> i < 100000).mapToInt(i -> i).sum();
     }
 
     Dir buildTree(List<String> input) {
@@ -99,15 +119,6 @@ public class Day07 extends AU {
             7214296 k
             """.lines().collect(toList());
 
-    Object solveQ1(List<String> input) {
-
-        Dir root = buildTree(input);
-
-        var list = new ArrayList<Integer>();
-        sumAllIntoMemo(root, list);
-        return list.stream().filter(i -> i < 100000).mapToInt(i -> i).sum();
-
-    }
 
     int sumAllIntoMemo(Dir dir, List<Integer> countMemo) {
 
